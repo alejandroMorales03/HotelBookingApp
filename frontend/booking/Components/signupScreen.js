@@ -24,9 +24,11 @@ const SignupScreen = ({ navigation }) => {
   return (
     //Use this space to customize the user experience
     
+    //This allows the user to click anywhere in the screen to get rid of the keyboard
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView style={GeneralStyles.fullPageContainer}>
 
+      
         <View style={GeneralStyles.logoContainer}>
           <Image source={logo} style={GeneralStyles.logo}/>
         </View>
@@ -95,6 +97,19 @@ const SignupScreen = ({ navigation }) => {
                   autoCapitalize="none"
                 />
              </View>
+          </View>
+
+          <View style={GeneralStyles.buttonContainer}>
+            <TouchableOpacity>
+              <Text style={GeneralStyles.button}>Plan Your Stay!</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={GeneralStyles.GeneralContainer}>
+            <Text style={GeneralStyles.textInLinkBottom}>Have an account?</Text>
+            <TouchableOpacity>
+                <Text style={GeneralStyles.link}>Sign in</Text>
+            </TouchableOpacity>
           </View>
 
         </SafeAreaView>
