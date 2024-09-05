@@ -1,49 +1,28 @@
-import * as React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Button, View, Text } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import LoginScreen from '../Components/loginScreen';
 import SignupScreen from '../Components/signupScreen';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
-const HomeScreen = ({ navigation }) => {
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Login or Signup to see our great offers!</Text>
-            <Button
-                title="Login"
-                onPress={() =>
-                    navigation.navigate('Login')
-                }
-            />
-            <Button
-                title="Signup"
-                onPress={() =>
-                    navigation.navigate('Signup')
-                }
-            />
-        </View>
-    );
-};
+const CredentialsStack = () => (
+  <Stack.Navigator
+    initialRouteName="Sign Up"
+    screenOptions={{
+      headerShown: false,
+      ...TransitionPresets.ModalSlideFromBottomIOS,
+    }}
+  >
+    <Stack.Screen name="Login" component={LoginScreen} />
+    <Stack.Screen name="Sign Up" component={SignupScreen} />
+  </Stack.Navigator>
+);
 
-export default function App() {
-    return (
-        <>
-            <Stack.Navigator>
-                <Stack.Screen
-                    name="Home"
-                    component={HomeScreen}
-                    options={{ title: 'Hotel Booking App' }}
-                />
-                <Stack.Screen
-                    name="Login"
-                    component={LoginScreen}
-                />
-                <Stack.Screen
-                    name="Signup"
-                    component={SignupScreen}
-                />
-            </Stack.Navigator>
-        </>
-    );
-}
+const App = () => (
+  <NavigationContainer independent={true}>
+    <CredentialsStack />
+  </NavigationContainer>
+);
+
+export default App;
