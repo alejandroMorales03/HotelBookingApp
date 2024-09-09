@@ -11,7 +11,7 @@ const CredentialsStack = () => (
     initialRouteName="Sign Up"
     screenOptions={{
       headerShown: false,
-      ...TransitionPresets.ModalSlideFromBottomIOS,
+      ...TransitionPresets.ScaleFromCenterAndroid,
     }}
   >
     <Stack.Screen name="Login" component={LoginScreen} />
