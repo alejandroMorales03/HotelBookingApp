@@ -1,19 +1,21 @@
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
+
+dotenv.config(); // Load environment variables
 
 const config = {
-    db : {
+    db: {
         user: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         host: process.env.DB_HOST,
-        port: process.env.PORT,
+        port: process.env.DB_PORT,
+        database: process.env.DB_DATABASE,
         ssl: {
-            rejectUnauthorized: false 
+            rejectUnauthorized: false
         }
     },
-    server:{
-        port: process.env.SERVER_PORT,
+    server: {
+        port: process.env.PORT || 8000
     }
-
-}
+};
 
 export default config;

@@ -11,6 +11,7 @@ const COLORS = {
     White: '#FFFFFF',
     Grey: '#a5a5a5',
     Black: '#000000',
+    Red: '#FF0000',
     Transparent: 'rgba(0,0,0,0)',
 };
 

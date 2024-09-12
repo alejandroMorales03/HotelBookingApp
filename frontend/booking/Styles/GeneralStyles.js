@@ -94,6 +94,13 @@ const GeneralStyles = StyleSheet.create({
         marginVertical: height * 0.015, 
     },
 
+    error:{
+        color: COLORS.Red,
+        fontFamily: 'Rototo',
+        fontSize: SIZES.small,
+        fontWeight: '700'
+    },
+
     //Styling for buttons
     buttonContainer:{
         backgroundColor: COLORS.Tomato,
