@@ -38,7 +38,7 @@ const SignupScreen = ({ navigation }) => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View>
       <SafeAreaView style={GeneralStyles.fullPageContainer}>
         <View style={GeneralStyles.logoContainer}>
           <Image source={logo} style={GeneralStyles.logo} />
@@ -120,7 +120,7 @@ const SignupScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-    </TouchableWithoutFeedback>
+    </View>
   );
 };
 

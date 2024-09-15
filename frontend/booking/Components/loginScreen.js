@@ -1,22 +1,83 @@
 import React from 'react';
-import { View, Text, Button, Touchable } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, Image, Text, TouchableWithoutFeedback, Keyboard, Fragment } from 'react-native';
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import GeneralStyles from '../Styles/GeneralStyles';
+import logo from '../Assets/logo.jpg';
+import COLORS from '../Constants/Constants';
+import axios from 'axios';
+import Error from './Custom/Error';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({ navigation }) => {
 
-  
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [error, setError] = React.useState('');
 
-  function handleSignUp(){
-    //This method is used to handle communication between frontend and backend.
-    navigation.navigate("Sign Up")
+  async function handleLogin() {
+    console.log("handleSignUp")
+    try {
+      const response = await axios.post(`http://192.168.0.6:8000/api/auth/authentication`, {
+        email,
+        password,
+      });
+      //here to go guarded route
+    } catch (err) {
+      console.error('Error during login:', err.response ? err.response.data.message : err.message);
+      setError(err.response ? err.response.data.message : 'Login failed. Please try again.');
+    }
   }
 
-  return(
-    //Use this space to customize the user experience
+
+  return (
     <View>
-      <TouchableOpacity onPress={handleSignUp}>
-        <Text>Sign Up</Text>
-      </TouchableOpacity>
+      <SafeAreaView style={GeneralStyles.fullPageContainer}>
+        <View style={GeneralStyles.logoContainer}>
+          <Image source={logo} style={GeneralStyles.logo} />
+        </View>
+        <View style={GeneralStyles.GeneralContainer}>
+          <Text style={GeneralStyles.mainTitle}>Login</Text>
+          {error &&
+            <Fragment>
+              <Error errorText={error} style={GeneralStyles.error} />
+            </Fragment>
+          }
+        </View>
+        <View style={GeneralStyles.GeneralContainer}>
+          <View style={GeneralStyles.fieldCredential}>
+            <TextInput
+              placeholder="Email"
+              value={email}
+              onChangeText={setEmail}
+              style={GeneralStyles.textInput}
+              placeholderTextColor={COLORS.Grey}
+              autoCapitalize="none"
+            />
+          </View>
+          <View style={GeneralStyles.fieldCredential}>
+            <TextInput
+              placeholder="Password"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              style={GeneralStyles.textInput}
+              placeholderTextColor={COLORS.Grey}
+              autoCapitalize="none"
+            />
+          </View>
+        </View>
+        <View style={GeneralStyles.buttonContainer}>
+          <TouchableOpacity onPress={handleLogin}>
+            <Text style={GeneralStyles.button}>Login</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={GeneralStyles.GeneralContainer}>
+          <Text style={GeneralStyles.textInLinkBottom}>Don't have an account?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Sign Up')}>
+            <Text style={GeneralStyles.link}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
     </View>
   )
 

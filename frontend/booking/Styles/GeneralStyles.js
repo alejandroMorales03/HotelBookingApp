@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import COLORS, { SIZES } from '../Constants/Constants';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+//commented below because it causes web build to break
+// import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 
 //IMPORTANT: Any changes made here will be reflected in all components who use the modified style.
@@ -18,7 +19,7 @@ const baseTextInputStyle = {
     fontWeight: 'bold',
     textAlign: 'center',
     textAlignVertical: 'center',
-    width: width * 0.60 
+    width: width * 0.60
 };
 
 // Base style for bottom links.=
@@ -34,8 +35,10 @@ const GeneralStyles = StyleSheet.create({
         flex: 1,
         backgroundColor: COLORS.White,
         alignItems: 'center',
+        overflow: "scroll",
+        maxHeight: "100vh"
     },
-    
+
     // Logo container with circular shape
     logoContainer: {
         width: width * 0.25, // 25% of screen width
@@ -44,31 +47,31 @@ const GeneralStyles = StyleSheet.create({
         overflow: 'hidden',
         marginBottom: height * 0.02, // 3% of screen height
     },
-    
+
     // Styling for the logo image
     logo: {
         width: '100%',
         height: '100%',
         resizeMode: 'cover',
     },
-    
+
     // Container for general content
-    
+
     GeneralContainer: {
-        width: width * 0.8, 
+        width: width * 0.8,
         alignItems: 'center',
         marginVertical: height * 0.01,
     },
-    
+
     // Main title styling
     mainTitle: {
         fontSize: SIZES.extraLarge,
         fontFamily: 'Roboto',
         fontWeight: 'bold',
-        marginBottom: height * 0.03, 
+        marginBottom: height * 0.03,
         color: COLORS.Tomato,
     },
-    
+
     // Complimentary text styling
     complimentaryText: {
         fontSize: SIZES.small,
@@ -78,23 +81,23 @@ const GeneralStyles = StyleSheet.create({
         marginBottom: height * 0.01,
         textAlign: 'center',
     },
-    
-    
+
+
     fieldCredential: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: height * 0.01, 
-        marginHorizontal: width * 0.02, 
+        marginBottom: height * 0.01,
+        marginHorizontal: width * 0.02,
     },
-    
+
     // Text input styling
     textInput: {
         //this means using a previously defined base styling
         ...baseTextInputStyle,
-        marginVertical: height * 0.015, 
+        marginVertical: height * 0.015,
     },
 
-    error:{
+    error: {
         color: COLORS.Red,
         fontFamily: 'Rototo',
         fontSize: SIZES.small,
@@ -102,17 +105,17 @@ const GeneralStyles = StyleSheet.create({
     },
 
     //Styling for buttons
-    buttonContainer:{
+    buttonContainer: {
         backgroundColor: COLORS.Tomato,
-        borderRadius: width * 0.125, 
-        paddingVertical: height * 0.005, 
-        paddingHorizontal: width * 0.03, 
-        marginTop: height * 0.03, 
+        borderRadius: width * 0.125,
+        paddingVertical: height * 0.005,
+        paddingHorizontal: width * 0.03,
+        marginTop: height * 0.03,
         marginBottom: height * 0.04,
     },
 
     //Styling for the text in buttons
-    button:{
+    button: {
         fontSize: SIZES.small,
         color: COLORS.White,
         fontFamily: 'Roboto',
@@ -121,20 +124,20 @@ const GeneralStyles = StyleSheet.create({
     },
 
     //Styling for things u see in the footer of a page like "Have an account? Sign in"
-    textInLinkBottom:{
+    textInLinkBottom: {
         ...baseBottomText,
         fontWeight: 'bold',
         color: COLORS.Tomato,
     },
 
     //Styling for links
-    link:{
+    link: {
         ...baseBottomText,
         color: COLORS.ArgentinianBlue,
         fontWeight: '600'
     }
 
-    
+
 });
 
 export default GeneralStyles;

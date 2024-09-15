@@ -1,5 +1,5 @@
 import Customer from "../Models/customerModel.js";
-import SignupAttempt from "../Models/signupAttemptModel.js"; 
+import SignupAttempt from "../Models/signupAttemptModel.js";
 import { generateExpirationTime, generateVerificationCode, hashPassword } from "../Utils/dbUtils.js";
 import { sendVerificationEmail } from "../Utils/auhtUtils.js";
 import { Op } from "sequelize";
@@ -13,27 +13,27 @@ export const handleSignUp = async (req, res) => {
         return res.status(400).json({ message: 'Please fill out all the fields' });
     }
 
-    
+
     if (password !== confirmedPassword) {
         console.error('Passwords entered by user do not match')
         return res.status(400).json({ message: 'Passwords do not match' });
     }
 
     try {
-        const existingUser = await Customer.findOne({where: {email}});
+        const existingUser = await Customer.findOne({ where: { email } });
 
-        if(existingUser){
-            return res.status(409).json({message: 'This email is already associated with an account'})
+        if (existingUser) {
+            return res.status(409).json({ message: 'This email is already associated with an account' })
         }
-        
+
         const verificationCode = generateVerificationCode();
         const expirationTime = generateExpirationTime();
 
-  
+
         const existingAttempt = await SignupAttempt.findOne({ where: { email } });
 
         if (existingAttempt) {
- 
+
             await SignupAttempt.update(
                 {
                     auth_code: verificationCode,
@@ -44,15 +44,15 @@ export const handleSignUp = async (req, res) => {
                 }
             );
         } else {
-            
+
             const hashedPassword = await hashPassword(password);
 
-           
+
             await SignupAttempt.create({
                 email: email,
-                first_name: firstName,  
-                last_name: lastName,   
-                password: hashedPassword,  
+                first_name: firstName,
+                last_name: lastName,
+                password: hashedPassword,
                 auth_code: verificationCode,
                 expires_at: expirationTime
             });
@@ -68,7 +68,7 @@ export const handleSignUp = async (req, res) => {
 
 
 
-export const sendVerificationCodeHandler= async (req, res) => {
+export const sendVerificationCodeHandler = async (req, res) => {
     const { email } = req.body;
 
     if (!email) {
@@ -82,7 +82,7 @@ export const sendVerificationCodeHandler= async (req, res) => {
             where: {
                 email: email,
                 expires_at: {
-                    [Op.gt]: now 
+                    [Op.gt]: now
                 }
             },
 
@@ -116,10 +116,10 @@ export const verifyCodeHandler = async (req, res) => {
             where: {
                 email: email,
                 expires_at: {
-                    [Op.gt]: now 
+                    [Op.gt]: now
                 }
             },
-            
+
         });
 
         if (attempt) {
@@ -140,6 +140,35 @@ export const verifyCodeHandler = async (req, res) => {
         }
     } catch (err) {
         console.error('Error during verification processing:', err);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+
+//handleAuthentication
+export const handleAuthentication = async (req, res) => {
+    const { email, password } = req.body;
+
+
+    if (!(email && password)) {
+        console.error('There is missing data in some of the fields');
+        return res.status(400).json({ message: 'Please fill out all the fields' });
+    }
+
+    try {
+        //hash the password
+        const hashedPassword = await hashPassword(password);
+
+        const existingUser = await Customer.findOne({ where: { email: email, password: hashedPassword } });
+
+        if (!existingUser) {
+            return res.status(409).json({ message: 'The email and password entered are not associated with an account' })
+        }
+
+        return res.status(200).json({ message: 'Signup attempt processed successfully' });
+
+    } catch (err) {
+        console.error('Error during login processing:', err);
         return res.status(500).json({ message: 'Internal server error' });
     }
 };
