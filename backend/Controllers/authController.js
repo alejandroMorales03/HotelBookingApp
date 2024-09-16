@@ -1,34 +1,37 @@
 import Customer from "../Models/customerModel.js";
 import SignupAttempt from "../Models/signupAttemptModel.js";
 import { generateExpirationTime, generateVerificationCode, hashPassword } from "../Utils/dbUtils.js";
-import { sendVerificationEmail } from "../Utils/auhtUtils.js";
+import { sendVerificationEmail } from "../Utils/authUtils.js"; // Corrected the import path
 import { Op } from "sequelize";
 
+
+// Handles user signup requests
 export const handleSignUp = async (req, res) => {
     const { email, firstName, lastName, password, confirmedPassword } = req.body;
 
 
     if (!(email && firstName && lastName && password && confirmedPassword)) {
-        console.error('There is missing data in some of the fields');
+        console.error('Missing data in some fields');
         return res.status(400).json({ message: 'Please fill out all the fields' });
     }
 
 
     if (password !== confirmedPassword) {
-        console.error('Passwords entered by user do not match')
+        console.error('Passwords do not match');
         return res.status(400).json({ message: 'Passwords do not match' });
     }
 
     try {
+        
         const existingUser = await Customer.findOne({ where: { email } });
 
         if (existingUser) {
-            return res.status(409).json({ message: 'This email is already associated with an account' })
+            return res.status(409).json({ message: 'This email is already associated with an account' });
         }
 
         const verificationCode = generateVerificationCode();
         const expirationTime = generateExpirationTime();
-
+        const hashedPassword = await hashPassword(password);
 
         const existingAttempt = await SignupAttempt.findOne({ where: { email } });
 
@@ -37,7 +40,8 @@ export const handleSignUp = async (req, res) => {
             await SignupAttempt.update(
                 {
                     auth_code: verificationCode,
-                    expires_at: expirationTime
+                    expires_at: expirationTime,
+                    password: hashedPassword 
                 },
                 {
                     where: { email: email }
@@ -45,9 +49,9 @@ export const handleSignUp = async (req, res) => {
             );
         } else {
 
-            const hashedPassword = await hashPassword(password);
+            
 
-
+   
             await SignupAttempt.create({
                 email: email,
                 first_name: firstName,
@@ -57,6 +61,8 @@ export const handleSignUp = async (req, res) => {
                 expires_at: expirationTime
             });
         }
+
+
         await sendVerificationEmail(email, verificationCode);
         return res.status(200).json({ message: 'Signup attempt processed successfully' });
 
@@ -65,7 +71,6 @@ export const handleSignUp = async (req, res) => {
         return res.status(500).json({ message: 'Internal server error' });
     }
 };
-
 
 
 export const sendVerificationCodeHandler = async (req, res) => {
@@ -84,13 +89,11 @@ export const sendVerificationCodeHandler = async (req, res) => {
                 expires_at: {
                     [Op.gt]: now
                 }
-            },
-
+            }
         });
 
         if (attempt) {
             const extractedCode = attempt.auth_code;
-
             await sendVerificationEmail(email, extractedCode);
             return res.status(200).json({ message: 'Verification code sent' });
         } else {
@@ -101,6 +104,7 @@ export const sendVerificationCodeHandler = async (req, res) => {
         return res.status(500).json({ message: 'Internal server error' });
     }
 };
+
 
 export const verifyCodeHandler = async (req, res) => {
     const { code, email } = req.body;
@@ -118,17 +122,22 @@ export const verifyCodeHandler = async (req, res) => {
                 expires_at: {
                     [Op.gt]: now
                 }
-            },
-
+            }
         });
 
         if (attempt) {
             const extractedCode = attempt.auth_code;
 
             if (extractedCode === code) {
+                await SignupAttempt.destroy({ where: { email: email } });
 
-                await SignupAttempt.destroy({
-                    where: { email: email }
+                
+                const { first_name, last_name, password } = attempt;
+                await Customer.create({
+                    email: email,
+                    first_name: first_name,
+                    last_name: last_name,
+                    password: password
                 });
 
                 return res.status(200).json({ message: 'Verification Successful' });
