@@ -19,22 +19,31 @@ const SignupScreen = ({ navigation }) => {
   const [confirmedPassword, setConfirmedPassword] = React.useState('');
   const [error, setError] = React.useState('');
 
-  // This method is used to handle communication between frontend and backend.
+
   async function handleSignUp() {
     try {
-      const response = await axios.post(`http://192.168.0.6:8000/api/auth/signup`, {
+      const response = await axios.post(`http://192.168.1.70:8000/api/auth/signup`, {
         email,
         firstName,
         lastName,
         password,
         confirmedPassword,
       });
+      resetFields(),
 
-      navigation.navigate("Login");
+      navigation.navigate("Verification", {email});
     } catch (err) {
       console.error('Error during sign-up:', err.response ? err.response.data.message : err.message);
       setError(err.response ? err.response.data.message : 'Sign-up failed. Please try again.');
     }
+  }
+
+  function resetFields(){
+    setEmail(''),
+    setFirstName(''),
+    setLastName(''),
+    setPassword(''),
+    setConfirmedPassword('')
   }
 
   return (
@@ -45,6 +54,8 @@ const SignupScreen = ({ navigation }) => {
         </View>
         <View style={GeneralStyles.GeneralContainer}>
           <Text style={GeneralStyles.mainTitle}>Sign Up</Text>
+          
+          
           {error ?
             <Error errorText={error} style={GeneralStyles.error} /> :
             <TypingEffect

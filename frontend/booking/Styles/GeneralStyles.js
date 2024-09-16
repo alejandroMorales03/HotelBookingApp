@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import COLORS, { SIZES } from '../Constants/Constants';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+
 
 
 //IMPORTANT: Any changes made here will be reflected in all components who use the modified style.
@@ -28,6 +28,15 @@ const baseBottomText = {
     marginBottom: height * 0.008,
 }
 
+const mainTitle = {
+    fontSize: SIZES.large,
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    marginBottom: height * 0.03, 
+    color: COLORS.Tomato,
+    fontWeight: '800'
+}
+
 const GeneralStyles = StyleSheet.create({
     // Container for full-page layout
     fullPageContainer: {
@@ -43,6 +52,7 @@ const GeneralStyles = StyleSheet.create({
         borderRadius: width * 0.125, // 50% of width
         overflow: 'hidden',
         marginBottom: height * 0.02, // 3% of screen height
+        backgroundColor: COLORS.Transparent,
     },
     
     // Styling for the logo image
@@ -61,12 +71,17 @@ const GeneralStyles = StyleSheet.create({
     },
     
     // Main title styling
-    mainTitle: {
-        fontSize: SIZES.extraLarge,
-        fontFamily: 'Roboto',
-        fontWeight: 'bold',
-        marginBottom: height * 0.03, 
-        color: COLORS.Tomato,
+    
+
+    mainTitle:{
+        ...mainTitle,
+        fontSize: SIZES.large,
+        
+    },
+
+    customMediumTitle:{
+        ...mainTitle,
+        fontSize: SIZES.medium
     },
     
     // Complimentary text styling
@@ -123,7 +138,7 @@ const GeneralStyles = StyleSheet.create({
     //Styling for things u see in the footer of a page like "Have an account? Sign in"
     textInLinkBottom:{
         ...baseBottomText,
-        fontWeight: 'bold',
+        fontWeight: '800',
         color: COLORS.Tomato,
     },
 
@@ -131,7 +146,7 @@ const GeneralStyles = StyleSheet.create({
     link:{
         ...baseBottomText,
         color: COLORS.ArgentinianBlue,
-        fontWeight: '600'
+        fontWeight: '700'
     }
 
     
