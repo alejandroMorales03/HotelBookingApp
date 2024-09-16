@@ -1,5 +1,5 @@
 import Customer from "../Models/customerModel.js";
-import SignupAttempt from "../Models/signupAttemptModel.js"; 
+import SignupAttempt from "../Models/signupAttemptModel.js";
 import { generateExpirationTime, generateVerificationCode, hashPassword } from "../Utils/dbUtils.js";
 import { sendVerificationEmail } from "../Utils/authUtils.js"; // Corrected the import path
 import { Op } from "sequelize";
@@ -36,7 +36,7 @@ export const handleSignUp = async (req, res) => {
         const existingAttempt = await SignupAttempt.findOne({ where: { email } });
 
         if (existingAttempt) {
- 
+
             await SignupAttempt.update(
                 {
                     auth_code: verificationCode,
@@ -54,9 +54,9 @@ export const handleSignUp = async (req, res) => {
    
             await SignupAttempt.create({
                 email: email,
-                first_name: firstName,  
-                last_name: lastName,   
-                password: hashedPassword,  
+                first_name: firstName,
+                last_name: lastName,
+                password: hashedPassword,
                 auth_code: verificationCode,
                 expires_at: expirationTime
             });
@@ -87,7 +87,7 @@ export const sendVerificationCodeHandler = async (req, res) => {
             where: {
                 email: email,
                 expires_at: {
-                    [Op.gt]: now 
+                    [Op.gt]: now
                 }
             }
         });
@@ -120,7 +120,7 @@ export const verifyCodeHandler = async (req, res) => {
             where: {
                 email: email,
                 expires_at: {
-                    [Op.gt]: now 
+                    [Op.gt]: now
                 }
             }
         });
@@ -149,6 +149,35 @@ export const verifyCodeHandler = async (req, res) => {
         }
     } catch (err) {
         console.error('Error during verification processing:', err);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+
+//handleAuthentication
+export const handleAuthentication = async (req, res) => {
+    const { email, password } = req.body;
+
+
+    if (!(email && password)) {
+        console.error('There is missing data in some of the fields');
+        return res.status(400).json({ message: 'Please fill out all the fields' });
+    }
+
+    try {
+        //hash the password
+        const hashedPassword = await hashPassword(password);
+
+        const existingUser = await Customer.findOne({ where: { email: email, password: hashedPassword } });
+
+        if (!existingUser) {
+            return res.status(409).json({ message: 'The email and password entered are not associated with an account' })
+        }
+
+        return res.status(200).json({ message: 'Signup attempt processed successfully' });
+
+    } catch (err) {
+        console.error('Error during login processing:', err);
         return res.status(500).json({ message: 'Internal server error' });
     }
 };
