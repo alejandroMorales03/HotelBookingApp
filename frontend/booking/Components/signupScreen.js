@@ -24,6 +24,7 @@ const SignupScreen = ({ navigation }) => {
     try {
       //const response = await axios.post(`http://localhost:8000/api/auth/signup`, {
       // TO RUN ON THE WEB: UNCOMMENT THE RESPONSE ABOVE & COMMENT OUT THE RESPONSE BELOW
+      // DO THE SAME FOR ANY OTHER ENDPOINTS CALLED BEGINNING WITH /api/auth/
       const response = await axios.post(`http://192.168.1.70:8000/api/auth/signup`, {
         email,
         firstName,
