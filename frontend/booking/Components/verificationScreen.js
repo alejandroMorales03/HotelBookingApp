@@ -45,7 +45,7 @@ const VerificationScreen = ({ route, navigation }) => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <SafeAreaView style={GeneralStyles.fullPageContainer}>
       <SafeAreaView style={GeneralStyles.fullPageContainer}>
         <View style={GeneralStyles.logoContainer}>
           <Image source={logo} style={GeneralStyles.logo} />
@@ -94,7 +94,6 @@ const VerificationScreen = ({ route, navigation }) => {
           </View>
         </View>
       </SafeAreaView>
-    </TouchableWithoutFeedback>
   );
 }
 

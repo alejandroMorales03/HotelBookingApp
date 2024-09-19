@@ -38,9 +38,7 @@ const LoginScreen = ({ navigation }) => {
         <View style={GeneralStyles.GeneralContainer}>
           <Text style={GeneralStyles.mainTitle}>Login</Text>
           {error &&
-            <Fragment>
-              <Error errorText={error} style={GeneralStyles.error} />
-            </Fragment>
+            <Error errorText={error} style={GeneralStyles.error} />
           }
         </View>
         <View style={GeneralStyles.GeneralContainer}>
