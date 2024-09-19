@@ -1,6 +1,6 @@
 import Customer from "../Models/customerModel.js";
 import SignupAttempt from "../Models/signupAttemptModel.js";
-import { generateExpirationTime, generateVerificationCode, hashPassword } from "../Utils/dbUtils.js";
+import { generateExpirationTime, generateVerificationCode, hashPassword, checkPassword } from "../Utils/dbUtils.js";
 import { sendVerificationEmail } from "../Utils/authUtils.js"; // Corrected the import path
 import { Op } from "sequelize";
 
@@ -166,11 +166,10 @@ export const handleAuthentication = async (req, res) => {
 
     try {
         //hash the password
-        const hashedPassword = await hashPassword(password);
+        const existingUser = await Customer.findOne({ where: { email: email } });
+        const passwordMatches = await checkPassword(password, existingUser.password);
 
-        const existingUser = await Customer.findOne({ where: { email: email, password: hashedPassword } });
-
-        if (!existingUser) {
+        if (!existingUser || !passwordMatches) {
             return res.status(409).json({ message: 'The email and password entered are not associated with an account' })
         }
 
