@@ -22,6 +22,8 @@ const SignupScreen = ({ navigation }) => {
 
   async function handleSignUp() {
     try {
+      //const response = await axios.post(`http://localhost:8000/api/auth/signup`, {
+      // TO RUN ON THE WEB: UNCOMMENT THE RESPONSE ABOVE & COMMENT OUT THE RESPONSE BELOW
       const response = await axios.post(`http://192.168.1.70:8000/api/auth/signup`, {
         email,
         firstName,
