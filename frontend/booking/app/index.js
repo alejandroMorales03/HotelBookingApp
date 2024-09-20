@@ -18,6 +18,7 @@ const CredentialsStack = () => (
     <Stack.Screen name="Login" component={LoginScreen} />
     <Stack.Screen name="Sign Up" component={SignupScreen} />
     <Stack.Screen name="Verification" component={VerificationScreen}/>
+    <Stack.Screen name="ChangePassword" component={ChangePasswordForm}/> // Added form to navigation directory. Need to add forgot password form before?
   </Stack.Navigator>
 );
 

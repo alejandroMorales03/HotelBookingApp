@@ -18,7 +18,7 @@ const VerificationScreen = ({ route, navigation }) => {
   
   async function handleSendCode(){
     try{
-      const response = await axios.post('http://192.168.1.70:8000/api/auth/request-code', {
+      const response = await axios.post('http://10.0.0.20:8081/api/auth/request-code', {
         code,
         email,
       });
@@ -31,7 +31,7 @@ const VerificationScreen = ({ route, navigation }) => {
   }
   async function handleVerification() {
     try {
-      const response = await axios.post('http://192.168.1.70:8000/api/auth/verify-code', {
+      const response = await axios.post('http://10.0.0.20:8081:8000/api/auth/verify-code', {
         code,
         email,
       });

@@ -17,7 +17,7 @@ const LoginScreen = ({ navigation }) => {
   async function handleLogin() {
     console.log("handleSignUp")
     try {
-      const response = await axios.post(`http://192.168.0.6:8000/api/auth/authentication`, {
+      const response = await axios.post(`http://10.0.0.20:8081/api/auth/authentication`, {
         email,
         password,
       });
