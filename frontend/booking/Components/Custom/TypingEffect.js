@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text } from 'react-native';
 
-const TypingEffect = ({ text, style, speed = 100 }) => {
+const TypingEffect = ({ text, style, speed = 50 }) => {
   // State to hold the text that has been "typed" so far
   const [displayText, setDisplayText] = useState('');
 

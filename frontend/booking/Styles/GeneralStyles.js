@@ -44,7 +44,7 @@ const GeneralStyles = StyleSheet.create({
         backgroundColor: COLORS.White,
         alignItems: 'center',
         overflow: "scroll",
-        maxHeight: "100vh"
+        maxHeight: "100vh",
     },
 
     // Logo container with circular shape
@@ -72,6 +72,16 @@ const GeneralStyles = StyleSheet.create({
         marginVertical: height * 0.01,
     },
 
+    CentralGeneralContainer: {
+        width: width * 0.8,
+        alignItems: 'center',
+        marginVertical: height * 0.01,
+        verticalAlign: 'center',
+        color: COLORS.Transparent,
+    },
+
+    
+
     // Main title styling
     
 
@@ -88,7 +98,7 @@ const GeneralStyles = StyleSheet.create({
     
     // Complimentary text styling
     complimentaryText: {
-        fontSize: SIZES.small,
+        fontSize: SIZES.extraSmall,
         color: COLORS.PlaceHolderTextColor,
         fontFamily: 'Roboto',
         fontWeight: 'bold',
@@ -114,7 +124,7 @@ const GeneralStyles = StyleSheet.create({
     error: {
         color: COLORS.Red,
         fontFamily: 'Rototo',
-        fontSize: SIZES.small,
+        fontSize: SIZES.extraSmall,
         fontWeight: '700'
     },
 
