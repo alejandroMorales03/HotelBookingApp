@@ -3,11 +3,12 @@ import { View, Image, Text, TouchableWithoutFeedback, Keyboard } from 'react-nat
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import axios from 'axios';
-import GeneralStyles from '../Styles/GeneralStyles';
-import logo from '../Assets/logo.jpeg';
-import TypingEffect from './Custom/TypingEffect';
-import COLORS from '../Constants/Constants';
-import Error from './Custom/Error'; // Ensure Error component is correctly imported
+import CredentialStyles from '../../Styles/CredentialStyles';
+import logo from '../../Assets/logo.jpeg'
+import TypingEffect from '../Custom/TypingEffect';
+import COLORS from '../../Constants/Constants';
+import Error from '../Custom/Error'; // Ensure Error component is correctly imported
+import GeneralStyles from '../../Styles/GeneralStyles';
 
 const VerificationScreen = ({ route, navigation }) => {
   const [code, setCode] = React.useState('');
@@ -35,7 +36,7 @@ const VerificationScreen = ({ route, navigation }) => {
         email,
       });
       resetFields();
-      navigation.navigate('Login'); 
+      navigation.navigate('Home'); 
     } catch (err) {
       console.error('Error during verification:', err.response ? err.response.data.message : err.message);
       setCodeButtonText('Resend Code')
@@ -50,52 +51,52 @@ const VerificationScreen = ({ route, navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={GeneralStyles.fullPageContainer}>
-        <View style={GeneralStyles.logoContainer}>
-          <Image source={logo} style={GeneralStyles.logo} />
+        <View style={CredentialStyles.logoContainer}>
+          <Image source={logo} style={CredentialStyles.logo} />
         </View>
-        <View style={GeneralStyles.GeneralContainer}>
-          <Text style={GeneralStyles.customMediumTitle}>Verify Your Information</Text>
+        <View style={CredentialStyles.GeneralContainer}>
+          <Text style={CredentialStyles.customMediumTitle}>Verify Your Information</Text>
           {error ? (
-            <Error errorText={error} style={GeneralStyles.error} />
+            <Error errorText={error} style={CredentialStyles.error} />
           ) : (
             <TypingEffect
-              style={GeneralStyles.complimentaryText}
+              style={CredentialStyles.complimentaryText}
               text="Almost there! Please check your email and enter the verification code to confirm your account!"
               speed={100}
             />
           )}
         </View>
-        <View style={GeneralStyles.GeneralContainer}>
+        <View style={CredentialStyles.GeneralContainer}>
           <TextInput
             placeholder="Verification Code"
             value={code}
             onChangeText={setCode}
-            style={GeneralStyles.textInput}
+            style={CredentialStyles.textInput}
             placeholderTextColor={COLORS.Grey}
             autoCapitalize="none"
           />
         </View>
         
-        <View style={GeneralStyles.GeneralContainer}>
-          <View style={GeneralStyles.buttonContainer}>
+        <View style={CredentialStyles.GeneralContainer}>
+          <View style={CredentialStyles.buttonContainer}>
             <TouchableOpacity onPress={handleVerification}>
-              <Text style={GeneralStyles.button}>Submit</Text>
+              <Text style={CredentialStyles.button}>Submit</Text>
             </TouchableOpacity>
           </View>
-          <View style={GeneralStyles.link}>
+          <View style={CredentialStyles.link}>
             <TouchableOpacity onPress={() => handleSendCode}>
-              <Text style={GeneralStyles.link}>Resend Code</Text>
+              <Text style={CredentialStyles.link}>Resend Code</Text>
             </TouchableOpacity>
           </View>
           
           
           
-          <View style={GeneralStyles.link}>
+          <View style={CredentialStyles.link}>
             <TouchableOpacity onPress={() => {
               resetFields();
               navigation.navigate('Sign Up')}
             }>
-              <Text style={GeneralStyles.link}>Back</Text>
+              <Text style={CredentialStyles.link}>Back</Text>
             </TouchableOpacity>
           </View>
         </View>
