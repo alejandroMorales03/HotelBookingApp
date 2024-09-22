@@ -19,7 +19,6 @@ const LoginScreen = ({ navigation }) => {
   const [error, setError] = React.useState('');
 
   async function handleLogin() {
-    console.log("handleSignUp")
     try {
       const response = await axios.post(`http:/172.21.22.15:8000/api/auth/authentication`, {
         email,

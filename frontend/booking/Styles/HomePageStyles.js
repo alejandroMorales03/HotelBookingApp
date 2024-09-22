@@ -18,6 +18,7 @@ const HomePageStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        marginBottom: 0.01 * width,
     }
     
 

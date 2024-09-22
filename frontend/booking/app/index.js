@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 const CredentialsStack = () => {
   return ( 
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Login"
       screenOptions={{
         headerShown: false,
         ...TransitionPresets.ScaleFromCenterAndroid,
