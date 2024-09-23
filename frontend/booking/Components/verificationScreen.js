@@ -4,7 +4,7 @@ import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import axios from 'axios';
 import GeneralStyles from '../Styles/GeneralStyles';
-import logo from '../Assets/logo.jpg';
+import logo from '../Assets/logo.jpeg';
 import TypingEffect from './Custom/TypingEffect';
 import COLORS from '../Constants/Constants';
 import Error from './Custom/Error'; // Ensure Error component is correctly imported
@@ -18,11 +18,10 @@ const VerificationScreen = ({ route, navigation }) => {
   
   async function handleSendCode(){
     try{
-      const response = await axios.post('http://192.168.1.70:8000/api/auth/request-code', {
+      const response = await axios.post('http://172.21.22.15:8000/api/auth/request-code', {
         code,
         email,
       });
-      setCode(''); 
 
 
     }catch(err){
@@ -31,17 +30,21 @@ const VerificationScreen = ({ route, navigation }) => {
   }
   async function handleVerification() {
     try {
-      const response = await axios.post('http://192.168.1.70:8000/api/auth/verify-code', {
+      const response = await axios.post('http://172.21.22.15:8000/api/auth/verify-code', {
         code,
         email,
       });
-      setCode(''); 
+      resetFields();
       navigation.navigate('Login'); 
     } catch (err) {
       console.error('Error during verification:', err.response ? err.response.data.message : err.message);
       setCodeButtonText('Resend Code')
       setError(err.response ? err.response.data.message : 'Verification failed. Please try again.');
     }
+  }
+  function resetFields(){
+    setError(''),
+    setCode('');
   }
 
   return (
@@ -88,7 +91,10 @@ const VerificationScreen = ({ route, navigation }) => {
           
           
           <View style={GeneralStyles.link}>
-            <TouchableOpacity onPress={() => navigation.navigate('Sign Up')}>
+            <TouchableOpacity onPress={() => {
+              resetFields();
+              navigation.navigate('Sign Up')}
+            }>
               <Text style={GeneralStyles.link}>Back</Text>
             </TouchableOpacity>
           </View>

@@ -3,24 +3,30 @@ import SignupAttempt from "../Models/signupAttemptModel.js";
 import { generateExpirationTime, generateVerificationCode, hashPassword, checkPassword } from "../Utils/dbUtils.js";
 import { sendVerificationEmail } from "../Utils/authUtils.js"; // Corrected the import path
 import { Op } from "sequelize";
+import { checkPassword } from "../Utils/userUtils.js";
 
 
-// Handles user signup requests
+
 export const handleSignUp = async (req, res) => {
     const { email, firstName, lastName, password, confirmedPassword } = req.body;
 
-
+  
     if (!(email && firstName && lastName && password && confirmedPassword)) {
         console.error('Missing data in some fields');
         return res.status(400).json({ message: 'Please fill out all the fields' });
     }
 
+    if(!checkPassword(password)){
+        console.error('Password does not match requirements');
+        return res.status(400).json({message: 'Please include 8 characters, a digit, lower case letter, upper case letter, and a symbol.'});
+    }
 
+ 
     if (password !== confirmedPassword) {
         console.error('Passwords do not match');
         return res.status(400).json({ message: 'Passwords do not match' });
     }
-
+ 
     try {
         
         const existingUser = await Customer.findOne({ where: { email } });
@@ -28,15 +34,17 @@ export const handleSignUp = async (req, res) => {
         if (existingUser) {
             return res.status(409).json({ message: 'This email is already associated with an account' });
         }
+        console.log('5');
 
         const verificationCode = generateVerificationCode();
         const expirationTime = generateExpirationTime();
         const hashedPassword = await hashPassword(password);
+        console.log('6');
 
         const existingAttempt = await SignupAttempt.findOne({ where: { email } });
-
+        console.log('7');
         if (existingAttempt) {
-
+            
             await SignupAttempt.update(
                 {
                     auth_code: verificationCode,
@@ -47,6 +55,7 @@ export const handleSignUp = async (req, res) => {
                     where: { email: email }
                 }
             );
+            console.log('8');
         } else {
 
             
@@ -60,10 +69,12 @@ export const handleSignUp = async (req, res) => {
                 auth_code: verificationCode,
                 expires_at: expirationTime
             });
+            console.log('9');
         }
 
 
         await sendVerificationEmail(email, verificationCode);
+        console.log('10');
         return res.status(200).json({ message: 'Signup attempt processed successfully' });
 
     } catch (err) {
