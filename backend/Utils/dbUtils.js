@@ -20,3 +20,5 @@ export const hashPassword = async (password, saltRounds = 10) => {
         throw new Error('Error hashing password');
     }
 };
+
+

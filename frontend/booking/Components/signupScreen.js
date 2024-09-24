@@ -3,7 +3,7 @@ import { View, Image, Text, TouchableWithoutFeedback, Keyboard } from 'react-nat
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import GeneralStyles from '../Styles/GeneralStyles';
-import logo from '../Assets/logo.jpg';
+import logo from '../Assets/logo.jpeg';
 import COLORS from '../Constants/Constants';
 import axios from 'axios';
 import Error from './Custom/Error';
@@ -22,7 +22,11 @@ const SignupScreen = ({ navigation }) => {
 
   async function handleSignUp() {
     try {
+<<<<<<< HEAD
       const response = await axios.post(`http://10.0.0.20:8081/api/auth/signup`, {
+=======
+      const response = await axios.post('http://172.21.22.15:8000/api/auth/signup', {
+>>>>>>> ac08bb248b33359b136257b76d53c6adaf7a2013
         email,
         firstName,
         lastName,
@@ -33,12 +37,13 @@ const SignupScreen = ({ navigation }) => {
 
       navigation.navigate("Verification", {email});
     } catch (err) {
-      console.error('Error during sign-up:', err.response ? err.response.data.message : err.message);
+      console.log('Error during sign-up:', err.response ? err.response.data.message : err.message);
       setError(err.response ? err.response.data.message : 'Sign-up failed. Please try again.');
     }
   }
 
   function resetFields(){
+    setError('')
     setEmail(''),
     setFirstName(''),
     setLastName(''),
@@ -47,7 +52,6 @@ const SignupScreen = ({ navigation }) => {
   }
 
   return (
-    <View>
       <SafeAreaView style={GeneralStyles.fullPageContainer}>
         <View style={GeneralStyles.logoContainer}>
           <Image source={logo} style={GeneralStyles.logo} />
@@ -61,7 +65,7 @@ const SignupScreen = ({ navigation }) => {
             <TypingEffect
               style={GeneralStyles.complimentaryText}
               text="The vacation of your dreams is just a few clicks away!"
-              speed={100}
+              speed={50}
             />
           }
         </View>
@@ -126,12 +130,14 @@ const SignupScreen = ({ navigation }) => {
         </View>
         <View style={GeneralStyles.GeneralContainer}>
           <Text style={GeneralStyles.textInLinkBottom}>Have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <TouchableOpacity onPress={() => {
+            resetFields();
+            navigation.navigate('Login')}
+          }>
             <Text style={GeneralStyles.link}>Sign in</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-    </View>
   );
 };
 

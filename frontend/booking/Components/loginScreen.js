@@ -3,10 +3,11 @@ import { View, Image, Text, TouchableWithoutFeedback, Keyboard, Fragment } from 
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import GeneralStyles from '../Styles/GeneralStyles';
-import logo from '../Assets/logo.jpg';
+import logo from '../Assets/logo.jpeg';
 import COLORS from '../Constants/Constants';
 import axios from 'axios';
 import Error from './Custom/Error';
+
 
 const LoginScreen = ({ navigation }) => {
 
@@ -17,30 +18,36 @@ const LoginScreen = ({ navigation }) => {
   async function handleLogin() {
     console.log("handleSignUp")
     try {
-      const response = await axios.post(`http://10.0.0.20:8081/api/auth/authentication`, {
+      const response = await axios.post(`http:/172.21.22.15:8000/api/auth/authentication`, {
         email,
         password,
       });
       //here to go guarded route
+      resetFields();
     } catch (err) {
       console.error('Error during login:', err.response ? err.response.data.message : err.message);
       setError(err.response ? err.response.data.message : 'Login failed. Please try again.');
     }
   }
 
+  function resetFields(){
+    setError(''),
+    setEmail(''),
+    setPassword('')
+  }
 
   return (
-    <View>
+
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={GeneralStyles.fullPageContainer}>
         <View style={GeneralStyles.logoContainer}>
           <Image source={logo} style={GeneralStyles.logo} />
         </View>
         <View style={GeneralStyles.GeneralContainer}>
           <Text style={GeneralStyles.mainTitle}>Login</Text>
-          {error &&
-            <Fragment>
-              <Error errorText={error} style={GeneralStyles.error} />
-            </Fragment>
+          {error? 
+              <Error errorText={error} style={GeneralStyles.error} /> :
+              <></>
           }
         </View>
         <View style={GeneralStyles.GeneralContainer}>
@@ -73,12 +80,18 @@ const LoginScreen = ({ navigation }) => {
         </View>
         <View style={GeneralStyles.GeneralContainer}>
           <Text style={GeneralStyles.textInLinkBottom}>Don't have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Sign Up')}>
+          <TouchableOpacity onPress={() => {
+            resetFields();
+            navigation.navigate('Sign Up')}
+          }>
             <Text style={GeneralStyles.link}>Sign Up</Text>
           </TouchableOpacity>
+        
         </View>
+
       </SafeAreaView>
-    </View>
+      </TouchableWithoutFeedback>
+   
   )
 
 };
