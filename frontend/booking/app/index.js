@@ -4,7 +4,8 @@ import { createStackNavigator, TransitionPresets } from '@react-navigation/stack
 import LoginScreen from '../Components/loginScreen';
 import SignupScreen from '../Components/signupScreen';
 import VerificationScreen from '../Components/verificationScreen';
-import ChangePasswordForm from '../Components/ChangePasswordForm';
+import changePasswordForm from '../Components/changePasswordForm';
+
 
 const Stack = createStackNavigator();
 
@@ -19,7 +20,7 @@ const CredentialsStack = () => (
     <Stack.Screen name="Login" component={LoginScreen} />
     <Stack.Screen name="Sign Up" component={SignupScreen} />
     <Stack.Screen name="Verification" component={VerificationScreen}/>
-    <Stack.Screen name="ChangePassword" component={ChangePasswordForm}/> // Added form to navigation directory. Need to add forgot password form before?
+    <Stack.Screen name="ChangePassword" component={changePasswordForm}/> 
   </Stack.Navigator>
 );
 

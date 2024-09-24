@@ -3,14 +3,14 @@ import { View, Image, Text, TouchableWithoutFeedback, Keyboard } from 'react-nat
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import GeneralStyles from '../Styles/GeneralStyles';
-import logo from '../Assets/logo.jpg';
+import logo from '../Assets/logo.jpeg';
 import COLORS from '../Constants/Constants';
 import axios from 'axios';
 import Error from './Custom/Error';
 import TypingEffect from './Custom/TypingEffect';
 
 
-const ChangePasswordForm = ({navigation}) => {
+const changePasswordForm = ({navigation}) => {
 
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
@@ -28,9 +28,8 @@ const ChangePasswordForm = ({navigation}) => {
       console.log('Password changed successfully!'); 
     }
   }
-}
 
-function resetFields(){
+  function resetFields(){
     setPassword(''),
     setConfirmPassword('')
   }
@@ -63,5 +62,8 @@ function resetFields(){
     </View>
   );
 
+}
 
-export default ChangePasswordForm;
+
+
+export default changePasswordForm;
