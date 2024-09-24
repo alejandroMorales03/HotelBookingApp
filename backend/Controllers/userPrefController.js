@@ -19,10 +19,11 @@ export const changePasswordHandler = async(req, res) =>{
                 where:{email : email}
             }
         )
+        console.log("Reached 2");
         return res.status(200).json({message: 'Your password has been changed successfully'});
 
     }catch(error){
-        console.error('Error updating password:', error); // Log the error for debugging
+        console.error('Error updating password:', error); 
         return res.status(500).json({ message: 'Your password could not be changed. Try again later.' });
     }
      
