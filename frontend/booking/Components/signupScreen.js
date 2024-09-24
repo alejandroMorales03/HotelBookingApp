@@ -22,11 +22,8 @@ const SignupScreen = ({ navigation }) => {
 
   async function handleSignUp() {
     try {
-<<<<<<< HEAD
-      const response = await axios.post(`http://10.0.0.20:8081/api/auth/signup`, {
-=======
-      const response = await axios.post('http://172.21.22.15:8000/api/auth/signup', {
->>>>>>> ac08bb248b33359b136257b76d53c6adaf7a2013
+
+      const response = await axios.post(`http://192.168.0.6:8000/api/auth/signup`, {
         email,
         firstName,
         lastName,

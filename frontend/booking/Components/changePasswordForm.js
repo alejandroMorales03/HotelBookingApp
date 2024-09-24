@@ -21,10 +21,11 @@ const ChangePasswordForm = ({navigation}) => {
       setError('Passwords do not match!');
     } else {
       setError('');
-      const response = await axios.post(`http://10.0.0.20:8081/api/auth/signup`, {
+      const response = await axios.post(`http://192.168.0.6:8080/api/user-preferences/change-password`, {
         password})
-      resetFields();  
-      console.log('Password changed successfully!'); // Placeholder for actual logic
+      resetFields(); 
+      console.log("Reached 1") ;
+      console.log('Password changed successfully!'); 
     }
   }
 }

@@ -4,12 +4,13 @@ import { createStackNavigator, TransitionPresets } from '@react-navigation/stack
 import LoginScreen from '../Components/loginScreen';
 import SignupScreen from '../Components/signupScreen';
 import VerificationScreen from '../Components/verificationScreen';
+import ChangePasswordForm from '../Components/ChangePasswordForm';
 
 const Stack = createStackNavigator();
 
 const CredentialsStack = () => (
   <Stack.Navigator
-    initialRouteName="Sign Up"
+    initialRouteName="ChangePassword"
     screenOptions={{
       headerShown: false,
       ...TransitionPresets.ScaleFromCenterAndroid,
