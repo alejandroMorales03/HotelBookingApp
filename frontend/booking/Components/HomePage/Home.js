@@ -26,7 +26,7 @@ const Home = ({ navigation }) => {
     try {
       if (text.length > 1) {
         const response = await axios.get(
-          "http://172.21.22.15:8000/api/user-home/hotel-search",
+          "http://10.108.80.30:8000/api/user-home/hotel-search",
           {
             params: { text },
           }

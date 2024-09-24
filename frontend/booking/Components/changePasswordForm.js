@@ -10,7 +10,7 @@ import Error from './Custom/Error';
 import TypingEffect from './Custom/TypingEffect';
 
 
-const changePasswordForm = ({navigation}) => {
+const ChangePasswordForm = ({navigation}) => {
 
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
@@ -21,7 +21,7 @@ const changePasswordForm = ({navigation}) => {
       setError('Passwords do not match!');
     } else {
       setError('');
-      const response = await axios.post(`http://192.168.0.6:8080/api/user-preferences/change-password`, {
+      const response = await axios.post(`http://10.108.80.30:8080/api/user-preferences/change-password`, {
         password})
       resetFields(); 
       console.log("Reached 1") ;
@@ -66,4 +66,4 @@ const changePasswordForm = ({navigation}) => {
 
 
 
-export default changePasswordForm;
+export default ChangePasswordForm;
