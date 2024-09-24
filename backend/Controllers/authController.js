@@ -1,7 +1,7 @@
 import Customer from "../Models/customerModel.js";
 import SignupAttempt from "../Models/signupAttemptModel.js";
 import { generateExpirationTime, generateVerificationCode, hashPassword } from "../Utils/dbUtils.js";
-import { sendVerificationEmail } from "../Utils/authUtils.js"; 
+import { comparePasswords, sendVerificationEmail } from "../Utils/authUtils.js"; 
 import { Op } from "sequelize";
 import { checkPassword } from "../Utils/userUtils.js";
 
@@ -16,7 +16,7 @@ export const handleSignUp = async (req, res) => {
         return res.status(400).json({ message: 'Please fill out all the fields' });
     }
 
-    if(!checkPassword(password)){
+    if(!checkPassword({password})){
         console.error('Password does not match requirements');
         return res.status(400).json({message: 'Please include 8 characters, a digit, lower case letter, upper case letter, and a symbol.'});
     }
@@ -34,15 +34,15 @@ export const handleSignUp = async (req, res) => {
         if (existingUser) {
             return res.status(409).json({ message: 'This email is already associated with an account' });
         }
-        console.log('5');
+        
 
         const verificationCode = generateVerificationCode();
         const expirationTime = generateExpirationTime();
         const hashedPassword = await hashPassword(password);
-        console.log('6');
+        
 
         const existingAttempt = await SignupAttempt.findOne({ where: { email } });
-        console.log('7');
+        
         if (existingAttempt) {
             
             await SignupAttempt.update(
@@ -55,7 +55,7 @@ export const handleSignUp = async (req, res) => {
                     where: { email: email }
                 }
             );
-            console.log('8');
+      
         } else {
 
             
@@ -69,12 +69,12 @@ export const handleSignUp = async (req, res) => {
                 auth_code: verificationCode,
                 expires_at: expirationTime
             });
-            console.log('9');
+            
         }
 
 
         await sendVerificationEmail(email, verificationCode);
-        console.log('10');
+        
         return res.status(200).json({ message: 'Signup attempt processed successfully' });
 
     } catch (err) {
@@ -165,7 +165,7 @@ export const verifyCodeHandler = async (req, res) => {
 };
 
 
-//handleAuthentication
+
 export const handleAuthentication = async (req, res) => {
     const { email, password } = req.body;
 
@@ -176,16 +176,24 @@ export const handleAuthentication = async (req, res) => {
     }
 
     try {
-        //hash the password
-        const hashedPassword = await hashPassword(password);
 
-        const existingUser = await Customer.findOne({ where: { email: email, password: hashedPassword } });
+        const existingUser = await Customer.findOne({ where: { email: email }});
 
         if (!existingUser) {
             return res.status(409).json({ message: 'The email and password entered are not associated with an account' })
         }
+        
+        const isMatch = comparePasswords(password, existingUser.password);
 
-        return res.status(200).json({ message: 'Signup attempt processed successfully' });
+
+        if (isMatch) {
+            return res.status(200).json({ message: 'Login successful' });
+        } else {
+            console.log('Password does not match');
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+
+       
 
     } catch (err) {
         console.error('Error during login processing:', err);

@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer'
 import config from '../config/config.js';
+import bcrypt from 'bcrypt'
 
 
 export const sendVerificationEmail = async (email, code) => {
@@ -24,5 +25,15 @@ export const sendVerificationEmail = async (email, code) => {
     } catch (error) {
         console.error('Error sending verification email:', error);
         throw error;
+    }
+};
+
+export const comparePasswords = async (plainPassword, hashedPassword) => {
+    try {
+        const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
+        return isMatch;
+    } catch (err) {
+        console.error('Error comparing passwords:', err.message);
+        throw new Error('Error comparing passwords');
     }
 };
