@@ -44,7 +44,7 @@ export const roomsLookupHandler = async (req, res) => {
                     numBeds ? { num_beds: `${numBeds}` } : null,
                     numBaths ? { num_baths: `${numBaths}` } : null,
                     numTv ? { num_tv: `${numTv}` } : null,
-                    guestCapacity ? { guest_capacity: `${guestCapacity}` } : null,
+                    guestCapacity ? { guest_capacity: {[Op.gte]: `${guestCapacity}`} } : null,
                     hasMinibar ? { has_minibar: `${hasMinibar}` } : null,
                     hasWifi ? { has_wifi: `${hasWifi}` } : null,
                     roomType ? { room_type: `${roomType}` } : null
