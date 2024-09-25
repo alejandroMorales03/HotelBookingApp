@@ -52,7 +52,23 @@ export const roomsLookupHandler = async (req, res) => {
             }
         });
 
-        return res.status(200).json(rooms);
+        //filter the rooms so its only one of each type
+        const filteredRooms = [];
+        for (const roomItem of rooms) {
+            const room = roomItem.dataValues;
+            if(!filteredRooms.find(filteredRoom => 
+                (filteredRoom["num_beds"] === room["num_beds"]) &&
+                (filteredRoom["num_baths"] === room["num_baths"]) &&
+                (filteredRoom["num_tv"] === room["num_tv"]) &&
+                (filteredRoom["guest_capacity"] === room["guest_capacity"]) &&
+                (filteredRoom["has_minibar"] === room["has_minibar"]) &&
+                (filteredRoom["has_wifi"] === room["has_wifi"]) &&
+                (filteredRoom["room_type"] === room["room_type"])
+            )){
+                filteredRooms.push(room);
+            }
+        }
+        return res.status(200).json(filteredRooms);
     } catch (error) {
         console.error('Error looking up hotels:', error);
         return res.status(500).json({ message: 'Error looking up rooms.' });
