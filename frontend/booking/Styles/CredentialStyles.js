@@ -1,64 +1,56 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import COLORS, { SIZES } from '../Constants/Constants';
-
-
-
-//IMPORTANT: Any changes made here will be reflected in all components who use the modified style.
+import GeneralStyles from './GeneralStyles';
 
 const { width, height } = Dimensions.get('window');
 
-// You can use this base style in any input fields so that all inputs look the same
 
 const baseTextInputStyle = {
-    borderBottomColor: COLORS.ArgentinianBlue,
+    borderBottomColor: COLORS.neutral.White,
     borderBottomWidth: 0.5,
     paddingHorizontal: width * 0.04,
     fontSize: SIZES.extraSmall,
     fontFamily: 'Roboto',
     fontWeight: 'bold',
     textAlign: 'center',
-    textAlignVertical: 'center',
-    width: width * 0.60
+    width: width * 0.60,
+    paddingVertical: width * 0.008,
+    color: COLORS.neutral.White,
 };
 
-// Base style for bottom links.=
-const baseBottomText = {
-    fontSize: SIZES.extraSmall,
-    fontFamily: 'Roboto',
-    marginBottom: height * 0.008,
-}
 
-const mainTitle = {
-    fontSize: SIZES.large,
+const titleStyle = (fontSize) => ({
+    fontSize: fontSize,
     fontFamily: 'Roboto',
-    fontWeight: 'bold',
-    marginBottom: height * 0.03, 
-    color: COLORS.Tomato,
-    fontWeight: '800'
-}
+    fontWeight: '900',
+    marginBottom: height * 0.03,
+    color: COLORS.neutral.White,
+    textAlign: 'center',
+});
 
 const CredentialStyles = StyleSheet.create({
-    // Container for full-page layout
-    
 
-    // Logo container with circular shape
-    logoContainer: {
-        width: width * 0.25, // 25% of screen width
-        height: width * 0.25, // 1:1 aspect ratio
-        borderRadius: width * 0.125, // 50% of width
-        overflow: 'hidden',
-        marginBottom: height * 0.02, // 3% of screen height
-        backgroundColor: COLORS.Transparent,
+    fullPageContainer:{
+        ...GeneralStyles.fullPageContainer,
+        justifyContent: 'center',
     },
 
-    // Styling for the logo image
+    logoContainer: {
+        width: width * 0.25,
+        height: width * 0.25,
+        borderRadius: width * 0.125,
+        overflow: 'hidden',
+        backgroundColor: COLORS.neutral.Transparent,
+        marginBottom: height * 0.02,
+        borderColor: COLORS.neutral.White,
+        borderWidth: 2,
+    },
+
     logo: {
         width: '100%',
         height: '100%',
         resizeMode: 'cover',
     },
-
-    // Container for general content
 
     GeneralContainer: {
         width: width * 0.8,
@@ -66,96 +58,65 @@ const CredentialStyles = StyleSheet.create({
         marginVertical: height * 0.01,
     },
 
-    CentralGeneralContainer: {
-        width: width * 0.8,
-        alignItems: 'center',
-        marginVertical: height * 0.01,
-        verticalAlign: 'center',
-        color: COLORS.Transparent,
+    mainTitle: {
+        ...titleStyle(SIZES.large),
     },
 
-    
-
-    // Main title styling
-    
-
-    mainTitle:{
-        ...mainTitle,
-        fontSize: SIZES.large,
-        
+    customMediumTitle: {
+        ...titleStyle(SIZES.medium),
     },
 
-    customMediumTitle:{
-        ...mainTitle,
-        fontSize: SIZES.medium
-    },
-    
-    // Complimentary text styling
     complimentaryText: {
         fontSize: SIZES.extraSmall,
-        color: COLORS.PlaceHolderTextColor,
+        color: COLORS.neutral.White,
         fontFamily: 'Roboto',
         fontWeight: 'bold',
         marginBottom: height * 0.01,
         textAlign: 'center',
     },
 
-
-    fieldCredential: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: height * 0.01,
-        marginHorizontal: width * 0.02,
-    },
-
-    // Text input styling
     textInput: {
-        //this means using a previously defined base styling
         ...baseTextInputStyle,
         marginVertical: height * 0.015,
     },
 
     error: {
-        color: COLORS.Red,
-        fontFamily: 'Rototo',
+        color: COLORS.feedback.Red,
+        fontFamily: 'Roboto',
         fontSize: SIZES.extraSmall,
-        fontWeight: '700'
+        fontWeight: '700',
     },
 
-    //Styling for buttons
     buttonContainer: {
-        backgroundColor: COLORS.Tomato,
-        borderRadius: width * 0.125,
+        backgroundColor: COLORS.primary.Tomato,
+        borderRadius: SIZES.borderRadius,
         paddingVertical: height * 0.005,
         paddingHorizontal: width * 0.03,
         marginTop: height * 0.03,
         marginBottom: height * 0.04,
     },
 
-    //Styling for the text in buttons
     button: {
         fontSize: SIZES.small,
-        color: COLORS.White,
+        color: COLORS.neutral.White,
         fontFamily: 'Roboto',
         fontWeight: 'bold',
-
     },
 
-    //Styling for things u see in the footer of a page like "Have an account? Sign in"
-    textInLinkBottom: {
-        ...baseBottomText,
-        fontWeight: '800',
-        color: COLORS.Tomato,
+    textOverLink: {
+        ...titleStyle(SIZES.extraSmall),
+        color: COLORS.primary.Tomato,
+        fontWeight: '600',
+        marginBottom: SIZES.margin,
     },
 
-    //Styling for links
-    link: {
-        ...baseBottomText,
-        color: COLORS.ArgentinianBlue,
-        fontWeight: '700'
-    }
-
-
+    linkText: {
+        fontSize: SIZES.extraSmall,
+        color: COLORS.primary.ArgentinianBlue,
+        fontWeight: '900',
+        marginBottom: 0.04 * width,
+    },
+    
 });
 
 export default CredentialStyles;

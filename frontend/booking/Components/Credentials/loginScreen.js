@@ -7,8 +7,9 @@ import logo from '../../Assets/logo.jpeg';
 import COLORS from '../../Constants/Constants';
 import axios from 'axios';
 import Error from '../Custom/Error';
-import Home from '../HomePage/Home';
 import GeneralStyles from '../../Styles/GeneralStyles';
+import { Video } from 'expo-av';
+import { StyleSheet } from 'react-native';
 
 
 
@@ -43,7 +44,14 @@ const LoginScreen = ({ navigation }) => {
   return (
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView style={GeneralStyles.fullPageContainer}>
+      <SafeAreaView style={CredentialStyles.fullPageContainer}>
+      <Video
+          source={require('../../Assets/beach.mp4')}
+          style={StyleSheet.absoluteFill} 
+          resizeMode="cover"
+          isLooping 
+          shouldPlay
+        />
         <View style={CredentialStyles.logoContainer}>
           <Image source={logo} style={CredentialStyles.logo} />
         </View>
@@ -61,7 +69,7 @@ const LoginScreen = ({ navigation }) => {
               value={email}
               onChangeText={setEmail}
               style={CredentialStyles.textInput}
-              placeholderTextColor={COLORS.Grey}
+              placeholderTextColor={COLORS.neutral.White}
               autoCapitalize="none"
             />
           </View>
@@ -72,7 +80,7 @@ const LoginScreen = ({ navigation }) => {
               onChangeText={setPassword}
               secureTextEntry
               style={CredentialStyles.textInput}
-              placeholderTextColor={COLORS.Grey}
+              placeholderTextColor={COLORS.neutral.White}
               autoCapitalize="none"
             />
           </View>
@@ -83,12 +91,12 @@ const LoginScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={CredentialStyles.GeneralContainer}>
-          <Text style={CredentialStyles.textInLinkBottom}>Don't have an account?</Text>
+          <Text style={CredentialStyles.textOverLink}>Don't have an account?</Text>
           <TouchableOpacity onPress={() => {
             navigation.navigate('Sign Up'),
             resetFields()}
           }>
-            <Text style={CredentialStyles.link}>Sign Up</Text>
+            <Text style={CredentialStyles.linkText}>Sign Up</Text>
           </TouchableOpacity>
         
         </View>

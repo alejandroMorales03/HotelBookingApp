@@ -9,6 +9,8 @@ import axios from 'axios';
 import Error from '../Custom/Error';
 import TypingEffect from '../Custom/TypingEffect';
 import GeneralStyles from '../../Styles/GeneralStyles';
+import { StyleSheet } from 'react-native';
+import {Video} from 'expo-av'
 
 
 
@@ -53,7 +55,14 @@ const SignupScreen = ({ navigation }) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView style={GeneralStyles.fullPageContainer}>
+      <SafeAreaView style={CredentialStyles.fullPageContainer}>
+      <Video
+          source={require('../../Assets/beach.mp4')}
+          style={StyleSheet.absoluteFill} 
+          resizeMode="cover"
+          isLooping 
+          shouldPlay
+        />
         <View style={CredentialStyles.logoContainer}>
           <Image source={logo} style={CredentialStyles.logo} />
         </View>
@@ -63,21 +72,20 @@ const SignupScreen = ({ navigation }) => {
           
           {error ?
             <Error errorText={error} style={CredentialStyles.error} /> :
-            <TypingEffect
-              style={CredentialStyles.complimentaryText}
-              text="The vacation of your dreams is just a few clicks away!"
-              speed={50}
-            />
+            <Text
+              style={CredentialStyles.complimentaryText}>
+              The vacation of your dreams is just a few clicks away!
+              </Text>
           }
         </View>
         <View style={CredentialStyles.GeneralContainer}>
-          <View style={CredentialStyles.fieldCredential}>
+          <View>
             <TextInput
               placeholder="First Name"
               value={firstName}
               onChangeText={setFirstName}
               style={CredentialStyles.textInput}
-              placeholderTextColor={COLORS.Grey}
+              placeholderTextColor={COLORS.neutral.White}
               autoCapitalize="none"
             />
           </View>
@@ -87,7 +95,7 @@ const SignupScreen = ({ navigation }) => {
               value={lastName}
               onChangeText={setLastName}
               style={CredentialStyles.textInput}
-              placeholderTextColor={COLORS.Grey}
+              placeholderTextColor={COLORS.neutral.White}
               autoCapitalize="none"
             />
           </View>
@@ -97,7 +105,7 @@ const SignupScreen = ({ navigation }) => {
               value={email}
               onChangeText={setEmail}
               style={CredentialStyles.textInput}
-              placeholderTextColor={COLORS.Grey}
+              placeholderTextColor={COLORS.neutral.White}
               autoCapitalize="none"
             />
           </View>
@@ -108,7 +116,7 @@ const SignupScreen = ({ navigation }) => {
               onChangeText={setPassword}
               secureTextEntry
               style={CredentialStyles.textInput}
-              placeholderTextColor={COLORS.Grey}
+              placeholderTextColor={COLORS.neutral.White}
               autoCapitalize="none"
             />
           </View>
@@ -118,7 +126,7 @@ const SignupScreen = ({ navigation }) => {
               value={confirmedPassword}
               onChangeText={setConfirmedPassword}
               style={CredentialStyles.textInput}
-              placeholderTextColor={COLORS.Grey}
+              placeholderTextColor={COLORS.neutral.White}
               secureTextEntry
               autoCapitalize="none"
             />
@@ -131,12 +139,12 @@ const SignupScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={CredentialStyles.GeneralContainer}>
-          <Text style={CredentialStyles.textInLinkBottom}>Have an account?</Text>
+          <Text style={CredentialStyles.textOverLink}>Have an account?</Text>
           <TouchableOpacity onPress={() => {
             navigation.navigate('Login')
             resetFields()}
           }>
-            <Text style={CredentialStyles.link}>Sign in</Text>
+            <Text style={CredentialStyles.linkText}>Sign in</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
