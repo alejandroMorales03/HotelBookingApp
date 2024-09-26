@@ -42,7 +42,6 @@ const LoginScreen = ({ navigation }) => {
 
   return (
 
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={GeneralStyles.fullPageContainer}>
         <View style={CredentialStyles.logoContainer}>
           <Image source={logo} style={CredentialStyles.logo} />
@@ -94,7 +93,6 @@ const LoginScreen = ({ navigation }) => {
         </View>
 
       </SafeAreaView>
-      </TouchableWithoutFeedback>
    
   )
 
