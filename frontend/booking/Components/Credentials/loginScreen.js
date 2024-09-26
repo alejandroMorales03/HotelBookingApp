@@ -102,7 +102,6 @@ const LoginScreen = ({ navigation }) => {
         </View>
 
       </SafeAreaView>
-      </TouchableWithoutFeedback>
    
   )
 
