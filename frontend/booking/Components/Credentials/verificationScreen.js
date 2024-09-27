@@ -10,6 +10,7 @@ import COLORS from '../../Constants/Constants';
 import Error from '../Custom/Error'; // Ensure Error component is correctly imported
 import { Video } from 'expo-av';
 import { StyleSheet } from 'react-native';
+import GeneralStyles from '../../Styles/GeneralStyles';
 
 const VerificationScreen = ({ route, navigation }) => {
   const [code, setCode] = React.useState('');
@@ -51,7 +52,7 @@ const VerificationScreen = ({ route, navigation }) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView style={CredentialStyles.fullPageContainer}>
+      <View style={CredentialStyles.fullPageContainer}>
       <Video
           source={require('../../Assets/beach.mp4')}
           style={StyleSheet.absoluteFill} 
@@ -64,7 +65,7 @@ const VerificationScreen = ({ route, navigation }) => {
         </View>
         
         <View style={CredentialStyles.GeneralContainer}>
-          <Text style={CredentialStyles.customMediumTitle}>Verify Your Information</Text>
+          <Text style={GeneralStyles.customMediumTitle}>Verify Your Information</Text>
           {error ? (
             <Error errorText={error} style={CredentialStyles.error} />
           ) : (
@@ -105,7 +106,7 @@ const VerificationScreen = ({ route, navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-      </SafeAreaView>
+      </View>
     </TouchableWithoutFeedback>
   );
 }

@@ -6,11 +6,13 @@ import COLORS from "../../Constants/Constants";
 import logo from "../../Assets/logo.jpeg";
 import axios from "axios";
 import filter from '../../Assets/filter.jpg';
+import RoomFilter from "./RoomFilter";
 
 const Home = ({ navigation }) => {
   const [query, setQuery] = React.useState("");
   const [suggestions, setSuggestions] = React.useState([]);
   const [error, setError] = React.useState("");
+  const [isModalVisible, setModalVisible] = React.useState(false);
 
   const HotelLookup = async (text) => {
     setQuery(text);
@@ -34,7 +36,7 @@ const Home = ({ navigation }) => {
   };
 
   return (
-    <View style={GeneralStyles.fullPageContainer}>
+    <View style={HomePageStyles.fullPageContainer}>
       <View style={HomePageStyles.topContainer}>
         
         <TouchableOpacity style={GeneralStyles.userIconContainer}>
@@ -51,7 +53,7 @@ const Home = ({ navigation }) => {
             autoCapitalize="none"
           />
 
-          <TouchableOpacity style={GeneralStyles.filterIconContainer} onPress={() => { /* Handle filter action here */ }}>
+          <TouchableOpacity style={GeneralStyles.filterIconContainer} onPress={() => setModalVisible(true)}>
             <Image source={filter} style={GeneralStyles.Icon} />
           </TouchableOpacity>
         </View>
@@ -67,6 +69,9 @@ const Home = ({ navigation }) => {
           )}
         />
       </View>
+
+      {/* The RoomFilter modal should only appear when isModalVisible is true */}
+      <RoomFilter visible={isModalVisible} onClose={() => setModalVisible(false)} />
     </View>
   );
 };
