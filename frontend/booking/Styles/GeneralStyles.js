@@ -40,7 +40,7 @@ const GeneralStyles = StyleSheet.create({
         ...titleStyle(SIZES.medium, COLORS.neutral.White),
     },
     customSmallTitle:{
-        ...titleStyle(SIZES.small, COLORS.primary.Tomato),
+        ...titleStyle(SIZES.small, COLORS.primary.White),
 
     },
     textOverLink: {
@@ -106,6 +106,12 @@ const GeneralStyles = StyleSheet.create({
         marginVertical: width * 0.01,
         color: COLORS.feedback.PlaceHolderTextColor,
         ...commonTextStyles,
+    },
+
+    GeneralContainer: {
+        width: width * 0.8,
+        alignItems: 'center',
+        marginVertical: height * 0.01,
     },
 });
 

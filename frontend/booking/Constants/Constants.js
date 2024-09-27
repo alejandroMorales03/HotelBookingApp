@@ -1,12 +1,9 @@
 const COLORS = {
     // Primary Palette
     primary: {
-        HonoluluBlue: '#2176AE',
         ArgentinianBlue: '#57B8FF',
-        TigersEye: '#B66D0D',
-        HuyandiYellow: '#FBB13C',
         Tomato: '#FE6847',
-        Bittersweet: '#ff7a5c'
+        Green: '#2BF38B'
     },
     neutral: {
         White: '#FFFFFF',

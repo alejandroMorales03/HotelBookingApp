@@ -5,7 +5,6 @@ import LoginScreen from '../Components/Credentials/loginScreen';
 import SignupScreen from '../Components/Credentials/signupScreen';
 import VerificationScreen from '../Components/Credentials/verificationScreen';
 import Home from '../Components/HomePage/Home';
-import COLORS from '../Constants/Constants';
 
 const Stack = createStackNavigator();
 

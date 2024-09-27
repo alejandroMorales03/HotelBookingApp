@@ -36,7 +36,7 @@ const Home = ({ navigation }) => {
   };
 
   return (
-    <View style={HomePageStyles.fullPageContainer}>
+    <View style={HomePageStyles.homeFullPage}>
       <View style={HomePageStyles.topContainer}>
         
         <TouchableOpacity style={GeneralStyles.userIconContainer}>
