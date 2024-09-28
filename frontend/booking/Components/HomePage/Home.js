@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput, TouchableOpacity, Image, ImageBackground, FlatList, Text} from "react-native";
+import { View, TextInput, TouchableOpacity, Image, FlatList, Text, Modal} from "react-native";
 import HomePageStyles from "../../Styles/HomePageStyles";
 import GeneralStyles from "../../Styles/GeneralStyles";
 import COLORS from "../../Constants/Constants";
@@ -8,9 +8,6 @@ import axios from "axios";
 import { Card, Button, CardBody} from 'react-bootstrap/';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import burger from '../../HotelPictures/item-3.jpeg';
-import HotelBackground from '../../HotelPictures/SearchResultsBackground.jpg';
-
-//import HotelPictures from "../../booking";
 import filter from '../../Assets/filter.jpg';
 
 const Home = ({ navigation }) => {
@@ -93,47 +90,7 @@ const Home = ({ navigation }) => {
               /> */}
        
         
-          </View>
-
-          <View style={HomePageStyles.bottomContainer}>
-
-              <Text style={HomePageStyles.header}>Hotels in {query}</Text>
-              <FlatList
-                  style={GeneralStyles.ScrollView}
-                  data={suggestions}
-                  horizontal={true}
-                  keyExtractor={(item) => item.hotel_name}
-                  renderItem={({ item }) => (
-                      <Card className="border border-danger rounded mx-4" style={HomePageStyles.card}>
-                              <Image source={burger} style={HomePageStyles.image} />
-                              <Card.Body>
-                                  <Card.Title>{item.hotel_name}</Card.Title>
-                              <View style={HomePageStyles.bulletList}>
-                                  <View style={HomePageStyles.row}>
-                                      <View style={HomePageStyles.column}>
-                                          <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.has_pool ? "Has a pool" : "No pool"}</Text>
-                                          <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.has_gym ? "Has Gym" : "No Gym"}</Text>
-                                          <Text style={HomePageStyles.bulletPoint}>{item.ocean_view ? "\u2022 Ocean View" : ""}</Text>
-                                      </View>
-                                      <View style={HomePageStyles.column}>
-                                          <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.pet_friendly ? "Pet Friendly" : "No Pets Allowed"}</Text>
-                                          <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.room_service ? "Room Service" : "No Room Service"}</Text></View>
-                                  </View>
-
-                              </View>
-                              <br></br>
-                              <View style={{ flex: 1 }} />
-                              <Button variant="primary">Go somewhere</Button>
-                              </Card.Body>
-                             
-
-                          </Card>
-
-                     
-                  )}
-
-              />
-          </View>
+          
           {/* }
           <View style={HomePageStyles.bottomContainer}>
               <FlatList
