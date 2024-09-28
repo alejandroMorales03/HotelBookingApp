@@ -2,15 +2,15 @@ import React from 'react';
 import { View, Image, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import GeneralStyles from '../Styles/GeneralStyles';
-import logo from '../Assets/logo.jpeg';
-import COLORS from '../Constants/Constants';
+import GeneralStyles from '../../Styles/GeneralStyles';
+import logo from '../../Assets/logo.jpeg';
+import COLORS from '../../Constants/Constants';
 import axios from 'axios';
-import Error from './Custom/Error';
-import TypingEffect from './Custom/TypingEffect';
+import Error from '../Custom/Error';
+import TypingEffect from '../Custom/TypingEffect';
+import CredentialStyles from '../../Styles/CredentialStyles';
 
-
-const CPF = ({navigation}) => {
+const ChangePasswordScreen = ({navigation}) => {
 
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
@@ -103,4 +103,4 @@ const CPF = ({navigation}) => {
 
 
 
-export default CPF;
+export default ChangePasswordScreen;
