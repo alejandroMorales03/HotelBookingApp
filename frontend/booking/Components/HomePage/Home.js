@@ -6,7 +6,7 @@ import COLORS from "../../Constants/Constants";
 import logo from "../../Assets/logo.jpeg";
 import axios from "axios";
 import filter from '../../Assets/filter.jpg';
-import RoomFilter from "./RoomFilter";
+// import RoomFilter from "./RoomFilter";
 
 const Home = ({ navigation }) => {
   const [query, setQuery] = React.useState("");
@@ -20,7 +20,7 @@ const Home = ({ navigation }) => {
     try {
       if (text.length > 1) {
         const response = await axios.get(
-          "http://10.108.80.30:8000/api/user-home/hotel-search",
+          "http://localhost:8000/api/user-home/hotel-search",
           {
             params: { text },
           }
@@ -71,7 +71,7 @@ const Home = ({ navigation }) => {
       </View>
 
       {/* The RoomFilter modal should only appear when isModalVisible is true */}
-      <RoomFilter visible={isModalVisible} onClose={() => setModalVisible(false)} />
+      {/* <RoomFilter visible={isModalVisible} onClose={() => setModalVisible(false)} /> */}
     </View>
   );
 };

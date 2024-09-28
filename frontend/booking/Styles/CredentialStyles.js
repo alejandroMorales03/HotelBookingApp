@@ -21,9 +21,19 @@ const baseTextInputStyle = {
 
 const CredentialStyles = StyleSheet.create({
 
-    fullPageContainer:{
+    fullPageContainer: {
         ...GeneralStyles.fullPageContainer,
         justifyContent: 'center',
+    },
+
+    changePasswordContainer: {
+        backgroundColor: "grey",
+        justifyContent: 'center',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
     },
 
     logoContainer: {
@@ -93,7 +103,14 @@ const CredentialStyles = StyleSheet.create({
         fontSize: SIZES.extraSmall,
         color: COLORS.primary.ArgentinianBlue,
         fontWeight: '900',
-        marginBottom: 0.04 * width,
+        marginBottom: 0.04 * width
+    },
+
+    forgotPasswordText: {
+        fontSize: SIZES.extraSmall,
+        color: COLORS.neutral.White,
+        fontWeight: '500',
+        textDecorationLine: 'underline'
     },
     
 });

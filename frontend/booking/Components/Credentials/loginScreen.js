@@ -25,7 +25,7 @@ const LoginScreen = ({ navigation }) => {
 
   async function handleLogin() {
     try {
-      const response = await axios.post(`http://10.108.80.30:8000/api/auth/authentication`, {
+      const response = await axios.post(`http://localhost:8000/api/auth/authentication`, {
         email,
         password,
       });
@@ -61,21 +61,17 @@ const LoginScreen = ({ navigation }) => {
 
   return (
 
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View onPress={Keyboard.dismiss}>
       {showMessage ? (
         <View style={GeneralStyles.fullPageContainer}>
           
         </View>
       ) : (
       <Modal
-      transparent={false}
-      visible={isModalVisible}
-      onRequestClose={() => setModalVisible(false)}
-      animationType='slide'
-  
-
-        
-
+        transparent={false}
+        visible={isModalVisible}
+        onRequestClose={() => setModalVisible(false)}
+        animationType='slide'
       >
       <SafeAreaView style={CredentialStyles.fullPageContainer}>
       <Video
@@ -119,6 +115,19 @@ const LoginScreen = ({ navigation }) => {
             />
           </View>
         </View>
+        {
+          error && (
+            <View style={CredentialStyles.GeneralContainer}>
+              <TouchableOpacity onPress={() => {
+                setShowMessage(true);
+                navigation.navigate('Change Password');
+                resetFields();
+              }}>
+                <Text style={CredentialStyles.forgotPasswordText}>Forgot password</Text>
+              </TouchableOpacity>
+            </View>
+          )
+        }
         <View style={CredentialStyles.buttonContainer}>
           <TouchableOpacity onPress={handleLogin}>
             <Text style={CredentialStyles.button}>Login</Text>
@@ -135,10 +144,10 @@ const LoginScreen = ({ navigation }) => {
           </TouchableOpacity>
         
         </View>
-
+        
       </SafeAreaView>
       </Modal>)}
-      </TouchableWithoutFeedback>
+      </View>
    
   )
 
