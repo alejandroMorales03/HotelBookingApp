@@ -7,6 +7,7 @@ import logo from '../Assets/logo.jpeg';
 import COLORS from '../Constants/Constants';
 import axios from 'axios';
 import Error from './Custom/Error';
+import CredentialStyles from '../../Styles/CredentialStyles';
 import TypingEffect from './Custom/TypingEffect';
 
 
@@ -24,7 +25,7 @@ const CPF = ({navigation}) => {
     else 
     {
       try {
-      const response = await axios.post(`http://192.168.10.81:8080/api/user-preferences/change-password`, {
+      const response = await axios.post(`http://192.168.10.81:8081/api/user-preferences/change-password`, {
         password})
       resetFields(); 
       console.log("Password changed successfully");
