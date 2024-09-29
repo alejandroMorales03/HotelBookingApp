@@ -8,6 +8,8 @@ import logo from '../../Assets/logo.jpeg'
 import TypingEffect from '../Custom/TypingEffect';
 import COLORS from '../../Constants/Constants';
 import Error from '../Custom/Error'; // Ensure Error component is correctly imported
+import { Video } from 'expo-av';
+import { StyleSheet } from 'react-native';
 import GeneralStyles from '../../Styles/GeneralStyles';
 
 const VerificationScreen = ({ route, navigation }) => {
@@ -19,7 +21,7 @@ const VerificationScreen = ({ route, navigation }) => {
   
   async function handleSendCode(){
     try{
-      const response = await axios.post('http://192.168.10.81:8081/api/auth/request-code', {
+      const response = await axios.post('http://localhost:8000/api/auth/request-code', {
         code,
         email,
       });
@@ -31,7 +33,7 @@ const VerificationScreen = ({ route, navigation }) => {
   }
   async function handleVerification() {
     try {
-      const response = await axios.post('http://192.168.10.81:8081/api/auth/verify-code', {
+      const response = await axios.post('http://localhost:8000/api/auth/verify-code', {
         code,
         email,
       });
@@ -49,21 +51,25 @@ const VerificationScreen = ({ route, navigation }) => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView style={GeneralStyles.fullPageContainer}>
+    <View onPress={Keyboard.dismiss}>
+      <View style={CredentialStyles.fullPageContainer}>
+      <Video
+          source={require('../../Assets/beach.mp4')}
+          style={StyleSheet.absoluteFill} 
+          resizeMode="cover"
+          isLooping 
+          shouldPlay
+        />
         <View style={CredentialStyles.logoContainer}>
           <Image source={logo} style={CredentialStyles.logo} />
         </View>
+        
         <View style={CredentialStyles.GeneralContainer}>
-          <Text style={CredentialStyles.customMediumTitle}>Verify Your Information</Text>
+          <Text style={GeneralStyles.customMediumTitle}>Verify Your Information</Text>
           {error ? (
             <Error errorText={error} style={CredentialStyles.error} />
           ) : (
-            <TypingEffect
-              style={CredentialStyles.complimentaryText}
-              text="Almost there! Please check your email and enter the verification code to confirm your account!"
-              speed={100}
-            />
+            <Text style={CredentialStyles.complimentaryText}>Please enter the verification code</Text>
           )}
         </View>
         <View style={CredentialStyles.GeneralContainer}>
@@ -72,7 +78,7 @@ const VerificationScreen = ({ route, navigation }) => {
             value={code}
             onChangeText={setCode}
             style={CredentialStyles.textInput}
-            placeholderTextColor={COLORS.Grey}
+            placeholderTextColor={COLORS.neutral.White}
             autoCapitalize="none"
           />
         </View>
@@ -83,9 +89,9 @@ const VerificationScreen = ({ route, navigation }) => {
               <Text style={CredentialStyles.button}>Submit</Text>
             </TouchableOpacity>
           </View>
-          <View style={CredentialStyles.link}>
+          <View>
             <TouchableOpacity onPress={() => handleSendCode}>
-              <Text style={CredentialStyles.link}>Resend Code</Text>
+              <Text style={CredentialStyles.linkText}>Resend Code</Text>
             </TouchableOpacity>
           </View>
           
@@ -96,12 +102,12 @@ const VerificationScreen = ({ route, navigation }) => {
               resetFields();
               navigation.navigate('Sign Up')}
             }>
-              <Text style={CredentialStyles.link}>Back</Text>
+              <Text style={CredentialStyles.linkText}>Back</Text>
             </TouchableOpacity>
           </View>
         </View>
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+      </View>
+    </View>
   );
 }
 
