@@ -25,7 +25,7 @@ const CPF = ({navigation}) => {
     else 
     {
       try {
-      const response = await axios.post(`http://192.168.10.81:8081/api/user-preferences/change-password`, {
+      const response = await axios.post(`http://10.108.142.148:8081/api/user-preferences/change-password`, {
         password})
       resetFields(); 
       console.log("Password changed successfully");
@@ -44,63 +44,77 @@ const CPF = ({navigation}) => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView style={GeneralStyles.fullPageContainer}>
+    <View onPress={Keyboard.dismiss}>
+      {showMessage ? (
+        <View style={GeneralStyles.fullPageContainer}>
+          
+        </View>
+      ) : (
+      <Modal
+        transparent={false}
+        visible={isModalVisible}
+        onRequestClose={() => setModalVisible(false)}
+        animationType='slide'
+      >
 
-      {/* View to display logo */}
-      <View style={CredentialStyles.logoContainer}>
-          <Image source={logo} style={CredentialStyles.logo} />
-      </View>
+      <SafeAreaView style={CredentialStyles.fullPageContainer}>
 
-      {/*View that contains main title of form - Change Password*/}
-      <View style={CredentialStyles.GeneralContainer}>
-          <Text style={CredentialStyles.mainTitle}>Change Password Page</Text>
-          {error? 
-              <Error errorText={error} style={CredentialStyles.error} /> :
-              <></>
-          }
-      </View>
-
-      {/*View that contains New Password text container*/}
-      <View style={CredentialStyles.GeneralContainer}>
-          <View style={CredentialStyles.fieldCredential}>
-            <TextInput
-              placeholder="New Password"
-              value={password}
-              onChangeText={setPassword}
-              style={CredentialStyles.textInput}
-              placeholderTextColor={COLORS.Grey}
-              autoCapitalize="none"
-            />
+        {/* View to display logo */}
+        <View style={CredentialStyles.GeneralContainer}>
+          <View style={CredentialStyles.logoContainer}>
+              <Image source={logo} style={CredentialStyles.logo} />
           </View>
-      </View>
-
-      {/*View that contains New Password text container */}
-      <View style={CredentialStyles.GeneralContainer}>
-          <View style={CredentialStyles.fieldCredential}>
-            <TextInput
-              placeholder="Confirm New Password"
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              style={CredentialStyles.textInput}
-              placeholderTextColor={COLORS.Grey}
-              autoCapitalize="none"
-            />
-          </View>
-      </View>
-
-      {/*View that contains button that calls handlePasswordChange*/}
-      <View style={CredentialStyles.buttonContainer}>
-          <TouchableOpacity onPress={handleChangePassword}>
-            <Text style={CredentialStyles.button}>Click to change password!</Text>
-          </TouchableOpacity>
         </View>
 
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
-  );
+        {/*View that contains main title of form - Change Password*/}
+        <View style={CredentialStyles.GeneralContainer}>
+            <Text style={CredentialStyles.mainTitle}>Change Password Page</Text>
+            {error? 
+                <Error errorText={error} style={CredentialStyles.error} /> :
+                <></>
+            }
+        </View>
 
-}
+        {/*View that contains New Password text container*/}
+        <View style={CredentialStyles.GeneralContainer}>
+            <View style={CredentialStyles.fieldCredential}>
+              <TextInput
+                placeholder="New Password"
+                value={password}
+                onChangeText={setPassword}
+                style={CredentialStyles.textInput}
+                placeholderTextColor={COLORS.Grey}
+                autoCapitalize="none"
+              />
+            </View>
+        </View>
+
+        {/*View that contains New Password text container */}
+        <View style={CredentialStyles.GeneralContainer}>
+            <View style={CredentialStyles.fieldCredential}>
+              <TextInput
+                placeholder="Confirm New Password"
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                style={CredentialStyles.textInput}
+                placeholderTextColor={COLORS.Grey}
+                autoCapitalize="none"
+              />
+            </View>
+        </View>
+
+        {/*View that contains button that calls handlePasswordChange*/}
+        <View style={CredentialStyles.buttonContainer}>
+            <TouchableOpacity onPress={handleChangePassword}>
+              <Text style={CredentialStyles.button}>Click to change password!</Text>
+            </TouchableOpacity>
+          </View>
+
+      </SafeAreaView>
+    </Modal> )}
+    </View>
+  )
+};
 
 
 

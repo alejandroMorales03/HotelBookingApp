@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 
 const CredentialsStack = () => (
   <Stack.Navigator
-    initialRouteName="Home"
+    initialRouteName="Change Password"
     screenOptions={{
       headerShown: false,
       ...TransitionPresets.SlideFromRightIOS,
