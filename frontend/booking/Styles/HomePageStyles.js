@@ -90,17 +90,39 @@ const HomePageStyles = StyleSheet.create({
         ...individualFilterButtonContainer(COLORS.neutral.Grey),
     },
 
+    numericalSettingsContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between', // Ensures equal space between buttons and number
+        width: width * 0.5, // Adjust to fit your design
+        height: width * 0.2,
+        paddingHorizontal: 10, // Adjust padding as necessary
+        borderColor: COLORS.primary.Tomato,
+        borderWidth: 1.5,
+        borderRadius: 0.015 * width,
+        backgroundColor: COLORS.neutral.White,
+        marginVertical: 5, 
+      },
+
     increaseButtonContainer:{
-        ...individualFilterButtonContainer(COLORS.primary.ArgentinianBlue),
+        width: 0.10 * width,
+        height: 0.10 * width,
     },
-    decreaseButtonContainer:{
-        ...individualFilterButtonContainer(COLORS.primary.PaleBlue),
+    numericalButton:{
+        width: width * 0.10,
+        height: width * 0.10,
     },
 
     textButton: {
         color: COLORS.neutral.White,
         fontSize: SIZES.extraSmall,
-        fontWeight: '500',
+        fontWeight: '600',
+    },
+
+    numericalFilterText:{
+        fontSize: SIZES.medium,
+        color: COLORS.primary.Tomato,
+        fontWeight: '800',
     },
 
     iconButton: {
@@ -109,22 +131,7 @@ const HomePageStyles = StyleSheet.create({
         resizeMode: 'contain', // Ensures the image fits inside the button without stretching
     },
 
-    sliderIcon:{
-        width: '10%',
-        height: '50%',
-        justifyContent: 'center',
-    },
-
-    sliderContainer:{
-        backgroundColor: COLORS.primary.Tomato,
-        height: width * 0.2,
-        width: width * 0.90,
-        shadowColor: '#000', // Black shadow
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8, 
-        shadowRadius: 5, 
-        marginBottom: 10,
-    },
+    
 
     
     

@@ -6,7 +6,7 @@ import COLORS from "../../Constants/Constants";
 import logo from "../../Assets/logo.jpeg";
 import axios from "axios";
 import filter from '../../Assets/filter.jpg';
-import RoomFilter from "./RoomFilter/RoomFilter";
+
 
 const Home = ({ navigation }) => {
   const [query, setQuery] = React.useState("");
@@ -70,8 +70,7 @@ const Home = ({ navigation }) => {
         />
       </View>
 
-      {/* The RoomFilter modal should only appear when isModalVisible is true */}
-      <RoomFilter visible={isModalVisible} onClose={() => setModalVisible(false)} />
+      
     </View>
   );
 };
