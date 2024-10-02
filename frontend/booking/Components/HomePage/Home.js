@@ -1,26 +1,33 @@
 import React from "react";
-import { View, TextInput, TouchableOpacity, Image, FlatList, Text } from "react-native";
+import { View, TextInput, TouchableOpacity, Image, FlatList, Text, Modal} from "react-native";
 import HomePageStyles from "../../Styles/HomePageStyles";
 import GeneralStyles from "../../Styles/GeneralStyles";
 import COLORS from "../../Constants/Constants";
 import logo from "../../Assets/logo.jpeg";
 import axios from "axios";
+import { Card, Button, CardBody} from 'react-bootstrap/';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import sampleImage from '../../HotelPictures/item-3.jpeg';
 import filter from '../../Assets/filter.jpg';
+//import RoomFilter from "./RoomFilter";
 
 
 const Home = ({ navigation }) => {
-  const [query, setQuery] = React.useState("");
-  const [suggestions, setSuggestions] = React.useState([]);
-  const [error, setError] = React.useState("");
-  const [isModalVisible, setModalVisible] = React.useState(false);
+    const [query, setQuery] = React.useState("");
+    const [suggestions, setSuggestions] = React.useState([]);
+    const [error, setError] = React.useState("");
+    const [isModalVisible, setModalVisible] = React.useState(false);
+    const [roomModal, setRoomModalVisible] = React.useState(false);
+
+   
 
   const HotelLookup = async (text) => {
     setQuery(text);
     setError("");
     try {
       if (text.length > 1) {
-        const response = await axios.get(
-          "http://10.108.80.30:8000/api/user-home/hotel-search",
+          const response = await axios.get( "http://192.168.1.214:8000/api/user-home/hotel-search",
+
           {
             params: { text },
           }
@@ -33,7 +40,9 @@ const Home = ({ navigation }) => {
       console.error("Error during hotel search:", err.response ? err.response.data.message : err.message);
       setError(err.response ? err.response.data.message : "Search failed. Please try again.");
     }
-  };
+    };
+
+   
 
   return (
     <View style={HomePageStyles.homeFullPage}>
@@ -58,19 +67,97 @@ const Home = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <FlatList
-          style={GeneralStyles.suggestionList}
-          data={suggestions}
-          keyExtractor={(item) => item.hotel_name}
-          renderItem={({ item }) => (
-            <TouchableOpacity>
-              <Text style={GeneralStyles.suggestion}>{item.hotel_name}</Text>
-            </TouchableOpacity>
-          )}
-        />
       </View>
 
-      
+
+       <View style={HomePageStyles.bottomContainer}>
+              <Text style={HomePageStyles.header}>Hotels in {query}</Text>
+              <FlatList
+                  style={GeneralStyles.ScrollView}
+                  data={suggestions}
+                  horizontal={true}
+                  keyExtractor={(item) => item.hotel_name}
+                  renderItem={({ item }) => (
+                      <Card className="border border-danger rounded mx-4" style={HomePageStyles.card}>
+                          <Image source={sampleImage} style={HomePageStyles.image} />
+                          <Card.Body>
+                              <Card.Title>{item.hotel_name}</Card.Title>
+                              <View style={HomePageStyles.bulletList}>
+                                  <View style={HomePageStyles.row}>
+                                      <View style={HomePageStyles.column}>
+                                          <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.has_pool ? "Has a pool" : "No pool"}</Text>
+                                          <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.has_gym ? "Has Gym" : "No Gym"}</Text>
+                                          <Text style={HomePageStyles.bulletPoint}>{item.ocean_view ? "\u2022 Ocean View" : ""}</Text>
+                                      </View>
+                                      <View style={HomePageStyles.column}>
+                                          <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.pet_friendly ? "Pet Friendly" : "No Pets Allowed"}</Text>
+                                          <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.room_service ? "Room Service" : "No Room Service"}</Text></View>
+                                  </View>
+                              </View>
+                              <br></br>
+                              <View style={{ flex: 1 }} />
+                              <Button style={HomePageStyles.hotelButton} onClick={() => setRoomModalVisible(true)}>Select a Room</Button>
+
+                          </Card.Body>
+                      </Card>
+                  )}
+              />
+          </View>
+
+          
+     <Modal
+        animationType="slide"
+        transparent={true}
+        visible={roomModal}
+        onRequestClose={() => {
+            setRoomModalVisible(false); // Close the modal on back press
+           }}
+          >
+           <View style={HomePageStyles.modalContainer}>
+                  <View style={HomePageStyles.modalContent}>
+                      <Button style={HomePageStyles.closeButton} onClick={() => setRoomModalVisible(false)}>X</Button>
+                  <Text style={HomePageStyles.modalTitle}>Select a Room</Text>
+
+                  <FlatList
+                      style={GeneralStyles.ScrollView}
+                      data={suggestions}
+                      horizontal={true}
+                      keyExtractor={(item) => item.hotel_name}
+                      renderItem={({ item }) => (
+                      <Card className="border border-danger rounded mx-4" style={HomePageStyles.card}>
+                          <Image source={sampleImage} style={HomePageStyles.image} />
+                          <Card.Body>
+                              <Card.Title>{item.hotel_name}</Card.Title>
+                              <View style={HomePageStyles.bulletList}>
+                                  <View style={HomePageStyles.row}>
+                                      <View style={HomePageStyles.column}>
+                                          <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.has_pool ? "Has a pool" : "No pool"}</Text>
+                                          <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.has_gym ? "Has Gym" : "No Gym"}</Text>
+                                          <Text style={HomePageStyles.bulletPoint}>{item.ocean_view ? "\u2022 Ocean View" : ""}</Text>
+                                      </View>
+                                      <View style={HomePageStyles.column}>
+                                          <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.pet_friendly ? "Pet Friendly" : "No Pets Allowed"}</Text>
+                                              <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.room_service ? "Room Service" : "No Room Service"}</Text>
+                                      </View>
+                                  </View>
+                              </View>
+                              <br></br>
+                              <View style={{ flex: 1 }} />
+                                  <Button style={HomePageStyles.hotelButton} onClick={() => setRoomModalVisible(true)}>Book Now</Button>
+
+                          </Card.Body>
+                      </Card>
+                  )}
+              />
+                   
+                </View>
+            </View>
+          </Modal>
+
+         
+
+          {/* The RoomFilter modal should only appear when isModalVisible is true 
+      <RoomFilter visible={isModalVisible} onClose={() => setModalVisible(false)} />*/}
     </View>
   );
 };
