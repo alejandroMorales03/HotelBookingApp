@@ -3,7 +3,8 @@ const COLORS = {
     primary: {
         ArgentinianBlue: '#57B8FF',
         Tomato: '#FE6847',
-        Green: '#2BF38B'
+        Green: '#2BF38B',
+        PaleBlue: '#B0C4DE'
     },
     neutral: {
         White: '#FFFFFF',

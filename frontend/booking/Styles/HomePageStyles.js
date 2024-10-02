@@ -5,18 +5,19 @@ import COLORS, { SIZES } from "../Constants/Constants";
 const { width, height } = Dimensions.get('window');
 
 const individualFilterButtonContainer = (color) => ({
-    padding: 10,
     backgroundColor: color,
-    width: width * 0.3, 
-    height: height * 0.06, 
+    width: width * 0.2, // Adjust to make the button square
+    height: width * 0.2, // Same as width to keep it square
     alignItems: 'center', 
     justifyContent: 'center', 
     marginHorizontal: 5, 
-    shadowColor: '#000', 
-    shadowOpacity: 0.2, 
-    shadowOffset: { width: 0, height: 4 }, 
-    shadowRadius: 6,
-})
+    marginVertical: 5, 
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8, 
+    shadowRadius: 5,
+});
+
 
 const fullPageContainer = (color) => ({
     ...GeneralStyles.fullPageContainer,
@@ -36,33 +37,32 @@ const HomePageStyles = StyleSheet.create({
         color :COLORS.primary.Tomato,
     },
     
-    filterContainer: {
-        flex: 1,
-        padding: 32,
-        marginVertical: width * 0.20,
-        marginHorizontal: 0,
-        borderRadius: SIZES.borderRadius,
-        backgroundColor: 'transparent',
-        position: 'relative', 
-    },
 
     overlay: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(255, 255, 255, 0.5)', // Adjust opacity and color as needed
-        borderRadius: SIZES.borderRadius,
-        zIndex: 1, // Ensure the overlay is below the content
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center', 
     },
 
-    filterButtonContainer:{
-        flexDirection: 'row',
-        justifyContent: 'space-evenly' ,
-        paddingHorizontal: width * 0.01,
-        zIndex: 2,
-        margin: width * 0.10,
+
+    filterContainer: {
+        width: '90%', 
+        padding: 32,
+        borderRadius: SIZES.borderRadius,
+        backgroundColor: COLORS.neutral.White,
+        shadowColor: '#000', // Black shadow
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8, 
+        shadowRadius: 5, 
+        marginBottom: 10,
+    },
+
+    optionsContainer:{
+        flexDirection: 'row', // Items arranged in a row
+        flexWrap: 'wrap', // Wrap items to the next line if necessary
+        justifyContent: 'space-between', // Space items evenly
+        marginBottom: 5,
     },
 
     filterButtonsBottomContainer: {
@@ -74,23 +74,60 @@ const HomePageStyles = StyleSheet.create({
 
     applyButtonContainer: {
         ...individualFilterButtonContainer(COLORS.primary.Tomato),
+        width: width * 0.33, 
+        height: height * 0.06,
     },
     deselectButtonContainer: {
-        ...individualFilterButtonContainer(COLORS.neutral.Grey),
+        ...individualFilterButtonContainer(COLORS.primary.PaleBlue),
+        width: width * 0.33, 
+        height: height * 0.06,
     },
 
     onButtonContainer:{
-        ...individualFilterButtonContainer(COLORS.primary.ArgentinianBlue),
+        ...individualFilterButtonContainer(COLORS.primary.Tomato),
     },
     offButtonContainer:{
         ...individualFilterButtonContainer(COLORS.neutral.Grey),
     },
 
-    button: {
+    increaseButtonContainer:{
+        ...individualFilterButtonContainer(COLORS.primary.ArgentinianBlue),
+    },
+    decreaseButtonContainer:{
+        ...individualFilterButtonContainer(COLORS.primary.PaleBlue),
+    },
+
+    textButton: {
         color: COLORS.neutral.White,
         fontSize: SIZES.extraSmall,
         fontWeight: '500',
     },
+
+    iconButton: {
+        width: '50%', // 50% of the button's width, adjust as needed
+        height: '50%', // 50% of the button's height, adjust as needed
+        resizeMode: 'contain', // Ensures the image fits inside the button without stretching
+    },
+
+    sliderIcon:{
+        width: '10%',
+        height: '50%',
+        justifyContent: 'center',
+    },
+
+    sliderContainer:{
+        backgroundColor: COLORS.primary.Tomato,
+        height: width * 0.2,
+        width: width * 0.90,
+        shadowColor: '#000', // Black shadow
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8, 
+        shadowRadius: 5, 
+        marginBottom: 10,
+    },
+
+    
+    
 
     topContainer: {
         marginHorizontal: width * 0.03,
@@ -99,6 +136,8 @@ const HomePageStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
     },
+
+    
 });
 
 export default HomePageStyles;
