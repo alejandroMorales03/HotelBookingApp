@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native";
 import COLORS, { SIZES } from "../Constants/Constants";
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const commonTextStyles = {
     fontFamily: 'Roboto',
@@ -9,12 +9,46 @@ const commonTextStyles = {
     color: COLORS.neutral.Black,
 };
 
+const titleStyle = (fontSize, color) => ({
+    fontSize: fontSize,
+    fontFamily: 'Roboto',
+    fontWeight: '900',
+    marginBottom: height * 0.03,
+    color: color,
+    textAlign: 'center',
+});
+
 const GeneralStyles = StyleSheet.create({
     fullPageContainer: {
+        ...StyleSheet.absoluteFillObject,
         flex: 1,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 10,
         backgroundColor: COLORS.neutral.White,
         alignItems: 'center',
-        backgroundColor: '#e1ee4c',
+       // backgroundColor: '#e1ee4c',
+    },
+
+    mainTitle: {
+        ...titleStyle(SIZES.large, COLORS.neutral.White),
+    },
+
+    customMediumTitle: {
+        ...titleStyle(SIZES.medium, COLORS.neutral.White),
+    },
+    customSmallTitle:{
+        ...titleStyle(SIZES.small, COLORS.primary.Tomato),
+
+    },
+    textOverLink: {
+        ...titleStyle(SIZES.extraSmall),
+        color: COLORS.primary.Tomato,
+        fontWeight: '600',
+        marginBottom: 12,
     },
 
     userIconContainer: {
@@ -36,7 +70,7 @@ const GeneralStyles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: width * 0.03,
         width: width * 0.75, 
-        backgroundColor: '#89ee4c',
+       // backgroundColor: '#89ee4c',
        
     },
 

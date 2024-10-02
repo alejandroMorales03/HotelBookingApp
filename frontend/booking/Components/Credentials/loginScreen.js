@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, Text, TouchableWithoutFeedback, Keyboard, Fragment } from 'react-native';
+import { View, Image, Text, TouchableWithoutFeedback, Keyboard, Modal } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CredentialStyles from '../../Styles/CredentialStyles';
@@ -10,6 +10,8 @@ import Error from '../Custom/Error';
 import GeneralStyles from '../../Styles/GeneralStyles';
 import { Video } from 'expo-av';
 import { StyleSheet } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+
 
 
 
@@ -18,6 +20,8 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState('');
+  const [isModalVisible, setModalVisible] = React.useState(true); 
+  const [showMessage, setShowMessage] = React.useState(true);
 
   async function handleLogin() {
     try {
@@ -41,9 +45,38 @@ const LoginScreen = ({ navigation }) => {
     setPassword('')
   }
 
+  useFocusEffect(
+    React.useCallback(() => {
+      setShowMessage(true);
+      setModalVisible(false); 
+
+      const timer = setTimeout(() => {
+        setShowMessage(false); 
+        setModalVisible(true); 
+      }, 0); 
+
+      return () => clearTimeout(timer); 
+    }, [])
+  );
+
   return (
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      {showMessage ? (
+        <View style={GeneralStyles.fullPageContainer}>
+          
+        </View>
+      ) : (
+      <Modal
+      transparent={false}
+      visible={isModalVisible}
+      onRequestClose={() => setModalVisible(false)}
+      animationType='slide'
+  
+
+        
+
+      >
       <SafeAreaView style={CredentialStyles.fullPageContainer}>
       <Video
           source={require('../../Assets/beach.mp4')}
@@ -51,12 +84,13 @@ const LoginScreen = ({ navigation }) => {
           resizeMode="cover"
           isLooping 
           shouldPlay
+          
         />
         <View style={CredentialStyles.logoContainer}>
           <Image source={logo} style={CredentialStyles.logo} />
         </View>
         <View style={CredentialStyles.GeneralContainer}>
-          <Text style={CredentialStyles.mainTitle}>Login</Text>
+          <Text style={GeneralStyles.mainTitle}>Login</Text>
           {error? 
               <Error errorText={error} style={CredentialStyles.error} /> :
               <></>
@@ -91,18 +125,21 @@ const LoginScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={CredentialStyles.GeneralContainer}>
-          <Text style={CredentialStyles.textOverLink}>Don't have an account?</Text>
+          <Text style={GeneralStyles.textOverLink}>Don't have an account?</Text>
           <TouchableOpacity onPress={() => {
-            navigation.navigate('Sign Up'),
-            resetFields()}
-          }>
+            setShowMessage(true);
+            navigation.navigate('Sign Up');
+            resetFields();
+          }}>
             <Text style={CredentialStyles.linkText}>Sign Up</Text>
           </TouchableOpacity>
         
         </View>
 
       </SafeAreaView>
-   </TouchableWithoutFeedback>
+      </Modal>)}
+      </TouchableWithoutFeedback>
+   
   )
 
 };

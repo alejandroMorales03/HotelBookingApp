@@ -19,15 +19,6 @@ const baseTextInputStyle = {
 };
 
 
-const titleStyle = (fontSize) => ({
-    fontSize: fontSize,
-    fontFamily: 'Roboto',
-    fontWeight: '900',
-    marginBottom: height * 0.03,
-    color: COLORS.neutral.White,
-    textAlign: 'center',
-});
-
 const CredentialStyles = StyleSheet.create({
 
     fullPageContainer:{
@@ -58,13 +49,7 @@ const CredentialStyles = StyleSheet.create({
         marginVertical: height * 0.01,
     },
 
-    mainTitle: {
-        ...titleStyle(SIZES.large),
-    },
-
-    customMediumTitle: {
-        ...titleStyle(SIZES.medium),
-    },
+   
 
     complimentaryText: {
         fontSize: SIZES.extraSmall,
@@ -101,13 +86,7 @@ const CredentialStyles = StyleSheet.create({
         color: COLORS.neutral.White,
         fontFamily: 'Roboto',
         fontWeight: 'bold',
-    },
-
-    textOverLink: {
-        ...titleStyle(SIZES.extraSmall),
-        color: COLORS.primary.Tomato,
-        fontWeight: '600',
-        marginBottom: SIZES.margin,
+        padding: 7,
     },
 
     linkText: {

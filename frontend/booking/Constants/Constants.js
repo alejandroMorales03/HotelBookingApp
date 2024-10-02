@@ -6,6 +6,7 @@ const COLORS = {
         TigersEye: '#B66D0D',
         HuyandiYellow: '#FBB13C',
         Tomato: '#FE6847',
+        Bittersweet: '#ff7a5c'
     },
     neutral: {
         White: '#FFFFFF',
@@ -20,15 +21,12 @@ const COLORS = {
 };
 
 export const SIZES = {
-    FORM_WIDTH: '80%',     // Form width as a percentage
     extraSmall: 16,        // Font sizes as numbers
     small: 20,
     medium: 30,
     large: 40,
     extraLarge: 50,
     borderRadius: 12,      // Added common border radius size
-    padding: 8,            // Padding value for consistency
-    margin: 16,            // Standard margin
 };
 
 export default COLORS;
