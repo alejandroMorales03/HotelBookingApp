@@ -18,6 +18,7 @@ const Home = ({ navigation }) => {
     const [error, setError] = React.useState("");
     const [isModalVisible, setModalVisible] = React.useState(false);
     const [roomModal, setRoomModalVisible] = React.useState(false);
+   
 
    
 
@@ -41,7 +42,10 @@ const Home = ({ navigation }) => {
       setError(err.response ? err.response.data.message : "Search failed. Please try again.");
     }
     };
-
+    const directToRoom = (hotelName) => {
+        
+        navigation.navigate("RoomScreen", { data: hotelName }); //send name of selected hotel to RoomScreen to be queried
+    }
    
 
   return (
@@ -96,7 +100,7 @@ const Home = ({ navigation }) => {
                               </View>
                               <br></br>
                               <View style={{ flex: 1 }} />
-                              <Button style={HomePageStyles.hotelButton} onClick={() => setRoomModalVisible(true)}>Select a Room</Button>
+                              <Button style={HomePageStyles.hotelButton} onClick={() => directToRoom(item.hotel_name)}>Select a Room</Button>
 
                           </Card.Body>
                       </Card>
@@ -143,7 +147,7 @@ const Home = ({ navigation }) => {
                               </View>
                               <br></br>
                               <View style={{ flex: 1 }} />
-                                  <Button style={HomePageStyles.hotelButton} onClick={() => setRoomModalVisible(true)}>Book Now</Button>
+                                  <Button style={HomePageStyles.hotelButton} onClick={() => directToRoom(item.hotel_name)}>Book Now</Button>
 
                           </Card.Body>
                       </Card>

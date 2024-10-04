@@ -5,9 +5,11 @@ import COLORS, { SIZES } from "../Constants/Constants";
 const { width, height } = Dimensions.get('window');
 
 const individualFilterButtonContainer = (color) => ({
+    //width = height = *0.2, 
+
     backgroundColor: color,
-    width: width * 0.2, // Adjust to make the button square
-    height: width * 0.2, // Same as width to keep it square
+    width: width * 0.1, // Adjust to make the button square
+    height: width * 0.1, // Same as width to keep it square 
     alignItems: 'center', 
     justifyContent: 'center', 
     marginHorizontal: 5, 
@@ -47,7 +49,8 @@ const HomePageStyles = StyleSheet.create({
 
 
     filterContainer: {
-        width: '90%', 
+        width: '60%',
+        height: '80%',
         padding: 32,
         borderRadius: SIZES.borderRadius,
         backgroundColor: COLORS.neutral.White,
@@ -63,6 +66,7 @@ const HomePageStyles = StyleSheet.create({
         flexWrap: 'wrap', // Wrap items to the next line if necessary
         justifyContent: 'space-between', // Space items evenly
         marginBottom: 5,
+       
     },
 
     filterButtonsBottomContainer: {
@@ -91,11 +95,12 @@ const HomePageStyles = StyleSheet.create({
     },
 
     numericalSettingsContainer: {
+        //width = 0.5, height = 0.3 or 0.2
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between', // Ensures equal space between buttons and number
-        width: width * 0.5, // Adjust to fit your design
-        height: width * 0.2,
+        width: width * 0.2, // Adjust to fit your design
+        height: width * 0.1,
         paddingHorizontal: 10, // Adjust padding as necessary
         borderColor: COLORS.primary.Tomato,
         borderWidth: 1.5,
@@ -131,11 +136,6 @@ const HomePageStyles = StyleSheet.create({
         resizeMode: 'contain', // Ensures the image fits inside the button without stretching
     },
 
-    
-
-    
-    
-
     topContainer: {
         marginHorizontal: width * 0.03,
         marginVertical: height * 0.01,
@@ -144,6 +144,7 @@ const HomePageStyles = StyleSheet.create({
         justifyContent: 'space-between',
         backgroundColor: COLORS.neutral.White,
     },
+
     bottomContainer: {
         // flex: 1, // Makes the container take up the full available space\
         width: width * 0.9,

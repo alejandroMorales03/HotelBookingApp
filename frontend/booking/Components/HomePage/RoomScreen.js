@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { Modal, TouchableOpacity, Text, View, Image } from "react-native";
+import { Modal, TouchableOpacity, Text, View, Image, FlatList } from "react-native";
 import HomePageStyles from "../../Styles/HomePageStyles";
+import GeneralStyles from "../../Styles/GeneralStyles";
 import wifiIcon from "../../Assets/wifi.png";
 import minibarIcon from "../../Assets/minibar.png";
 import serviceIcon from "../../Assets/service.png";
@@ -11,6 +12,9 @@ import guestsIcon from "../../Assets/guests.png";
 import increaseIcon from "../../Assets/increase.png";
 import decreaseIcon from "../../Assets/decrease.png";
 import bedIcon from "../../Assets/bed.png";
+import sampleImage from '../../HotelPictures/item-3.jpeg';
+import { Card, Button } from 'react-bootstrap/';
+
 
 const RoomScreen = ({ visible, onClose }) => {
   const [wifi, setWifi] = React.useState(false);
@@ -22,6 +26,12 @@ const RoomScreen = ({ visible, onClose }) => {
   const [isAnyFilterActive, setIsAnyFilterActive] = React.useState(false);
   const [guests, setGuests] = React.useState(1);
   const [beds, setBeds] = React.useState(1);
+
+  //Consts made by Adam
+    const [error, setError] = React.useState("");
+    const [filterModal, setFilterModal] = React.useState(true);
+    const [rooms, setRooms] = React.useState([]);
+    //const { data } = route.params; //catches hotel name sent from Home.js... I think 
 
   useEffect(() => {
     if (
@@ -53,22 +63,36 @@ const RoomScreen = ({ visible, onClose }) => {
     setBalcony(false);
     setGuests(1);
     setBeds(1);
-  };
-
+    };
+    let hotelName = "Sunshine Hotel";
   async function RoomFilterHandler() {
     try {
-      const response = await axios.post(
-        `http://10.108.80.30:8000/api/auth/authentication`,
-        {
-          wifi,
-          minibar,
-          service,
-          tv,
-          bathtub,
-          balcony,
-          guests,
-        }
-      );
+        const response = await axios.post(
+            `http://192.168.1.214:8000/api/user-home/rooms-list`,
+            {
+                /*
+                hotelName, //create a variable in Home.js and import it for here, so it shows rooms of the selected hotel
+                beds,
+                bathtub,
+                tv,
+                guests,
+                minibar,
+                wifi,
+                roomType,
+                balcony
+                //-----
+                */
+                wifi,
+                minibar,
+                service,
+                tv,
+                bathtub,
+                balcony,
+                guests,
+                
+            },
+        );
+        setRooms(response.data);
 
       navigation.navigate("Home");
       resetFields();
@@ -85,8 +109,12 @@ const RoomScreen = ({ visible, onClose }) => {
     }
   }
 
-  return (
-    <Modal visible={visible} transparent={true} animationType="slide">
+    return (
+
+        <View stlye={HomePageStyles.overlay}>
+            <Modal visible={filterModal} transparent={true} animationType="slide" onRequestClose={() => {
+                setFilterModal(false);
+            }} >
       <View style={HomePageStyles.overlay}>
         <View style={HomePageStyles.filterContainer}>
           <Text style={HomePageStyles.homeSmallTitle}>
@@ -229,9 +257,9 @@ const RoomScreen = ({ visible, onClose }) => {
             style={HomePageStyles.applyButtonContainer}
             onPress={async () => {
               if (isAnyFilterActive) {
-                await RoomFilterHandler();
+                 await RoomFilterHandler();
               }
-              onClose(); 
+                setFilterModal(false);
             }}
           >
             <Text style={HomePageStyles.textButton}>
@@ -240,7 +268,49 @@ const RoomScreen = ({ visible, onClose }) => {
           </TouchableOpacity>
         </View>
       </View>
-    </Modal>
+            </Modal>
+
+            <View style={HomePageStyles.modalContainer}>
+                <View style={HomePageStyles.modalContent}>
+                    <Text style={HomePageStyles.modalTitle}>Select a Room</Text>
+                    <FlatList
+                        style={GeneralStyles.ScrollView}
+                        data={rooms}
+                        horizontal={true}
+                        keyExtractor={(item) => item.room_num}
+                       // keyExtractor={(item) => item.hotel_name}
+                        renderItem={({ item }) => (
+                            <Card className="border border-danger rounded mx-4" style={HomePageStyles.card}>
+                                <Image source={sampleImage} style={HomePageStyles.image} />
+                                <Card.Body>
+                                    <Card.Title>{item.hotel_name}</Card.Title>
+                                    <View style={HomePageStyles.bulletList}>
+                                        <View style={HomePageStyles.row}>
+                                            <View style={HomePageStyles.column}>
+                                                <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.has_balcony ? "Has a pool" : "No pool"}</Text>
+                                                <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.has_tv ? "Has Gym" : "No Gym"}</Text>
+                                                <Text style={HomePageStyles.bulletPoint}>{item.num_beds}</Text>
+                                            </View>
+                                            <View style={HomePageStyles.column}>
+                                                <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.guest_capcacity}</Text>
+                                                <Text style={HomePageStyles.bulletPoint}>{"\u2022"} { item.num_beds }</Text>
+                                            </View>
+                                        </View>
+                                    </View>
+                                    <br></br>
+                                    <View style={{ flex: 1 }} />
+                                    <Button style={HomePageStyles.hotelButton} onClick={() => setRoomModalVisible(true)}>Book Now</Button>
+
+                                </Card.Body>
+                            </Card>
+                        )}
+                    />
+
+                </View>
+            </View>
+    
+    </View>
+    
   );
 };
 
