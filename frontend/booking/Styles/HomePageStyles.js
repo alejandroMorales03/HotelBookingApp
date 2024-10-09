@@ -157,15 +157,35 @@ const HomePageStyles = StyleSheet.create({
         borderWidth: 3, // Adjust the thickness of the border
         borderStyle: 'solid',
     },
+    buttonFilter: {
+        width: '5rem',
+        height: '5rem',
+        borderRadius: width * 0.075,
+        overflow: 'hidden',
+        backgroundColor: COLORS.neutral.Transparent,
+        
+    },
     bulletPoint: {
         fontSize: 18,
         fontWeight: 400,
         color: '#000', // Customize color
         lineHeight: 25, // Spacing between lines
     },
-    card: {
+    cardHotel: {
         width: '24rem',
-        elevation: 4,
+        elevation: 20,
+        backgroundColor: COLORS.primary.Tomato,
+    },
+    shadowProp: {
+        shadowColor: '#171717',
+        shadowOffset: { width: 2, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+    },
+    cardRoom: {
+        width: '18rem',
+        elevation: 20,
+        backgroundColor: COLORS.primary.Tomato,
     },
     closeButton: {
         height: 25,
@@ -178,8 +198,6 @@ const HomePageStyles = StyleSheet.create({
         borderColor: COLORS.neutral.Black,
         color: COLORS.neutral.Black, //color of  text
         fontSize: SIZES.extraSmall,
-       
-
     },
     column: {
         flex: 1,
@@ -198,13 +216,32 @@ const HomePageStyles = StyleSheet.create({
         backgroundColor: "#3392DF",
         color: 'white',
     },
-    image: {
-        width: '382px',  // or specify specific width and height
-        height: '180px',
+    elevation:{
+            elevation: 20,
+        //shadowColor: '#52006A',
+        shadowColor: '#171717',
+    },
+    filterIconContainer: {
+        marginLeft: width * 0.02,
+    },
+    imageHotel: {
+        width: '372px',  // or specify specific width and height
+        height: '165px',
         borderStyle: 'solid',
         borderRadius: 5,
-        //marginLeft: 40,
         resizeMode: 'cover', // or 'contain' depending on how you want the image to fit
+        position: 'relative',
+        transform: 'translate(1.5%, 3%)',
+    },
+    imageRoom: {
+        width: '275px',  // or specify specific width and height
+        height: '170px',
+        borderStyle: 'solid',
+        borderRadius: 8,
+        
+        resizeMode: 'cover', // or 'contain' depending on how you want the image to fit
+        position: 'relative',
+        transform: 'translate(2%, 2%)',
     },
     modalContainer: {
         position: 'absolute',

@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 
 const CredentialsStack = () => (
   <Stack.Navigator
-    initialRouteName="Room Screen"
+    initialRouteName="Home"
     screenOptions={{
       headerShown: false,
       ...TransitionPresets.SlideFromRightIOS,

@@ -74,7 +74,7 @@ const Home = ({ navigation }) => {
       </View>
 
 
-       <View style={HomePageStyles.bottomContainer}>
+       <View style={[HomePageStyles.bottomContainer, HomePageStyles.shadowProp]}>
               <Text style={HomePageStyles.header}>Hotels in {query}</Text>
               <FlatList
                   style={GeneralStyles.ScrollView}
@@ -82,8 +82,8 @@ const Home = ({ navigation }) => {
                   horizontal={true}
                   keyExtractor={(item) => item.hotel_name}
                   renderItem={({ item }) => (
-                      <Card className="border border-danger rounded mx-4" style={HomePageStyles.card}>
-                          <Image source={sampleImage} style={HomePageStyles.image} />
+                      <Card className="border border-danger rounded mx-4" style={HomePageStyles.cardHotel}>
+                          <Image source={sampleImage} style={HomePageStyles.imageHotel} />
                           <Card.Body>
                               <Card.Title>{item.hotel_name}</Card.Title>
                               <View style={HomePageStyles.bulletList}>
@@ -108,6 +108,7 @@ const Home = ({ navigation }) => {
               />
           </View>
 
+          {/* Delete following Modal for room display, content moved to RoomScreen.js*/ }
           
      <Modal
         animationType="slide"
