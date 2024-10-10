@@ -8,8 +8,8 @@ const individualFilterButtonContainer = (color) => ({
     //width = height = *0.2, 
 
     backgroundColor: color,
-    width: width * 0.1, // Adjust to make the button square
-    height: width * 0.1, // Same as width to keep it square 
+    width: width * 0.2, // Adjust to make the button square
+    height: width * 0.2, // Same as width to keep it square 
     alignItems: 'center', 
     justifyContent: 'center', 
     marginHorizontal: 5, 
@@ -49,7 +49,7 @@ const HomePageStyles = StyleSheet.create({
 
 
     filterContainer: {
-        width: '60%',
+        width: '90%',
         height: '80%',
         padding: 32,
         borderRadius: SIZES.borderRadius,
