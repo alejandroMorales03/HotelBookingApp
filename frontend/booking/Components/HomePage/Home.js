@@ -26,7 +26,7 @@ const Home = ({ navigation }) => {
     setError("");
     try {
       if (text.length > 1) {
-          const response = await axios.get( "http://192.168.1.214:8000/api/user-home/hotel-search",
+          const response = await axios.get( "http://localhost:8000/api/user-home/hotel-search",
 
           {
             params: { text },

@@ -58,7 +58,7 @@ const RoomScreen = ({ visible, onClose }) => {
   async function RoomFilterHandler() {
     try {
       const response = await axios.post(
-        `http://10.108.80.30:8000/api/auth/authentication`,
+        `http://localhost:8000/api/auth/authentication`,
         {
           wifi,
           minibar,

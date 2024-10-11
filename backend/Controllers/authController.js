@@ -6,7 +6,6 @@ import { Op } from "sequelize";
 import { checkPassword } from "../Utils/userUtils.js";
 
 
-
 export const handleSignUp = async (req, res) => {
     const { email, firstName, lastName, password, confirmedPassword } = req.body;
 
