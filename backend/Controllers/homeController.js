@@ -28,12 +28,13 @@ export const roomsLookupHandler = async (req, res) => {
     const { 
         hotelName,
         numBeds,
-        numBaths,
-        numTv,
+        hasBathtub,
+        hasTV,
         guestCapacity,
         hasMinibar,
         hasWifi,
-        roomType
+        roomType,
+        hasBalcony
     } = req.query;  
 
     try {
@@ -42,12 +43,13 @@ export const roomsLookupHandler = async (req, res) => {
                 [Op.and]: [
                     { hotel_name: { [Op.iLike]: `%${hotelName}%` } },
                     numBeds ? { num_beds: `${numBeds}` } : null,
-                    numBaths ? { num_baths: `${numBaths}` } : null,
-                    numTv ? { num_tv: `${numTv}` } : null,
+                    hasBathtub ? { has_bathtub: `${hasBathtub}` } : null,
+                    hasTV ? { has_tv: `${hasTV}` } : null,
                     guestCapacity ? { guest_capacity: {[Op.gte]: `${guestCapacity}`} } : null,
                     hasMinibar ? { has_minibar: `${hasMinibar}` } : null,
                     hasWifi ? { has_wifi: `${hasWifi}` } : null,
-                    roomType ? { room_type: `${roomType}` } : null
+                    roomType ? { room_type: `${roomType}` } : null, 
+                    hasBalcony ? {has_balcony: `${hasBalcony}`} : null
                 ]
             }
         });
@@ -58,12 +60,13 @@ export const roomsLookupHandler = async (req, res) => {
             const room = roomItem.dataValues;
             if(!filteredRooms.find(filteredRoom => 
                 (filteredRoom["num_beds"] === room["num_beds"]) &&
-                (filteredRoom["num_baths"] === room["num_baths"]) &&
-                (filteredRoom["num_tv"] === room["num_tv"]) &&
+                (filteredRoom["has_bathtub"] === room["has_bathtub"]) &&
+                (filteredRoom["has_tv"] === room["has_tv"]) &&
                 (filteredRoom["guest_capacity"] === room["guest_capacity"]) &&
                 (filteredRoom["has_minibar"] === room["has_minibar"]) &&
                 (filteredRoom["has_wifi"] === room["has_wifi"]) &&
-                (filteredRoom["room_type"] === room["room_type"])
+                (filteredRoom["room_type"] === room["room_type"]) &&
+                (filterRoom["has_balcony"] === room["has_balcony"])
             )){
                 filteredRooms.push(room);
             }
