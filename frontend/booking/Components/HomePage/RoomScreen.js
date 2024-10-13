@@ -16,6 +16,8 @@ import sampleImage from '../../HotelPictures/item-3.jpeg';
 import roomSample from '../../HotelPictures/room-suite.jpg';
 import filter from '../../Assets/filter.jpg';
 import { Card, Button } from 'react-bootstrap/';
+import axios from "axios";
+
 
 
 const RoomScreen = ({ visible, onClose }) => {
@@ -28,12 +30,13 @@ const RoomScreen = ({ visible, onClose }) => {
   const [isAnyFilterActive, setIsAnyFilterActive] = React.useState(false);
   const [guests, setGuests] = React.useState(1);
   const [beds, setBeds] = React.useState(1);
-
-  //Consts made by Adam
+   const [roomID, setRoomID] = React.useState(1);
+    const [roomType, setRoomType] = React.useState("");
     const [error, setError] = React.useState("");
     const [filterModal, setFilterModal] = React.useState(true);
     const [rooms, setRooms] = React.useState([]);
-    //const { data } = route.params; //catches hotel name sent from const directToRooms in Home.js, once navigation is set up... I think 
+    const [query, setQuery] = React.useState("");
+
 
   useEffect(() => {
     if (
@@ -67,122 +70,46 @@ const RoomScreen = ({ visible, onClose }) => {
     setBeds(1);
     };
     let hotelName = "Sunshine Hotel";
-  async function RoomFilterHandler() {
-    try {
-        const response = await axios.post(
-            `http://192.168.1.214:8000/api/user-home/rooms-list`,
-            {
-                
-                hotelName, //create a variable in Home.js and import it for here, so it shows rooms of the selected hotel
-                beds,
-                bathtub,
-                tv,
-                guests,
-                minibar,
-                wifi,
-                roomType,
-                balcony
-                //-----
-                /*
-                wifi,
-                minibar,
-                service,
-                tv,
-                bathtub,
-                balcony,
-                guests,
-                */
-                
-            },
-        );
-        setRooms(response.data);
+    const RoomFilterHandler = async (hotelName, beds, bathtub, tv, guests, minibar, wifi, roomType, balcony) => { 
+    
 
-      navigation.navigate("Home");
-      resetFields();
-    } catch (err) {
-      console.error(
-        "Error during room filtering:",
-        err.response ? err.response.data.message : err.message
-      );
-      setError(
-        err.response
-          ? err.response.data.message
-          : "Room filtering failed. Please try again."
-      );
+        try {
+            const response = await axios.get(
+            
+                `http://192.168.1.214:8000/api/user-home/rooms-list`,
+                {
+                    params: {
+                        hotelName, //create a variable in Home.js and import it for here, so it shows rooms of the selected hotel
+                        beds,
+                        bathtub,
+                        tv,
+                        guests,
+                        minibar,
+                        wifi,
+                        roomType,
+                        balcony
+                    }
+                
+                },
+            );
+            console.log("response assigned"),
+            setRooms(response.data);
+         // navigation.navigate("Home");
+          //resetFields();
+        } catch (err) {
+          console.error(
+            "Error during room filtering:",
+            err.response ? err.response.data.message : err.message
+          );
+          setError(
+            err.response
+              ? err.response.data.message
+              : "Room filtering failed. Please try again."
+          );
+            }
+        console.log("end of filterHandler");
     }
-    }
-    const sample = [{
-        title: "rooms",
-        data: [
-            {
-                room_id: 1,
-                beds: 3,
-                bathtub: true,
-                tv: true,
-                guests: 6,
-                minibar: true,
-                wifi: true,
-                roomType: "suite",
-                balcony: true
-            },
-            {
-                room_id: 2,
-                beds: 3,
-                bathtub: true,
-                tv: true,
-                guests: 6,
-                minibar: true,
-                wifi: true,
-                roomType: "suite",
-                balcony: true
-            },
-            {
-                room_id: 3,
-                beds: 3,
-                bathtub: true,
-                tv: true,
-                guests: 6,
-                minibar: true,
-                wifi: true,
-                roomType: "suite",
-                balcony: true
-            },
-            {
-                room_id: 4,
-                beds: 3,
-                bathtub: true,
-                tv: true,
-                guests: 6,
-                minibar: true,
-                wifi: true,
-                roomType: "suite",
-                balcony: true
-            },
-            {
-                room_id: 5,
-                beds: 4,
-                bathtub: true,
-                tv: true,
-                guests: 8,
-                minibar: true,
-                wifi: true,
-                roomType: "Deluxe suite",
-                balcony: true
-            },
-            {
-                room_id: 6,
-                beds: 2,
-                bathtub: true,
-                tv: true,
-                guests: 4,
-                minibar: true,
-                wifi: true,
-                roomType: "Twin",
-                balcony: true
-            },
-        ]
-    }];
-    console.log(sample[0].data);
+
     return (
 
         <View stlye={HomePageStyles.overlay}>
@@ -336,7 +263,7 @@ const RoomScreen = ({ visible, onClose }) => {
             style={HomePageStyles.applyButtonContainer}
             onPress={async () => {
               if (isAnyFilterActive) {
-                 await RoomFilterHandler();
+                  await RoomFilterHandler(hotelName, beds, bathtub, tv, guests, minibar, wifi, roomType, balcony);
               }
                 setFilterModal(false);
             }}
@@ -348,13 +275,14 @@ const RoomScreen = ({ visible, onClose }) => {
         </View>
       </View>
             </Modal>
+
             {/*---------Room Info Display-------------- */ }
             <View style={HomePageStyles.modalContainer}>
                 <View style={HomePageStyles.modalContent}>
                     <Text style={HomePageStyles.modalTitle}>Select a Room</Text>
                     <FlatList
                         style={GeneralStyles.ScrollView}
-                        data={sample[0].data}
+                        data={rooms}
                         horizontal={true}
                         keyExtractor={(item) => item.room_id}
                         renderItem={({ item }) => (
@@ -364,13 +292,14 @@ const RoomScreen = ({ visible, onClose }) => {
                                     <Card.Title>{item.roomType}</Card.Title>
                                     <View style={HomePageStyles.bulletList}>                                       
                                         <View style={HomePageStyles.column}>
-                                                <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.beds} Beds </Text>
-                                                <Text style={HomePageStyles.bulletPoint}>{"\u2022"} Sleeps {item.guests} </Text>
-                                                <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.wifi ? "Free Wifi" : "Wifi Not Included"}</Text>
-                                                <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.balcony ? "Has Balcony" : "No Balcony"}</Text>
-                                                <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.tv ? "Television" : "No TV"}</Text>
-                                                <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.bathtub ? "Includes Bathtub" : "No Bathtub"}</Text>
-                                            </View>
+                                            <Text stlle={HomePageStyles.bulletPoint}>{'\u2022'} {item.room_num} room number </Text>
+                                            <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.num_beds} Beds </Text>
+                                            <Text style={HomePageStyles.bulletPoint}>{"\u2022"} Sleeps {item.guest_capacity} </Text>
+                                            <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.has_wifi ? "Free Wifi" : "Wifi Not Included"}</Text>
+                                            <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.has_balcony ? "Has Balcony" : "No Balcony"}</Text>
+                                            <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.has_tv? "Television" : "No TV"}</Text>
+                                            <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.has_bathtub ? "Includes Bathtub" : "No Bathtub"}</Text>
+                                         </View>
                                     </View>
                                     <br></br>
                                     <View style={{ flex: 1 }} />

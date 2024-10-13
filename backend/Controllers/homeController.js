@@ -25,7 +25,9 @@ export const hotelLookupHandler = async (req, res) => {
 };
 
 export const roomsLookupHandler = async (req, res) => {
+    console.log("in loopkuphandler");
     const { 
+        roomID,
         hotelName,
         numBeds,
         hasBathtub,
@@ -38,18 +40,35 @@ export const roomsLookupHandler = async (req, res) => {
     } = req.query;  
 
     try {
+        //const rooms = await Room.findAll({
+        //    where: {
+        //        [Op.and]: [
+        //            { hotel_name: { [Op.iLike]: `%${hotelName}%` } },
+        //            roomNum ? {room_num : `${roomNum}` } : null,
+        //            numBeds ? { num_beds: `${numBeds}` } : null,
+        //            hasBathtub ? { has_bathtub: `${hasBathtub}` } : null,
+        //            hasTV ? { has_tv: `${hasTV}` } : null,
+        //            guestCapacity ? { guest_capacity: {[Op.gte]: `${guestCapacity}`} } : null,
+        //            hasMinibar ? { has_minibar: `${hasMinibar}` } : null,
+        //            hasWifi ? { has_wifi: `${hasWifi}` } : null,
+        //            roomType ? { room_type: `${roomType}` } : null,
+        //            hasBalcony ? {has_balcony: `${hasBalcony}`} : null
+        //        ]
+       // roomID ? { room_ID: room_id } : null,
+        //    }
+        //});
         const rooms = await Room.findAll({
             where: {
                 [Op.and]: [
                     { hotel_name: { [Op.iLike]: `%${hotelName}%` } },
-                    numBeds ? { num_beds: `${numBeds}` } : null,
-                    hasBathtub ? { has_bathtub: `${hasBathtub}` } : null,
-                    hasTV ? { has_tv: `${hasTV}` } : null,
-                    guestCapacity ? { guest_capacity: {[Op.gte]: `${guestCapacity}`} } : null,
-                    hasMinibar ? { has_minibar: `${hasMinibar}` } : null,
-                    hasWifi ? { has_wifi: `${hasWifi}` } : null,
-                    roomType ? { room_type: `${roomType}` } : null, 
-                    hasBalcony ? {has_balcony: `${hasBalcony}`} : null
+                    numBeds ? { num_beds: { [Op.gte]: numBeds } } : null,
+                    hasBathtub ? { has_bathtub: hasBathtub } : null,
+                    hasTV ? { has_tv: hasTv } : null,
+                    guestCapacity ? { guest_capacity: { [Op.gte]: guestCapacity } } : null,
+                    hasMinibar ? { has_minibar: hasMinibar } : null,
+                    hasWifi ? { has_wifi: hasWifi } : null,
+                    roomType ? { room_type: `${roomType}` } : null,
+                    hasBalcony ? { has_balcony: hasBalcony } : null
                 ]
             }
         });
@@ -58,7 +77,7 @@ export const roomsLookupHandler = async (req, res) => {
         const filteredRooms = [];
         for (const roomItem of rooms) {
             const room = roomItem.dataValues;
-            if(!filteredRooms.find(filteredRoom => 
+            if (!filteredRooms.find(filteredRoom =>
                 (filteredRoom["num_beds"] === room["num_beds"]) &&
                 (filteredRoom["has_bathtub"] === room["has_bathtub"]) &&
                 (filteredRoom["has_tv"] === room["has_tv"]) &&
@@ -66,7 +85,8 @@ export const roomsLookupHandler = async (req, res) => {
                 (filteredRoom["has_minibar"] === room["has_minibar"]) &&
                 (filteredRoom["has_wifi"] === room["has_wifi"]) &&
                 (filteredRoom["room_type"] === room["room_type"]) &&
-                (filterRoom["has_balcony"] === room["has_balcony"])
+                (filteredRoom["has_balcony"] === room["has_balcony"])
+               
             )){
                 filteredRooms.push(room);
             }
@@ -76,4 +96,6 @@ export const roomsLookupHandler = async (req, res) => {
         console.error('Error looking up hotels:', error);
         return res.status(500).json({ message: 'Error looking up rooms.' });
     }
+    console.log("end loopkuphandler");
+
 };
