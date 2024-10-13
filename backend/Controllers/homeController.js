@@ -61,14 +61,14 @@ export const roomsLookupHandler = async (req, res) => {
             where: {
                 [Op.and]: [
                     { hotel_name: { [Op.iLike]: `%${hotelName}%` } },
-                    numBeds ? { num_beds: { [Op.gte]: numBeds } } : null,
-                    hasBathtub ? { has_bathtub: hasBathtub } : null,
-                    hasTV ? { has_tv: hasTv } : null,
-                    guestCapacity ? { guest_capacity: { [Op.gte]: guestCapacity } } : null,
-                    hasMinibar ? { has_minibar: hasMinibar } : null,
-                    hasWifi ? { has_wifi: hasWifi } : null,
+                    numBeds ? { num_beds: { [Op.gte]: `${numBeds}` } } : null,
+                    hasBathtub ? { has_bathtub: `${hasBathtub}` } : null,
+                    hasTV ? { has_tv: `${hasTV}` } : null,
+                    guestCapacity ? { guest_capacity: { [Op.gte]: `${guestCapacity}` } } : null,
+                    hasMinibar ? { has_minibar: `${hasMinibar}` } : null,
+                    hasWifi ? { has_wifi: `${hasWifi}` } : null,
                     roomType ? { room_type: `${roomType}` } : null,
-                    hasBalcony ? { has_balcony: hasBalcony } : null
+                    hasBalcony ? { has_balcony: `${hasBalcony}` } : null
                 ]
             }
         });

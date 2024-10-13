@@ -80,14 +80,14 @@ const RoomScreen = ({ visible, onClose }) => {
                 {
                     params: {
                         hotelName, //create a variable in Home.js and import it for here, so it shows rooms of the selected hotel
-                        beds,
-                        bathtub,
-                        tv,
-                        guests,
-                        minibar,
-                        wifi,
-                        roomType,
-                        balcony
+                        numBeds: beds,
+                        hasBathtub: bathtub ? bathtub : null,
+                        hasTV: tv ? tv : null,
+                        guestCapacity: guests,
+                        hasMinibar: minibar ? minibar : null,
+                        hasWifi: wifi ? wifi : null,
+                        roomType: roomType == "" ? null : roomType,
+                        hasBalcony: balcony ? balcony : null
                     }
                 
                 },
