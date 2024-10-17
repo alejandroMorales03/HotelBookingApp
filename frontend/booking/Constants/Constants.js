@@ -4,7 +4,8 @@ const COLORS = {
         ArgentinianBlue: '#57B8FF',
         Tomato: '#FE6847',
         Green: '#2BF38B',
-        PaleBlue: '#B0C4DE'
+        PaleBlue: '#B0C4DE',
+        Orange: "#EC5113"
     },
     neutral: {
         White: '#FFFFFF',

@@ -1,6 +1,9 @@
 import React from "react";
-import { View, Text } from "react-native";
 import { useSelector } from "react-redux";
+
+import { View, Text } from "react-native";
+import { Button } from 'react-bootstrap/';
+
 
 const MyAccount = ({ navigation }) => {
 
@@ -16,16 +19,19 @@ const MyAccount = ({ navigation }) => {
     return (
         <View>
             <Text>
+                My Account
+            </Text>
+            <Text>
                 Name: {name}
             </Text>
             <Text>
                 Email: {email}
             </Text>
-            <Text 
+            <Button 
                 onClick={() => navigation.navigate('Change Password')}
             >
                 Change Password
-            </Text>
+            </Button>
         </View>
     );
 };

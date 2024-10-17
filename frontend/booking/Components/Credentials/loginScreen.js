@@ -30,10 +30,10 @@ const LoginScreen = ({ navigation }) => {
         password,
       });
 
-      console.log("handleLogin response", response);
+      const { data } = response;
       
       dispatch(setIsAuthenticated(true));
-      dispatch(setCustomer({firstName: "Sofia", lastName: "Test", email: email}));      
+      dispatch(setCustomer({...data.data}));      
 
       navigation.navigate('Home');
       resetFields();

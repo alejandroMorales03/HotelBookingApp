@@ -14,16 +14,23 @@ const NavigationBar = (props) => {
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
-        <Image source={logo} style={NavigationStyles.Icon} />
+        <View style={NavigationStyles.flexContainer}>
+          <View style={NavigationStyles.userIconContainer}>
+            <Image source={logo} style={NavigationStyles.Icon} />
+          </View>
+        </View>
         <DrawerItemList {...props} />
-        <Button 
-          onClick={() => {
-            dispatch(setIsAuthenticated(false));
-            dispatch(setCustomer({email: null}));
-          }}
-        >
-          Signout
-        </Button>
+        <View style={NavigationStyles.flexContainer}>
+          <Button 
+            onClick={() => {
+              dispatch(setIsAuthenticated(false));
+              dispatch(setCustomer({email: null}));
+            }}
+            style={NavigationStyles.button}
+          >
+            Signout
+          </Button>
+        </View>
       </DrawerContentScrollView>
     </View>
   );

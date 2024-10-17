@@ -184,9 +184,15 @@ export const handleAuthentication = async (req, res) => {
         
         const isMatch = comparePasswords(password, existingUser.password);
 
-
         if (isMatch) {
-            return res.status(200).json({ message: 'Login successful' });
+            return res.status(200).json({ 
+                message: 'Login successful', 
+                data: {
+                    firstName: existingUser.first_name, 
+                    lastName: existingUser.last_name, 
+                    email: existingUser.email
+                } 
+            });
         } else {
             console.log('Password does not match');
             return res.status(401).json({ message: 'Invalid email or password' });
