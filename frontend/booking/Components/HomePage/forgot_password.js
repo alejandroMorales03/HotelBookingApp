@@ -6,7 +6,7 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 const ForgotPassword = () => {
   
-  const [email, setEmail] = useState('');
+  const [email, setEmail] =  useState('');
 
   const [error, setError] = useState('');
 
