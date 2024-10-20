@@ -124,7 +124,7 @@ const LoginScreen = ({ navigation }) => {
             <Text style={CredentialStyles.button}>Login</Text>
           </TouchableOpacity>
         </View>
-        <View style={CredentialStyles.GeneralContainer}>
+        <View style={GeneralStyles.GeneralContainer}>
           <Text style={GeneralStyles.textOverLink}>Don't have an account?</Text>
           <TouchableOpacity onPress={() => {
             setShowMessage(true);

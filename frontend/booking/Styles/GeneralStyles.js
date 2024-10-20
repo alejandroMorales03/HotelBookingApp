@@ -30,6 +30,7 @@ const GeneralStyles = StyleSheet.create({
         zIndex: 10,
         backgroundColor: COLORS.neutral.White,
         alignItems: 'center',
+       // backgroundColor: '#e1ee4c',
     },
 
     mainTitle: {
@@ -40,7 +41,7 @@ const GeneralStyles = StyleSheet.create({
         ...titleStyle(SIZES.medium, COLORS.neutral.White),
     },
     customSmallTitle:{
-        ...titleStyle(SIZES.small, COLORS.primary.Tomato),
+        ...titleStyle(SIZES.small, COLORS.primary.White),
 
     },
     textOverLink: {
@@ -69,16 +70,18 @@ const GeneralStyles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: width * 0.03,
         width: width * 0.75, 
+       // backgroundColor: '#89ee4c',
+       
     },
 
     searchBar: {
         flex: 1, 
         borderColor: COLORS.primary.Tomato,
-        height: width * 0.10,
+        height: width * 0.03,
         borderWidth: 0.6,
         borderRadius: SIZES.borderRadius,
-        textAlign: 'center',
-        fontSize: SIZES.extraSmall,
+        textAlign: 'left',
+        fontSize: SIZES.small,
         color: COLORS.neutral.Black,
         ...commonTextStyles,
         backgroundColor: COLORS.neutral.White,
@@ -106,6 +109,12 @@ const GeneralStyles = StyleSheet.create({
         marginVertical: width * 0.01,
         color: COLORS.feedback.PlaceHolderTextColor,
         ...commonTextStyles,
+    },
+
+    GeneralContainer: {
+        width: width * 0.8,
+        alignItems: 'center',
+        marginVertical: height * 0.01,
     },
 });
 

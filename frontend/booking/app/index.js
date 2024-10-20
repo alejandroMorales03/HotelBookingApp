@@ -5,7 +5,7 @@ import LoginScreen from '../Components/Credentials/loginScreen';
 import SignupScreen from '../Components/Credentials/signupScreen';
 import VerificationScreen from '../Components/Credentials/verificationScreen';
 import Home from '../Components/HomePage/Home';
-import COLORS from '../Constants/Constants';
+import RoomScreen from '../Components/HomePage/RoomScreen'
 
 const Stack = createStackNavigator();
 
@@ -21,6 +21,7 @@ const CredentialsStack = () => (
     <Stack.Screen name="Sign Up" component={SignupScreen} />
     <Stack.Screen name="Verification" component={VerificationScreen} />
     <Stack.Screen name="Home" component={Home} />
+    <Stack.Screen name="Room Screen" component={RoomScreen}/>
   </Stack.Navigator>
 );
 
