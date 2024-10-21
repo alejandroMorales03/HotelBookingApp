@@ -47,7 +47,7 @@ const Home = ({ navigation }) => {
     };
 
     const directToRoom = (hotelName) => {
-        navigation.navigate("RoomScreen", { data: hotelName });
+        navigation.navigate("Room Screen", { data: hotelName });
     };
 
     return (
