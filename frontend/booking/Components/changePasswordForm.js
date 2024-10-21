@@ -21,7 +21,7 @@ const ChangePasswordForm = ({navigation}) => {
       setError('Passwords do not match!');
     } else {
       setError('');
-      const response = await axios.post(`http://10.108.80.30:8080/api/user-preferences/change-password`, {
+      const response = await axios.post(`http://localhost:8000/api/user-preferences/change-password`, {
         password})
       resetFields(); 
       console.log("Reached 1") ;
@@ -35,30 +35,35 @@ const ChangePasswordForm = ({navigation}) => {
   }
 
   return (
-    <View style={GeneralStyles.fieldCredential}>
-      <TextInput
-        placeholder="New Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={GeneralStyles.textInput}
-        placeholderTextColor={COLORS.Grey}
-        autoCapitalize="none"
-      />
-      <TextInput
-        placeholder="Confirm New Password"
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-        secureTextEntry
-        style={GeneralStyles.textInput}
-        placeholderTextColor={COLORS.Grey}
-        autoCapitalize="none"
-      />
-      {error ? <Text style={{ color: 'red' }}>{error}</Text> : null}
-      
-      <TouchableOpacity onPress={handleChangePassword}>
-        <Text style={{ color: COLORS.Primary }}>Change Password</Text>
+    <View>
+      <TouchableOpacity onPress={() => navigation.navigate('My Account')}>
+        <Text>Back</Text>
       </TouchableOpacity>
+      <View style={GeneralStyles.fieldCredential}>
+        <TextInput
+          placeholder="New Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          style={GeneralStyles.textInput}
+          placeholderTextColor={COLORS.Grey}
+          autoCapitalize="none"
+        />
+        <TextInput
+          placeholder="Confirm New Password"
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          secureTextEntry
+          style={GeneralStyles.textInput}
+          placeholderTextColor={COLORS.Grey}
+          autoCapitalize="none"
+        />
+        {error ? <Text style={{ color: 'red' }}>{error}</Text> : null}
+        
+        <TouchableOpacity onPress={handleChangePassword}>
+          <Text style={{ color: COLORS.Primary }}>Change Password</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 
