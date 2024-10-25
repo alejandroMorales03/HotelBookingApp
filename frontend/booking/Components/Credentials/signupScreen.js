@@ -147,7 +147,7 @@ const SignupScreen = ({ navigation }) => {
                 <Text style={CredentialStyles.button}>Plan Your Stay!</Text>
               </TouchableOpacity>
             </View>
-            <View style={CredentialStyles.GeneralContainer}>
+            <View style={GeneralStyles.GeneralContainer}>
               <Text style={GeneralStyles.textOverLink}>Have an account?</Text>
               <TouchableOpacity onPress={() => {
                 setShowMessage(true);

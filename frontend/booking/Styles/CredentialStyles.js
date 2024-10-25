@@ -53,11 +53,7 @@ const CredentialStyles = StyleSheet.create({
         resizeMode: 'cover',
     },
 
-    GeneralContainer: {
-        width: width * 0.8,
-        alignItems: 'center',
-        marginVertical: height * 0.01,
-    },
+    
 
    
 
@@ -96,7 +92,6 @@ const CredentialStyles = StyleSheet.create({
         color: COLORS.neutral.White,
         fontFamily: 'Roboto',
         fontWeight: 'bold',
-        padding: 7,
     },
 
     linkText: {

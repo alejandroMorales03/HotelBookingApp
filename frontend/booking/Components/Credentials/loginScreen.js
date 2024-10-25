@@ -11,11 +11,11 @@ import GeneralStyles from '../../Styles/GeneralStyles';
 import { Video } from 'expo-av';
 import { StyleSheet } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-
-
-
+import { useDispatch } from "react-redux";
+import { setIsAuthenticated, setCustomer } from "../../redux/actions"
 
 const LoginScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -25,12 +25,16 @@ const LoginScreen = ({ navigation }) => {
 
   async function handleLogin() {
     try {
-      const response = await axios.post(`http://10.108.142.148:8081/api/auth/authentication`, {
+      const response = await axios.post(`http://10.108.80.30:8000/api/auth/authentication`, {
         email,
         password,
       });
+
+      const { data } = response;
       
-     
+      dispatch(setIsAuthenticated(true));
+      dispatch(setCustomer({...data.data}));      
+
       navigation.navigate('Home');
       resetFields();
     } catch (err) {
@@ -61,7 +65,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
 
-    <View onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       {showMessage ? (
         <View style={GeneralStyles.fullPageContainer}>
           
@@ -133,7 +137,7 @@ const LoginScreen = ({ navigation }) => {
             <Text style={CredentialStyles.button}>Login</Text>
           </TouchableOpacity>
         </View>
-        <View style={CredentialStyles.GeneralContainer}>
+        <View style={GeneralStyles.GeneralContainer}>
           <Text style={GeneralStyles.textOverLink}>Don't have an account?</Text>
           <TouchableOpacity onPress={() => {
             setShowMessage(true);
