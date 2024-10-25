@@ -200,3 +200,57 @@ export const handleAuthentication = async (req, res) => {
         return res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+export const handleForgotPassword = async (req, res) => {
+    const { email } = req.body;
+
+    // Validate user input
+    if (!email) {
+        console.log("Missing email in request");
+        return res.status(400).json({ message: 'Bad Request. Please provide your email.' });
+    }
+
+    try {
+        // Check if the user exists
+        const existingUser = await Customer.findOne({ where: { email } });
+
+        if (!existingUser) {
+            return res.status(404).json({ message: 'No account associated with this email.' });
+        }
+
+        // Generate verification code and expiration time
+        const verificationCode = generateVerificationCode();
+        const expirationTime = generateExpirationTime();
+
+        // Check for existing sign-up attempts
+        const existingAttempt = await SignupAttempt.findOne({ where: { email } });
+
+        if (existingAttempt) {
+            // If an existing attempt is found, update the existing entry
+            await SignupAttempt.update(
+                {
+                    auth_code: verificationCode,
+                    expires_at: expirationTime
+                },
+                {
+                    where: { email }
+                }
+            );
+        } else {
+            // Otherwise, create a new sign-up attempt
+            await SignupAttempt.create({
+                email: email,
+                auth_code: verificationCode,
+                expires_at: expirationTime
+            });
+        }
+
+        // Send the verification email
+        await sendVerificationEmail(email, verificationCode);
+
+        return res.status(200).json({ message: 'Verification code sent successfully.' });
+    } catch (err) {
+        console.error('Error during password reset process:', err);
+        return res.status(500).json({ message: 'Internal server error.' });
+    }
+};
