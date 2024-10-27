@@ -21,7 +21,7 @@ const VerificationScreen = ({ route, navigation }) => {
   
   async function handleSendCode(){
     try{
-      const response = await axios.post('http://10.108.80.30:8000/api/auth/request-code', {
+      const response = await axios.post('http://localhost:8000/api/auth/request-code', {
         code,
         email,
       });
@@ -33,7 +33,7 @@ const VerificationScreen = ({ route, navigation }) => {
   }
   async function handleVerification() {
     try {
-      const response = await axios.post('http://10.108.80.30:8000/api/auth/verify-code', {
+      const response = await axios.post('http://localhost:8000/api/auth/verify-code', {
         code,
         email,
       });
@@ -51,7 +51,7 @@ const VerificationScreen = ({ route, navigation }) => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View onPress={Keyboard.dismiss}>
       <View style={CredentialStyles.fullPageContainer}>
       <Video
           source={require('../../Assets/beach.mp4')}
@@ -107,7 +107,7 @@ const VerificationScreen = ({ route, navigation }) => {
           </View>
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </View>
   );
 }
 
