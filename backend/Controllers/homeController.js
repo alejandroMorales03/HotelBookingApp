@@ -2,20 +2,49 @@ import { Op } from 'sequelize';
 import Hotel from "../Models/hotelModel.js";
 import Room from "../Models/roomModel.js";
 
+
 export const hotelLookupHandler = async (req, res) => {
-    const { text } = req.query;  
+    const { text, pool, gym, service, oceanView, petFriendly } = req.query;
+
+
 
     try {
-        const hotels = await Hotel.findAll({
-            where: {
-                [Op.or]: [
-                    { city: { [Op.iLike]: `%${text}%` } }, 
-                    { hotel_name: { [Op.iLike]: `%${text}%` } }
-                ]
-            }
-        });
+        // Start with the base conditions
+        const whereConditions = {
+            [Op.or]: [
+                { city: { [Op.iLike]: `%${text}%` } }, 
+                { hotel_name: { [Op.iLike]: `%${text}%` } }
+            ]
+        };
 
-        
+        // Create an array to hold additional conditions
+        const additionalConditions = [];
+
+        // Add filters only if they are present
+        if (pool === 'true') {
+            additionalConditions.push({ has_pool: true });
+        }
+        if (gym === 'true' ) {
+            additionalConditions.push({ has_gym: true });
+        }
+        if (service === 'true') {
+            additionalConditions.push({ has_room_service: true });
+        }
+        if (oceanView === 'true') {
+            additionalConditions.push({ ocean_view: true });
+        }
+        if (petFriendly === 'true') {
+            additionalConditions.push({ is_pet_friendly: true });
+        }
+
+        // If there are additional conditions, merge them with the whereConditions
+        if (additionalConditions.length > 0) {
+            whereConditions[Op.and] = additionalConditions;
+        }
+
+        const hotels = await Hotel.findAll({
+            where: whereConditions,
+        });
 
         return res.status(200).json(hotels);
     } catch (error) {
@@ -23,6 +52,8 @@ export const hotelLookupHandler = async (req, res) => {
         return res.status(500).json({ message: 'Error looking up hotels' });
     }
 };
+
+
 
 export const roomsLookupHandler = async (req, res) => {
     const { 

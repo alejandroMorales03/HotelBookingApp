@@ -26,7 +26,7 @@ const SignupScreen = ({ navigation }) => {
 
   async function handleSignUp() {
     try {
-      const response = await axios.post(`http://10.108.80.30:8000/api/auth/signup`, {
+      const response = await axios.post(`http://localhost:8000/api/auth/signup`, {
         email,
         firstName,
         lastName,
@@ -65,7 +65,7 @@ const SignupScreen = ({ navigation }) => {
   );
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View onPress={Keyboard.dismiss}>
       {showMessage ? (
         <View style={CredentialStyles.fullPageContainer}>
 
@@ -147,7 +147,7 @@ const SignupScreen = ({ navigation }) => {
                 <Text style={CredentialStyles.button}>Plan Your Stay!</Text>
               </TouchableOpacity>
             </View>
-            <View style={CredentialStyles.GeneralContainer}>
+            <View style={GeneralStyles.GeneralContainer}>
               <Text style={GeneralStyles.textOverLink}>Have an account?</Text>
               <TouchableOpacity onPress={() => {
                 setShowMessage(true);
@@ -160,7 +160,7 @@ const SignupScreen = ({ navigation }) => {
           </SafeAreaView>
         </Modal>
       )}
-    </TouchableWithoutFeedback>
+    </View>
   );
 };
 
