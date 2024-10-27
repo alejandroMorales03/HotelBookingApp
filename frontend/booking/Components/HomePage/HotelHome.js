@@ -9,11 +9,7 @@ const HotelHome = ({ navigation }) => {
     const [query, setQuery] = useState("");
     const [guests, setGuests] = useState(1);
     
-<<<<<<< HEAD
-    // Initial recommended hotels datax
-=======
-    // Initial recommended hotels data
->>>>>>> main
+
     const initialSuggestions = [
         { id: 1, hotel_name: "Hotel California", has_pool: true, has_gym: true, ocean_view: true, pet_friendly: true },
         { id: 2, hotel_name: "The Grand Budapest", has_pool: false, has_gym: true, ocean_view: false, pet_friendly: false }
