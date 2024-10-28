@@ -12,14 +12,30 @@ import guestsIcon from "../../Assets/guests.png";
 import increaseIcon from "../../Assets/increase.png";
 import decreaseIcon from "../../Assets/decrease.png";
 import bedIcon from "../../Assets/bed.png";
-import sampleImage from '../../HotelPictures/item-3.jpeg';
-import roomSample from '../../HotelPictures/room-suite.jpg';
 import filter from '../../Assets/filter.jpg';
 import { Card, Button } from 'react-bootstrap/';
 import axios from "axios";
+import King from "../../RoomPictures/King.jpeg";
+import Queen from "../../RoomPictures/Queen.jpeg";
+import Suite from "../../RoomPictures/Suite.jpeg";
+import Twin from "../../RoomPictures/Twin.jpeg";
 
 
+const roomImage = (roomType) => {
+    let Image;
 
+    if (roomType === "King room") {
+        Image = King;
+    } else if (roomType === "Queen room") {
+        Image = Queen;
+    } else if (roomType === "Suite") {
+        Image = Suite;
+    } else {
+        Image = Twin;
+    }
+
+    return Image;
+};
 const RoomScreen = ({ visible, onClose }) => {
   const [wifi, setWifi] = React.useState(false);
   const [minibar, setMiniBar] = React.useState(false);
@@ -69,7 +85,7 @@ const RoomScreen = ({ visible, onClose }) => {
     setGuests(1);
     setBeds(1);
     };
-    let hotelName = "Sunshine Hotel";
+    let hotelName = "Sunshine";
     const RoomFilterHandler = async (hotelName, beds, bathtub, tv, guests, minibar, wifi, roomType, balcony) => { 
     
 
@@ -80,22 +96,22 @@ const RoomScreen = ({ visible, onClose }) => {
                 {
                     params: {
                         hotelName, //create a variable in Home.js and import it for here, so it shows rooms of the selected hotel
-                        beds,
-                        bathtub,
-                        tv,
-                        guests,
-                        minibar,
-                        wifi,
-                        roomType,
-                        balcony
+                        numBeds: beds,
+                        hasBathtub: bathtub ? bathtub : null,
+                        hasTV: tv ? tv : null,
+                        guestCapacity: guests,
+                        hasMinibar: minibar ? minibar : null,
+                        hasWifi: wifi ? wifi : null,
+                        roomType: roomType == "" ? null : roomType,
+                        hasBalcony: balcony ? balcony : null
                     }
                 
                 },
             );
             console.log("response assigned"),
+                console.log(response.data);
             setRooms(response.data);
-         // navigation.navigate("Home");
-          //resetFields();
+       
         } catch (err) {
           console.error(
             "Error during room filtering:",
@@ -112,7 +128,7 @@ const RoomScreen = ({ visible, onClose }) => {
 
     return (
 
-        <View stlye={HomePageStyles.overlay}>
+     <View stlye={HomePageStyles.overlay}>
         <br></br>
             <TouchableOpacity style={HomePageStyles.filterIconContainer} onPress={() => setFilterModal(!filterModal)}>
                 <Image source={filter} style={HomePageStyles.buttonFilter} />
@@ -276,6 +292,7 @@ const RoomScreen = ({ visible, onClose }) => {
       </View>
             </Modal>
 
+
             {/*---------Room Info Display-------------- */ }
             <View style={HomePageStyles.modalContainer}>
                 <View style={HomePageStyles.modalContent}>
@@ -287,12 +304,12 @@ const RoomScreen = ({ visible, onClose }) => {
                         keyExtractor={(item) => item.room_id}
                         renderItem={({ item }) => (
                             <Card className="border border-danger rounded mx-4" style={HomePageStyles.cardRoom}>
-                                <Image source={roomSample} style={HomePageStyles.imageRoom} />
+                                <Image source={roomImage(item.room_type.toString())} style={HomePageStyles.imageRoom} />
                                 <Card.Body>
                                     <Card.Title>{item.roomType}</Card.Title>
                                     <View style={HomePageStyles.bulletList}>                                       
                                         <View style={HomePageStyles.column}>
-                                            <Text stlle={HomePageStyles.bulletPoint}>{'\u2022'} {item.room_num} room number </Text>
+                                            <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.room_type}</Text>
                                             <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.num_beds} Beds </Text>
                                             <Text style={HomePageStyles.bulletPoint}>{"\u2022"} Sleeps {item.guest_capacity} </Text>
                                             <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.has_wifi ? "Free Wifi" : "Wifi Not Included"}</Text>

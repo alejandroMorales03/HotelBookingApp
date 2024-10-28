@@ -8,8 +8,8 @@ const individualFilterButtonContainer = (color) => ({
     //width = height = *0.2, 
 
     backgroundColor: color,
-    width: width * 0.1, // Adjust to make the button square
-    height: width * 0.1, // Same as width to keep it square 
+    width: width * 0.2, // Adjust to make the button square
+    height: width * 0.2, // Same as width to keep it square 
     alignItems: 'center', 
     justifyContent: 'center', 
     marginHorizontal: 5, 
@@ -49,7 +49,7 @@ const HomePageStyles = StyleSheet.create({
 
 
     filterContainer: {
-        width: '60%',
+        width: '90%',
         height: '80%',
         padding: 32,
         borderRadius: SIZES.borderRadius,
@@ -137,6 +137,7 @@ const HomePageStyles = StyleSheet.create({
     },
 
     topContainer: {
+        width: width * .9,
         marginHorizontal: width * 0.03,
         marginVertical: height * 0.01,
         flexDirection: 'row',
@@ -149,6 +150,17 @@ const HomePageStyles = StyleSheet.create({
         // flex: 1, // Makes the container take up the full available space\
         width: width * 0.9,
         height: height * .65,
+        padding: 20, // Adds padding inside the container
+        margin: 10, // Adds margin outside the container
+        backgroundColor: COLORS.neutral.White, // Sets a background color
+        borderRadius: 12, // Optional: rounded corners
+        borderColor: COLORS.primary.Tomato, // Change this to your desired border color
+        borderWidth: 3, // Adjust the thickness of the border
+        borderStyle: 'solid',
+    },
+    bottomContainerRooms: {
+        width: width * 0.9,
+        height: height * .80,
         padding: 20, // Adds padding inside the container
         margin: 10, // Adds margin outside the container
         backgroundColor: COLORS.neutral.White, // Sets a background color
@@ -175,12 +187,6 @@ const HomePageStyles = StyleSheet.create({
         width: '24rem',
         elevation: 20,
         backgroundColor: COLORS.primary.Tomato,
-    },
-    shadowProp: {
-        shadowColor: '#171717',
-        shadowOffset: { width: 2, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
     },
     cardRoom: {
         width: '18rem',
@@ -216,11 +222,6 @@ const HomePageStyles = StyleSheet.create({
         backgroundColor: "#3392DF",
         color: 'white',
     },
-    elevation:{
-            elevation: 20,
-        //shadowColor: '#52006A',
-        shadowColor: '#171717',
-    },
     filterIconContainer: {
         marginLeft: width * 0.02,
     },
@@ -245,7 +246,7 @@ const HomePageStyles = StyleSheet.create({
     },
     modalContainer: {
         position: 'absolute',
-        transform: 'translate(12%, 10%)', //Makes it pretty centered in the screen, atleat on Adam's laptop
+        transform: 'translate(0%, 0%)', //Makes it pretty centered in the screen, atleat on Adam's laptop
         height: height * 0.85,
         width: width * 0.8,
         justifyContent: 'center',
