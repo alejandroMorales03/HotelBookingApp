@@ -27,6 +27,9 @@ const roomImage = (roomType) => {
 
     return Image;
 };
+const toCheckout = (room) => {
+    history.pushState('Checkout', {room});
+}
 const RoomScreen = () => {
   const [modalVisible, setModalVisible] = useState(true);
   const [wifi, setWifi] = useState(false);
@@ -159,7 +162,7 @@ const RoomScreen = () => {
                                                 <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.has_bathtub ? "Includes Bathtub" : "No Bathtub"}</Text>
                                             </View>
                                         </View>
-                                        <Button style={HomePageStyles.hotelButton}>(nav to a booking page)</Button>
+                                        <Button style={HomePageStyles.hotelButton} onClick={toCheckout(item)}>(nav to a booking page)</Button>
 
                                     </Card.Body>
                                 </Card>
