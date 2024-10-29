@@ -8,7 +8,7 @@ import LoginScreen from '../Components/Credentials/loginScreen';
 import SignupScreen from '../Components/Credentials/signupScreen';
 import VerificationScreen from '../Components/Credentials/verificationScreen';
 import ChangePasswordScreen from '../Components/Credentials/changePasswordScreen';
-import Home from '../Components/HomePage/Home';
+import HotelScreen from '../Components/HomePage/HotelScreen';
 import RoomScreen from '../Components/HomePage/RoomScreen';
 import Reservations from '../Components/ReservationsPage/Reservations';
 import MyAccount from '../Components/MyAccountPage/MyAccount';
@@ -52,8 +52,8 @@ const AuthorizedStack = ({}) => (
             drawerContent={props => <NavigationBar {...props}  />}
           >
             <Drawer.Screen 
-              name="Home" 
-              component={Home}
+              name="Hotel Screen" 
+              component={HotelScreen}
               options={{ 
                 title: null,
                 drawerLabel: 'Home'

@@ -6,7 +6,9 @@ import GeneralStyles from "../../../Styles/GeneralStyles";
 import RoomFilterScreen from "./RoomFilterScreen"; // Adjust the import path as necessary
 import logo from '../../../Assets/logo.jpeg'
 import filter from '../../../Assets/filter.jpg'
-const RoomScreen = () => {
+import Home from '../HotelScreen'; // Import Home component from HotelScreen
+
+const RoomScreen = ({route}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [wifi, setWifi] = useState(false);
   const [minibar, setMiniBar] = useState(false);
@@ -38,7 +40,7 @@ const RoomScreen = () => {
     setGuests(1);
     setBeds(1);
   };
-  const sun = "Sunshine"
+  const { hotelName } = route.params // Name of hotel from HotelScreen.js passed to this variable
   const RoomFilterHandler = async () => {
     try {
       const response = await axios.post(

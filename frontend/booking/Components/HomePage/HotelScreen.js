@@ -7,9 +7,26 @@ import logo from "../../Assets/logo.jpeg";
 import axios from "axios";
 import { Card, Button } from 'react-bootstrap/';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Marlins from '../../HotelPictures/Marlins.jpg';
+import MiamiMotel from '../../HotelPictures/MiamiMotel.jpg';
 import sampleImage from '../../HotelPictures/item-3.jpeg';
+import SunshineHotel from '../../HotelPictures/SunshineHotel.jpg';
 import filter from '../../Assets/filter.jpg';
-import HotelFiltering from "./HotellFiltering";
+import HotelFiltering from "./HotelFiltering";
+
+const hotelImage = (hotelName) => {
+    let image;
+    if (hotelName === "Sunshine Hotel")
+        image = SunshineHotel;
+    else if (hotelName == "Marlins Resort")
+        image = Marlins;
+    else if (hotelName === 'Miami Motel')
+        image = MiamiMotel;
+    else {
+        image = sampleImage;
+    }
+    return image;
+}
 
 const Home = ({ navigation }) => {
     const [query, setQuery] = React.useState("");
@@ -32,7 +49,7 @@ const Home = ({ navigation }) => {
             if (text.length > 1) {
                 console.log("Searching for hotels with parameters:", { text, pool, gym, service, oceanView, petFriendly }); // Log the search parameters
 
-                const response = await axios.get("http://192.168.0.17:8000/api/user-home/hotel-search", {
+                const response = await axios.get("http://192.168.1.214:8000/api/user-home/hotel-search", {
                     params: { text, pool, gym, service, oceanView, petFriendly },
                 });
                 console.log("Response data:", response.data); // Log the response
@@ -47,7 +64,7 @@ const Home = ({ navigation }) => {
     };
 
     const directToRoom = (hotelName) => {
-        navigation.navigate("Room Screen", { data: hotelName });
+        navigation.navigate("RoomScreen", { hotelName });
     };
 
     return (
@@ -81,8 +98,8 @@ const Home = ({ navigation }) => {
                     horizontal={true}
                     keyExtractor={(item) => item.hotel_name}
                     renderItem={({ item }) => (
-                        <Card className="border border-danger rounded mx-4" style={HomePageStyles.card}>
-                            <Image source={sampleImage} style={HomePageStyles.image} />
+                        <Card className="border border-danger rounded mx-4" style={HomePageStyles.cardHotel}>
+                            <Image source={hotelImage(item.hotel_name)} style={HomePageStyles.imageHotel} />
                             <Card.Body>
                                 <Card.Title>{item.hotel_name}</Card.Title>
                                 <View style={HomePageStyles.bulletList}>
@@ -94,7 +111,7 @@ const Home = ({ navigation }) => {
                                         </View>
                                         <View style={HomePageStyles.column}>
                                             <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.pet_friendly ? "Pet Friendly" : "No Pets Allowed"}</Text>
-                                            <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.room_service ? "Room Service" : "No Room Service"}</Text>
+                                            <Text style={HomePageStyles.bulletPoint}>{"\u2022"} {item.has_room_service ? "Room Service" : "No Room Service"}</Text>
                                         </View>
                                     </View>
                                 </View>
@@ -108,25 +125,26 @@ const Home = ({ navigation }) => {
 
             {/* Filter Modal */}
             <HotelFiltering 
-    visible={isModalVisible}
-    setModalVisible={setModalVisible}
-    pool={pool}
-    setPool={setPool}
-    gym={gym}
-    setGym={setGym}
-    service={service}
-    setService={setService}
-    oceanView={oceanView}
-    setOceanView={setOceanView}
-    petFriendly={petFriendly}
-    setPetFriendly={setPetFriendly}
-    onApplyFilters={() => { 
-        setModalVisible(false); 
-        HotelLookup(query); // Re-fetch with updated filters if applying
-    }}
-    HotelLookup={HotelLookup} // Pass the function
-    query={query} // Pass the query
-/>
+                visible={isModalVisible}
+                setModalVisible={setModalVisible}
+                pool={pool}
+                setPool={setPool}
+                gym={gym}
+                setGym={setGym}
+                service={service}
+                setService={setService}
+                oceanView={oceanView}
+                setOceanView={setOceanView}
+                petFriendly={petFriendly}
+                setPetFriendly={setPetFriendly}
+                onApplyFilters={() => { 
+                    console.log("Applying filters:", { pool, gym, service, oceanView, petFriendly });
+                    setModalVisible(false); 
+                    HotelLookup(query); // Re-fetch with updated filters if applying
+                }}
+                HotelLookup={HotelLookup} // Pass the function
+                query={query} // Pass the query
+            />
 
         </View>
     );
