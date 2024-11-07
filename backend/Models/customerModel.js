@@ -23,6 +23,14 @@ const Customer = sequelize.define('Customer', {
     password:{
         type: DataTypes.STRING(255),
         allowNull: false
+    },
+    credit_card_num:{
+        type: DataTypes.STRING(16),
+        allowNull: true,
+    },
+    cvv:{
+        type: DataTypes.STRING(3),
+        allowNull: true,
     }
 },
 {
