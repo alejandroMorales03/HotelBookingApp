@@ -5,13 +5,14 @@ import LoginScreen from '../Components/Credentials/loginScreen';
 import SignupScreen from '../Components/Credentials/signupScreen';
 import VerificationScreen from '../Components/Credentials/verificationScreen';
 import HotelScreen from '../Components/HomePage/HotelScreen';
-import RoomScreen from '../Components/HomePage/Rooms/RoomScreen'
+import RoomScreen from '../Components/HomePage/Rooms/RoomScreen';
+import CheckoutScreen from '../Components/HomePage/Checkout';
 
 const Stack = createStackNavigator();
 
 const CredentialsStack = () => (
   <Stack.Navigator
-    initialRouteName="Hotel Screen"
+    initialRouteName="Checkout Screen"
     screenOptions={{
       headerShown: false,
       ...TransitionPresets.SlideFromRightIOS,
@@ -22,6 +23,7 @@ const CredentialsStack = () => (
     <Stack.Screen name="Verification" component={VerificationScreen} />
     <Stack.Screen name="Hotel Screen" component={HotelScreen} />
     <Stack.Screen name="Room Screen" component={RoomScreen}/>
+    <Stack.Screen name="Checkout Screen" component={CheckoutScreen}/>
   </Stack.Navigator>
 );
 

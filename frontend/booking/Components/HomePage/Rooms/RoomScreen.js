@@ -27,8 +27,8 @@ const roomImage = (roomType) => {
 
     return Image;
 };
-const toCheckout = (room) => {
-    history.pushState('Checkout', {room});
+const toCheckout = (hotel, room) => {
+    history.pushState('Checkout', {hotel,room});
 }
 const RoomScreen = () => {
   const [modalVisible, setModalVisible] = useState(true);
@@ -41,9 +41,8 @@ const RoomScreen = () => {
   const [isAnyFilterActive, setIsAnyFilterActive] = useState(false);
   const [guests, setGuests] = useState(1);
   const [beds, setBeds] = useState(1);
-    const [rooms, setRooms] = React.useState([]);
-
-    const [roomType, setRoomType] = React.useState("");
+  const [rooms, setRooms] = React.useState([]);
+  const [roomType, setRoomType] = React.useState("");
  
 
   useEffect(() => {
@@ -67,6 +66,8 @@ const RoomScreen = () => {
     setBeds(1);
     };
 
+    //Suddenly not working. Check if its because line 70 and or 138 say sun instead of hotelName. 
+    //OR it could be because I didnt connect to database
     const sun = "Sunshine Hotel"
    
     const RoomFilterHandler = async (hotelName, beds, bathtub, tv, guests, minibar, wifi, roomType, balcony) => {

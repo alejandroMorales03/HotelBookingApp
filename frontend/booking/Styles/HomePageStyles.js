@@ -38,7 +38,6 @@ const HomePageStyles = StyleSheet.create({
         zIndex: 2,
         color :COLORS.primary.Tomato,
     },
-    
 
     overlay: {
         flex: 1,
@@ -146,6 +145,7 @@ const HomePageStyles = StyleSheet.create({
         backgroundColor: COLORS.neutral.White,
     },
 
+   
     bottomContainer: {
         // flex: 1, // Makes the container take up the full available space\
         width: width * 0.9,
@@ -279,6 +279,7 @@ const HomePageStyles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: 'center',
+        padding: 3,
         // marginVertical: 10, // Adjust spacing as needed
     },
     scrollView: {
@@ -290,12 +291,46 @@ const HomePageStyles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#000', // Customize color
     },
-    
-    
 
-  
-    
-    
+    //Checkout unique
+    bookingContainer:{
+        width: width * 0.8,
+        height: height * 1,
+        padding: 20,
+        margin: 10,
+        borderColor: COLORS.neutral.Black,
+        borderStyle: 'solid',
+        borderWidth: 5,
+        backgroundColor: COLORS.primary.ArgentinianBlue
+    },
+    colCheckout:{
+        flexDirection: 'column',
+        flex: 1,
+        width: width*0.6,
+    },
+    rowCheckout:{
+        flexDirection: 'row',
+       // width: 100,
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        padding: 0,
+        margin: 0,
+        height: 50,
+        
+    },
+    cell:{
+        flexDirection: 'row',
+        width: 110,
+        justifyContent: 'flex-start',
+        height: 60,
+        alignItems: 'flex-start',
+        margin: 10,
+    },
+    horizontalLine:{
+        height:1,
+        backgroundColor: 'grey',
+        marginVertical: 5,
+    },
 
 });
 
