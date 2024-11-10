@@ -24,7 +24,7 @@ const HotelFiltering = ({
   query // Add this prop
 }) => {
   const isAnyFilterActive = pool || gym || service || oceanView || petFriendly;
-
+    console.log("In hotel filtering");
   const toggleFilter = (filterSetter) => {
       filterSetter(prev => {
           const newValue = !prev;

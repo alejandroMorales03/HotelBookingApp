@@ -8,24 +8,14 @@ import LoginScreen from '../Components/Credentials/loginScreen';
 import SignupScreen from '../Components/Credentials/signupScreen';
 import VerificationScreen from '../Components/Credentials/verificationScreen';
 import HotelScreen from '../Components/HomePage/HotelScreen';
-import RoomScreen from '../Components/HomePage/RoomScreen';
-import Reservations from '../Components/ReservationsPage/Reservations';
-import MyAccount from '../Components/MyAccountPage/MyAccount';
-import ChangePasswordForm from '../Components/changePasswordForm';
-import { Store } from '../redux/store';
-import { useSelector, useDispatch } from "react-redux";
-import HotelHome from "../Components/HomePage/HotelHome"
+import RoomScreen from '../Components/HomePage/Rooms/RoomScreen';
+import CheckoutScreen from '../Components/HomePage/Checkout';
 
-import logo from "../Assets/logo.jpeg";
-
-import NavigationBar from '../Components/Navigation/NavigationBar';
-
-const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
   const UnauthorizedStack = ({}) => (
   <Stack.Navigator
-    initialRouteName="Login"
+    initialRouteName="Checkout Screen"
     screenOptions={{
       headerShown: false,
       ...TransitionPresets.SlideFromRightIOS,
@@ -36,77 +26,9 @@ const Stack = createStackNavigator();
     </Stack.Screen>
     <Stack.Screen name="Sign Up" component={SignupScreen} />
     <Stack.Screen name="Verification" component={VerificationScreen} />
-  </Stack.Navigator>
-);
-
-const AuthorizedStack = ({}) => (
-  <Stack.Navigator
-    screenOptions={{
-      headerShown: false,
-      ...TransitionPresets.SlideFromRightIOS,
-      initialRouteName: "HotelHome"
-    }}
-  >
-    
-    <Stack.Screen name="MainDashboard">
-        {() => (
-          <Drawer.Navigator 
-            drawerContent={props => <NavigationBar {...props}  />}
-          >
-            <Drawer.Screen 
-              name="HotelScreen" 
-              component={HotelScreen}
-              options={{ 
-                title: null,
-                drawerLabel: 'HotelScreen'
-              }}
-            />
-            <Drawer.Screen 
-              name="My Account" 
-              component={MyAccount}
-              options={{ 
-                title: null,
-                drawerLabel: 'My Account'
-              }}
-            />
-            <Drawer.Screen 
-              name="Reservations" 
-              component={Reservations}
-              options={{ 
-                title: null,
-                drawerLabel: 'Reservations'
-              }}
-            />
-            <Drawer.Screen 
-              name="Change Password" 
-              component={ChangePasswordForm}
-              options={{ 
-                title: null,
-                drawerLabel: 'Change Password',
-                drawerItemStyle: { display: 'none' }
-              }}
-            />
-            <Drawer.Screen 
-              name="Room Screen" 
-              component={RoomScreen}
-              options={{ 
-                title: null,
-                drawerLabel: 'Room Screen',
-                drawerItemStyle: { display: 'none' }
-              }}
-            />
-            <Drawer.Screen 
-            name="Hotel Home" 
-            component={HotelHome}
-            options={{ 
-              title: null,
-              drawerLabel: 'Hotel Home',
-            }}
-          />
-            
-          </Drawer.Navigator>
-        )}
-      </Stack.Screen>
+    <Stack.Screen name="Hotel Screen" component={HotelScreen} />
+    <Stack.Screen name="Room Screen" component={RoomScreen}/>
+    <Stack.Screen name="Checkout Screen" component={CheckoutScreen}/>
   </Stack.Navigator>
 );
 
