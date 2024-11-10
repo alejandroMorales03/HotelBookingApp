@@ -1,11 +1,14 @@
-import React from "react";
-import { Modal, TouchableOpacity, Text, View, Image } from "react-native";
+import React, { useState } from "react";
+import { Modal, TouchableOpacity, Text, View, Image, Button } from "react-native";
+import Calendar from "../Custom/Calendar";
 import HomePageStyles from "../../Styles/HomePageStyles";
 import poolIcon from '../../Assets/pool.png';
 import gymIcon from '../../Assets/gym.png';
 import serviceIcon from '../../Assets/service.png';
 import oceanViewIcon from '../../Assets/ocean.png';
 import petFriendlyIcon from '../../Assets/pet.png';
+import calendarIcon from '../../Assets/calendar.png';
+
 const HotelFiltering = ({
   visible,
   setModalVisible,
@@ -21,7 +24,11 @@ const HotelFiltering = ({
   setPetFriendly,
   onApplyFilters,
   HotelLookup, // Add this prop
-  query // Add this prop
+  query, // Add this prop
+  isCalendarModalVisible,
+  setCalendarModalVisible,
+  dates,
+  setDates
 }) => {
   const isAnyFilterActive = pool || gym || service || oceanView || petFriendly;
 
@@ -41,6 +48,7 @@ const HotelFiltering = ({
       setPetFriendly(false);
       HotelLookup(query); // Refresh suggestions after deselecting all
   };
+
 
   return (
       <Modal visible={visible} transparent={true} animationType="slide">
@@ -78,6 +86,20 @@ const HotelFiltering = ({
                       >
                           <Image source={petFriendlyIcon} style={HomePageStyles.iconButton} />
                       </TouchableOpacity>
+                      <TouchableOpacity
+                          style={isCalendarModalVisible ? HomePageStyles.onButtonContainer : HomePageStyles.offButtonContainer}
+                          onPress={() => setCalendarModalVisible(true)}
+                      >
+                          <Image source={calendarIcon} style={HomePageStyles.iconButton} />
+                      </TouchableOpacity>
+                  </View>
+                  <View>
+                    <Calendar
+                     isModalVisible={isCalendarModalVisible}
+                     setModalVisible={setCalendarModalVisible}
+                     dates={dates}
+                     setDates={setDates}>
+                    </Calendar>
                   </View>
               </View>
               <View style={HomePageStyles.filterButtonsBottomContainer}>

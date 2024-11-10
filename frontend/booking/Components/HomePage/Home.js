@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, TextInput, TouchableOpacity, Image, FlatList, Text, Modal } from "react-native";
 import HomePageStyles from "../../Styles/HomePageStyles";
 import GeneralStyles from "../../Styles/GeneralStyles";
@@ -17,13 +17,16 @@ const Home = ({ navigation }) => {
     const [error, setError] = React.useState("");
     const [isModalVisible, setModalVisible] = React.useState(false);
     const [roomModal, setRoomModalVisible] = React.useState(false);
-    
+    const [isCalendarModalVisible, setCalendarModalVisible] = useState(false);
+
     // Filter states
     const [pool, setPool] = React.useState(false);
     const [gym, setGym] = React.useState(false);
     const [service, setService] = React.useState(false);
     const [oceanView, setOceanView] = React.useState(false);
     const [petFriendly, setPetFriendly] = React.useState(false);
+    const [dates, setDates] = useState({ startDate: null, endDate: null });
+
 
     const HotelLookup = async (text) => {
         setQuery(text);
@@ -108,25 +111,29 @@ const Home = ({ navigation }) => {
 
             {/* Filter Modal */}
             <HotelFiltering 
-    visible={isModalVisible}
-    setModalVisible={setModalVisible}
-    pool={pool}
-    setPool={setPool}
-    gym={gym}
-    setGym={setGym}
-    service={service}
-    setService={setService}
-    oceanView={oceanView}
-    setOceanView={setOceanView}
-    petFriendly={petFriendly}
-    setPetFriendly={setPetFriendly}
-    onApplyFilters={() => { 
-        setModalVisible(false); 
-        HotelLookup(query); // Re-fetch with updated filters if applying
-    }}
-    HotelLookup={HotelLookup} // Pass the function
-    query={query} // Pass the query
-/>
+                visible={isModalVisible}
+                setModalVisible={setModalVisible}
+                pool={pool}
+                setPool={setPool}
+                gym={gym}
+                setGym={setGym}
+                service={service}
+                setService={setService}
+                oceanView={oceanView}
+                setOceanView={setOceanView}
+                petFriendly={petFriendly}
+                setPetFriendly={setPetFriendly}
+                onApplyFilters={() => { 
+                    setModalVisible(false); 
+                    HotelLookup(query); // Re-fetch with updated filters if applying
+                }}
+                HotelLookup={HotelLookup} // Pass the function
+                query={query} // Pass the query
+                isCalendarModalVisible={isCalendarModalVisible}
+                setCalendarModalVisible={setCalendarModalVisible}
+                dates={dates}
+                setDates={setDates}
+            />
 
         </View>
     );
