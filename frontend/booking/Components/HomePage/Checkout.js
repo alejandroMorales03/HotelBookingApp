@@ -17,6 +17,8 @@ import serviceIcon from '../../Assets/service.png';
 import oceanViewIcon from '../../Assets/ocean.png';
 import petFriendlyIcon from '../../Assets/pet.png';
 import Home from "./HotelScreen";
+import React from "react";
+import { useSelector } from "react-redux";
 
 /*
 Page will have 3 sections:
@@ -25,7 +27,13 @@ Page will have 3 sections:
 3) Payment data (credit card number, cvv, logic to validate) - Alejandro
 */
 
+// I used redux to get customer name and email and used Sofia's example -JW
 const CheckoutScreen = () => {
+
+    const { customer } = useSelector(state => state.userReducer); // Access customer from the store
+    const { firstName, lastName, email } = customer; // Destructure firstName, lastName, and email
+
+    const name = `${firstName} ${lastName}`;
 
    // const data = props.location.state; //SHOULD catch passed room and hotel
     //const hotel = data.hotel;
@@ -88,6 +96,15 @@ const CheckoutScreen = () => {
                 <TouchableOpacity style={GeneralStyles.userIconContainer}>
                     <Image source={logo} style={GeneralStyles.Icon} />
                 </TouchableOpacity>
+            </View>
+            {/* Displays the users fullname and email below - JW */}
+            <View style={HomePageStyles.userInfoContainer}>
+                <Text style={HomePageStyles.modalTitle}>
+                    Full Name: {name}
+                </Text>
+                <Text style={HomePageStyles.modalTitle}>
+                    Email: {email}
+                </Text>
             </View>
             <ScrollView>
                 <View style={HomePageStyles.bookingContainer}>

@@ -1,6 +1,7 @@
 import './gesture-handler';
 import React, { useEffect, useState } from 'react';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux'; // Added useSelector here - JW
+import { Store } from '../redux/store'; // Added this so we have access to name and email in checkout screen! - JW
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
@@ -14,6 +15,7 @@ import CheckoutScreen from '../Components/HomePage/Checkout';
 const Stack = createStackNavigator();
 
   const UnauthorizedStack = ({}) => (
+    <Provider store = {Store}> {/* I wrapped the UnauthorizedStack with the provider for access to name and email - JW */}
   <Stack.Navigator
     initialRouteName="Checkout Screen"
     screenOptions={{
@@ -30,6 +32,8 @@ const Stack = createStackNavigator();
     <Stack.Screen name="Room Screen" component={RoomScreen}/>
     <Stack.Screen name="Checkout Screen" component={CheckoutScreen}/>
   </Stack.Navigator>
+  {/* End of Provider wrapping - JW */}
+  </Provider> 
 );
 
 const AppContent = () => {

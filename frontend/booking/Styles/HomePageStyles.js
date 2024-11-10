@@ -303,6 +303,16 @@ const HomePageStyles = StyleSheet.create({
         borderWidth: 5,
         backgroundColor: COLORS.primary.ArgentinianBlue
     },
+    // Created this style for the form on checkout page
+    userInfoContainer:{
+        width: width * 0.8,
+        marginBottom: 20,
+        borderColor: '#FFA500',
+        borderStyle: 'solid',
+        borderWidth: 3,
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
     colCheckout:{
         flexDirection: 'column',
         flex: 1,
