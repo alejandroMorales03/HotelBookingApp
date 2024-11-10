@@ -16,7 +16,7 @@ import sampleImage from '../../HotelPictures/item-3.jpeg';
 import { Card, Button } from 'react-bootstrap/';
 
 
-const RoomScreen = ({ visible, onClose }) => {
+const RoomScreen = ({ route ,visible, onClose }) => {
   const [wifi, setWifi] = React.useState(false);
   const [minibar, setMiniBar] = React.useState(false);
   const [service, setRoomServ] = React.useState(false);
@@ -64,7 +64,7 @@ const RoomScreen = ({ visible, onClose }) => {
     setGuests(1);
     setBeds(1);
     };
-    let hotelName = "Sunshine Hotel";
+    let hotelName = route.params; // Name of hotel from HotelScreen.js passed to this variable
   async function RoomFilterHandler() {
     try {
         const response = await axios.post(
@@ -299,7 +299,7 @@ const RoomScreen = ({ visible, onClose }) => {
                                     </View>
                                     <br></br>
                                     <View style={{ flex: 1 }} />
-                                    <Button style={HomePageStyles.hotelButton} onClick={() => setRoomModalVisible(true)}>Book Now</Button>
+                                    <Button style={HomePageStyles.hotelButton} onPress={() => setRoomModalVisible(true)}>Book Now</Button>
 
                                 </Card.Body>
                             </Card>

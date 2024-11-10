@@ -56,7 +56,7 @@ const Home = ({ navigation, route }) => {
     };
 
     const directToRoom = (hotelName) => {
-        navigation.navigate("Room Screen", { data: hotelName });
+        navigation.navigate("RoomScreen", { hotelName });
     };
 
     return (
@@ -110,7 +110,7 @@ const Home = ({ navigation, route }) => {
                                     </View>
                                 </View>
                                 <View style={{ flex: 1 }} />
-                                <Button style={HomePageStyles.hotelButton} onClick={() => directToRoom(item.hotel_name)}>Select a Room</Button>
+                                <Button style={HomePageStyles.hotelButton} onClick={() => directToRoom(item.hotel_name)}>Select a Room</Button> {/* Pass hotel name to RoomScreen.js */}
                             </Card.Body>
                         </Card>
                     )}

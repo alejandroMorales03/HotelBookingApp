@@ -23,7 +23,7 @@ import NavigationBar from '../Components/Navigation/NavigationBar';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
-const UnauthorizedStack = ({}) => (
+  const UnauthorizedStack = ({}) => (
   <Stack.Navigator
     initialRouteName="Login"
     screenOptions={{
@@ -143,4 +143,5 @@ const App = () => {
   )
 };
 
-export default App;
+// export default App;
+export default UnauthorizedStack;
