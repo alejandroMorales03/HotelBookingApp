@@ -16,6 +16,7 @@ export const hotelLookupHandler = async (req, res) => {
                 { hotel_name: { [Op.iLike]: `%${text}%` } }
             ]
         };
+        console.log("Success")
 
         // Create an array to hold additional conditions
         const additionalConditions = [];

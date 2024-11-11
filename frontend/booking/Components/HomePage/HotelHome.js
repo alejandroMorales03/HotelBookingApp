@@ -9,7 +9,6 @@ const HotelHome = ({ navigation }) => {
     const [query, setQuery] = useState("");
     const [guests, setGuests] = useState(1);
     
-
     const initialSuggestions = [
         { id: 1, hotel_name: "Hotel California", has_pool: true, has_gym: true, ocean_view: true, pet_friendly: true },
         { id: 2, hotel_name: "The Grand Budapest", has_pool: false, has_gym: true, ocean_view: false, pet_friendly: false }
@@ -18,9 +17,16 @@ const HotelHome = ({ navigation }) => {
     const [suggestions, setSuggestions] = useState(initialSuggestions);
 
     const searchHotels = () => {
-        // You can update this logic to search based on the query
-        // For now, it just resets to the initial recommendations
-        setSuggestions(initialSuggestions);
+        // This will navigate to HotelScreen and pass the query and guests
+        navigation.navigate("HotelScreen", { query, guests });
+    };
+
+    const handleSearchSubmit = () => {
+        if (query.trim() !== "") {
+            searchHotels();
+        } else {
+            alert("Please enter a location to search");
+        }
     };
 
     const directToRoom = (hotelName) => {
@@ -39,6 +45,7 @@ const HotelHome = ({ navigation }) => {
                         value={query}
                         onChangeText={setQuery}
                         placeholderTextColor={COLORS.feedback.PlaceHolderTextColor}
+                        onSubmitEditing={handleSearchSubmit} // Listen for the Enter key press
                     />
                 </View>
             </View>

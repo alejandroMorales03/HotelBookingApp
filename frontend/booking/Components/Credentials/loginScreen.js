@@ -35,7 +35,7 @@ const LoginScreen = ({ navigation }) => {
       dispatch(setIsAuthenticated(true));
       dispatch(setCustomer({...data.data}));      
 
-      navigation.navigate('Home');
+      navigation.navigate('Hotel Home');
       resetFields();
     } catch (err) {
       console.error('Error during login:', err.response ? err.response.data.message : err.message);

@@ -7,13 +7,14 @@ import { createStackNavigator, TransitionPresets } from '@react-navigation/stack
 import LoginScreen from '../Components/Credentials/loginScreen';
 import SignupScreen from '../Components/Credentials/signupScreen';
 import VerificationScreen from '../Components/Credentials/verificationScreen';
-import Home from '../Components/HomePage/Home';
+import HotelScreen from '../Components/HomePage/HotelScreen';
 import RoomScreen from '../Components/HomePage/RoomScreen';
 import Reservations from '../Components/ReservationsPage/Reservations';
 import MyAccount from '../Components/MyAccountPage/MyAccount';
 import ChangePasswordForm from '../Components/changePasswordForm';
 import { Store } from '../redux/store';
 import { useSelector, useDispatch } from "react-redux";
+import HotelHome from "../Components/HomePage/HotelHome"
 
 import logo from "../Assets/logo.jpeg";
 
@@ -43,19 +44,21 @@ const AuthorizedStack = ({}) => (
     screenOptions={{
       headerShown: false,
       ...TransitionPresets.SlideFromRightIOS,
+      initialRouteName: "HotelHome"
     }}
   >
+    
     <Stack.Screen name="MainDashboard">
         {() => (
           <Drawer.Navigator 
             drawerContent={props => <NavigationBar {...props}  />}
           >
             <Drawer.Screen 
-              name="Home" 
-              component={Home}
+              name="HotelScreen" 
+              component={HotelScreen}
               options={{ 
                 title: null,
-                drawerLabel: 'Home'
+                drawerLabel: 'HotelScreen'
               }}
             />
             <Drawer.Screen 
@@ -92,6 +95,15 @@ const AuthorizedStack = ({}) => (
                 drawerItemStyle: { display: 'none' }
               }}
             />
+            <Drawer.Screen 
+            name="Hotel Home" 
+            component={HotelHome}
+            options={{ 
+              title: null,
+              drawerLabel: 'Hotel Home',
+            }}
+          />
+            
           </Drawer.Navigator>
         )}
       </Stack.Screen>

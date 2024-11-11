@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, TextInput, TouchableOpacity, Image, FlatList, Text, Modal } from "react-native";
 import HomePageStyles from "../../Styles/HomePageStyles";
 import GeneralStyles from "../../Styles/GeneralStyles";
@@ -11,8 +11,12 @@ import sampleImage from '../../HotelPictures/item-3.jpeg';
 import filter from '../../Assets/filter.jpg';
 import HotelFiltering from "./HotellFiltering";
 
-const Home = ({ navigation }) => {
-    const [query, setQuery] = React.useState("");
+const Home = ({ navigation, route }) => {
+    // Get initial parameters passed from HotelHome
+    const { query: initialQuery, guests: initialGuests } = route.params || {};
+
+    const [query, setQuery] = React.useState(initialQuery || ""); // Initialize query with value from HotelHome
+    const [guests, setGuests] = React.useState(initialGuests || 1); // Initialize guests with value from HotelHome
     const [suggestions, setSuggestions] = React.useState([]);
     const [error, setError] = React.useState("");
     const [isModalVisible, setModalVisible] = React.useState(false);
@@ -27,21 +31,26 @@ const Home = ({ navigation }) => {
     const [petFriendly, setPetFriendly] = React.useState(false);
     const [dates, setDates] = useState({ startDate: null, endDate: null });
 
+    useEffect(() => {
+        if (initialQuery) {
+            // Trigger search when the component is loaded with an initial query
+            HotelLookup(initialQuery);
+        }
+    }, [initialQuery]);
 
     const HotelLookup = async (text) => {
         setQuery(text);
         setError("");
         try {
             if (text.length > 1) {
-                console.log("Searching for hotels with parameters:", { text, pool, gym, service, oceanView, petFriendly }); // Log the search parameters
-
-                const response = await axios.get("http://192.168.0.17:8000/api/user-home/hotel-search", {
+                console.log("Searching for hotels with parameters:", { text, pool, gym, service, oceanView, petFriendly });
+                const response = await axios.get("http://localhost:8000/api/user-home/hotel-search", {
                     params: { text, pool, gym, service, oceanView, petFriendly },
                 });
-                console.log("Response data:", response.data); // Log the response
+                console.log("Response data:", response.data);
                 setSuggestions(response.data);
             } else {
-                setSuggestions([]);
+                setSuggestions([]); // Reset suggestions if query is too short
             }
         } catch (err) {
             console.error("Error during hotel search:", err.response ? err.response.data.message : err.message);
@@ -55,6 +64,7 @@ const Home = ({ navigation }) => {
 
     return (
         <View style={HomePageStyles.homeFullPage}>
+            {/* Header and Search Bar */}
             <View style={HomePageStyles.topContainer}>
                 <TouchableOpacity style={GeneralStyles.userIconContainer}>
                     <Image source={logo} style={GeneralStyles.Icon} />
@@ -76,6 +86,7 @@ const Home = ({ navigation }) => {
                 </View>
             </View>
 
+            {/* Hotels List Display */}
             <View style={HomePageStyles.bottomContainer}>
                 <Text style={HomePageStyles.header}>Hotels in {query}</Text>
                 <FlatList
