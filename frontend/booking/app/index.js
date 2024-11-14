@@ -16,16 +16,17 @@ import { Store } from '../redux/store';
 import { useSelector, useDispatch } from "react-redux";
 import HotelHome from "../Components/HomePage/HotelHome"
 
-import logo from "../Assets/logo.jpeg";
+
 
 import NavigationBar from '../Components/Navigation/NavigationBar';
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 const UnauthorizedStack = ({}) => (
   <Stack.Navigator
-    initialRouteName="Login"
+    initialRouteName="HotelHome"
     screenOptions={{
       headerShown: false,
       ...TransitionPresets.SlideFromRightIOS,
@@ -36,6 +37,7 @@ const UnauthorizedStack = ({}) => (
     </Stack.Screen>
     <Stack.Screen name="Sign Up" component={SignupScreen} />
     <Stack.Screen name="Verification" component={VerificationScreen} />
+    <Stack.Screen name='HotelHome' component={HotelHome} />
   </Stack.Navigator>
 );
 
