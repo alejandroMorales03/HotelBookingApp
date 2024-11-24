@@ -35,8 +35,13 @@ const UnauthorizedStack = ({}) => (
     <Stack.Screen name="Login">
      {props => <LoginScreen {...props} />}
     </Stack.Screen>
-    <Stack.Screen name="Sign Up" component={SignupScreen} />
-    <Stack.Screen name="Verification" component={VerificationScreen} />
+    <Stack.Screen name="Sign Up" component={SignupScreen}>
+    </Stack.Screen>
+    {/* <Stack.Screen name="Verification" component={VerificationScreen}>
+    </Stack.Screen> */}
+    <Stack.Screen name="Verification">
+     {props => <VerificationScreen {...props} />}
+    </Stack.Screen>
     <Stack.Screen name='HotelHome' component={HotelHome} />
   </Stack.Navigator>
 );

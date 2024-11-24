@@ -6,16 +6,16 @@ const Room = sequelize.define('Room', {
         type: DataTypes.BIGINT,
         allowNull: false,
     },
-    num_baths: {
-        type: DataTypes.DOUBLE,
+    has_bathtub: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
     },
     num_beds: {
         type: DataTypes.BIGINT,
         allowNull: false,
     },
-    num_tv: {
-        type: DataTypes.BIGINT,
+    has_tv: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
     },
     guest_capacity: {
@@ -46,7 +46,15 @@ const Room = sequelize.define('Room', {
     room_type: {
         type: DataTypes.STRING(50),
         allowNull: false,
-    }
+    },
+    has_balcony: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+    },
+    price: {
+        type: DataTypes.DOUBLE,
+        allowNull: false,
+    },
 }, {
         tableName: 'rooms',
         timestamps: false

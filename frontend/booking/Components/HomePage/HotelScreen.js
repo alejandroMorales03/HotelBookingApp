@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { View, TextInput, TouchableOpacity, Image, FlatList, Text, Modal } from "react-native";
 import HomePageStyles from "../../Styles/HomePageStyles";
 import GeneralStyles from "../../Styles/GeneralStyles";
@@ -20,6 +20,8 @@ const Home = ({ navigation, route }) => {
     const [suggestions, setSuggestions] = React.useState([]);
     const [error, setError] = React.useState("");
     const [isModalVisible, setModalVisible] = React.useState(false);
+    const [roomModal, setRoomModalVisible] = React.useState(false);
+    const [isCalendarModalVisible, setCalendarModalVisible] = useState(false);
 
     // Filter states
     const [pool, setPool] = React.useState(false);
@@ -27,6 +29,7 @@ const Home = ({ navigation, route }) => {
     const [service, setService] = React.useState(false);
     const [oceanView, setOceanView] = React.useState(false);
     const [petFriendly, setPetFriendly] = React.useState(false);
+    const [dates, setDates] = useState({ startDate: null, endDate: null });
 
     useEffect(() => {
         if (initialQuery) {
@@ -137,7 +140,12 @@ const Home = ({ navigation, route }) => {
                 }}
                 HotelLookup={HotelLookup} // Pass the function
                 query={query} // Pass the query
+                isCalendarModalVisible={isCalendarModalVisible}
+                setCalendarModalVisible={setCalendarModalVisible}
+                dates={dates}
+                setDates={setDates}
             />
+
         </View>
     );
 };
