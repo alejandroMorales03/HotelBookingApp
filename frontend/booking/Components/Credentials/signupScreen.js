@@ -34,6 +34,7 @@ const SignupScreen = ({ navigation }) => {
         confirmedPassword,
       });
       resetFields();
+      setShowMessage(true);
       navigation.navigate("Verification", { email });
     } catch (err) {
       console.log('Error during sign-up:', err.response ? err.response.data.message : err.message);

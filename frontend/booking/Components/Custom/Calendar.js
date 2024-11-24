@@ -30,10 +30,10 @@ const Calendar = ({
                             closeCalendar(false);
                         }}
                     >
-                        Done
+                        <Text>Done</Text>
                     </Button>
                 </View>
-                <View>
+                <View style={{position: "relative", marginTop: "50px"}}>
                     <DateTimePicker
                         minDate={new Date()}
                         mode="range"
@@ -43,6 +43,10 @@ const Calendar = ({
                         startDate={dates.startDate}
                         endDate={dates.endDate}
                     />
+                </View>
+                <View >
+                    <Text>Check-In Date: {dates.startDate ? `${dates.startDate}` : ""}</Text>
+                    <Text>Check-Out Date: {dates.endDate ? `${dates.endDate}` : ""}</Text>
                 </View>
             </Modal>
         </View>

@@ -41,7 +41,7 @@ const VerificationScreen = ({ route, navigation }) => {
       navigation.navigate('Home'); 
     } catch (err) {
       console.error('Error during verification:', err.response ? err.response.data.message : err.message);
-      setCodeButtonText('Resend Code')
+      setCode('Resend Code')
       setError(err.response ? err.response.data.message : 'Verification failed. Please try again.');
     }
   }
