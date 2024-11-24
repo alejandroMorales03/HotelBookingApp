@@ -4,11 +4,13 @@ import HomePageStyles from "../../Styles/HomePageStyles";
 import GeneralStyles from "../../Styles/GeneralStyles";
 import COLORS from "../../Constants/Constants";
 import sampleImage from '../../HotelPictures/item-3.jpeg';
+import { setIsAuthenticated } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";  
 
 const HotelHome = ({ navigation }) => {
     const [query, setQuery] = useState("");
     const [guests, setGuests] = useState(1);
-    
+
     const initialSuggestions = [
         { id: 1, hotel_name: "Hotel California", has_pool: true, has_gym: true, ocean_view: true, pet_friendly: true },
         { id: 2, hotel_name: "The Grand Budapest", has_pool: false, has_gym: true, ocean_view: false, pet_friendly: false }
@@ -16,26 +18,43 @@ const HotelHome = ({ navigation }) => {
 
     const [suggestions, setSuggestions] = useState(initialSuggestions);
 
+    const dispatch = useDispatch();
+   
+    const isAuthenticated = useSelector(state => state.userReducer.isAuthenticated);
+
+
     const searchHotels = () => {
-        // This will navigate to HotelScreen and pass the query and guests
-        navigation.navigate("HotelScreen", { query, guests });
+        if (isAuthenticated) {
+
+            navigation.navigate("HotelScreen", { query, guests });
+        } else {
+            
+            dispatch(setIsAuthenticated(false)); 
+            alert("Please log in to search for hotels.");
+            navigation.navigate("Login"); 
+        }
     };
 
     const handleSearchSubmit = () => {
         if (query.trim() !== "") {
-            searchHotels();
+            searchHotels(); 
         } else {
             alert("Please enter a location to search");
         }
     };
 
     const directToRoom = (hotelName) => {
-        navigation.navigate("RoomScreen", { data: hotelName });
+        if (isAuthenticated) {
+            navigation.navigate("RoomScreen", { data: hotelName });
+        }else{
+         dispatch(setIsAuthenticated(false));
+         alert("Please log in to search for hotels.");
+         navigation.navigate("Login"); 
+        }
     };
 
     return (
         <View style={HomePageStyles.homeFullPage}>
-            
             {/* Top Section: Search Bar and Guest Input */}
             <View style={HomePageStyles.topContainer}>
                 <View style={GeneralStyles.searchBarContainer}>
@@ -105,6 +124,6 @@ const HotelHome = ({ navigation }) => {
             </View>
         </View>
     );
-}; 
+};
 
 export default HotelHome;
