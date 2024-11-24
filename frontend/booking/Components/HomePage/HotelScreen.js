@@ -9,7 +9,7 @@ import { Card, Button } from 'react-bootstrap/';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import sampleImage from '../../HotelPictures/item-3.jpeg';
 import filter from '../../Assets/filter.jpg';
-import HotelFiltering from "./HotellFiltering";
+// import HotelFiltering from "./HotellFiltering";
 
 const Home = ({ navigation, route }) => {
     // Get initial parameters passed from HotelHome

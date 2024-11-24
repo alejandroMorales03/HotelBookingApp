@@ -31,7 +31,7 @@ const RoomScreen = ({ route ,visible, onClose }) => {
     const [error, setError] = React.useState("");
     const [filterModal, setFilterModal] = React.useState(true);
     const [rooms, setRooms] = React.useState([]);
-    //const { data } = route.params; //catches hotel name sent from Home.js... I think 
+    const { hotelName } = route.params; //catches hotel name sent from HotelHome.js
 
   useEffect(() => {
     if (
@@ -64,7 +64,7 @@ const RoomScreen = ({ route ,visible, onClose }) => {
     setGuests(1);
     setBeds(1);
     };
-    let hotelName = route.params; // Name of hotel from HotelScreen.js passed to this variable
+    // let hotelName = route.params; Name of hotel from HotelScreen.js passed to this variable
   async function RoomFilterHandler() {
     try {
         const response = await axios.post(

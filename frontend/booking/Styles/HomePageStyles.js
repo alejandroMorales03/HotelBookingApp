@@ -38,7 +38,6 @@ const HomePageStyles = StyleSheet.create({
         zIndex: 2,
         color :COLORS.primary.Tomato,
     },
-    
 
     overlay: {
         flex: 1,
@@ -137,6 +136,7 @@ const HomePageStyles = StyleSheet.create({
     },
 
     topContainer: {
+        width: width * .9,
         marginHorizontal: width * 0.03,
         marginVertical: height * 0.01,
         flexDirection: 'row',
@@ -145,6 +145,7 @@ const HomePageStyles = StyleSheet.create({
         backgroundColor: COLORS.neutral.White,
     },
 
+   
     bottomContainer: {
         // flex: 1, // Makes the container take up the full available space\
         width: width * 0.9,
@@ -157,15 +158,40 @@ const HomePageStyles = StyleSheet.create({
         borderWidth: 3, // Adjust the thickness of the border
         borderStyle: 'solid',
     },
+    bottomContainerRooms: {
+        width: width * 0.9,
+        height: height * .80,
+        padding: 20, // Adds padding inside the container
+        margin: 10, // Adds margin outside the container
+        backgroundColor: COLORS.neutral.White, // Sets a background color
+        borderRadius: 12, // Optional: rounded corners
+        borderColor: COLORS.primary.Tomato, // Change this to your desired border color
+        borderWidth: 3, // Adjust the thickness of the border
+        borderStyle: 'solid',
+    },
+    buttonFilter: {
+        width: '5rem',
+        height: '5rem',
+        borderRadius: width * 0.075,
+        overflow: 'hidden',
+        backgroundColor: COLORS.neutral.Transparent,
+        
+    },
     bulletPoint: {
         fontSize: 18,
         fontWeight: 400,
         color: '#000', // Customize color
         lineHeight: 25, // Spacing between lines
     },
-    card: {
+    cardHotel: {
         width: '24rem',
-        elevation: 4,
+        elevation: 20,
+        backgroundColor: COLORS.primary.Tomato,
+    },
+    cardRoom: {
+        width: '18rem',
+        elevation: 20,
+        backgroundColor: COLORS.primary.Tomato,
     },
     closeButton: {
         height: 25,
@@ -178,8 +204,6 @@ const HomePageStyles = StyleSheet.create({
         borderColor: COLORS.neutral.Black,
         color: COLORS.neutral.Black, //color of  text
         fontSize: SIZES.extraSmall,
-       
-
     },
     column: {
         flex: 1,
@@ -198,17 +222,31 @@ const HomePageStyles = StyleSheet.create({
         backgroundColor: "#3392DF",
         color: 'white',
     },
-    image: {
-        width: '382px',  // or specify specific width and height
-        height: '180px',
+    filterIconContainer: {
+        marginLeft: width * 0.02,
+    },
+    imageHotel: {
+        width: '372px',  // or specify specific width and height
+        height: '165px',
         borderStyle: 'solid',
         borderRadius: 5,
-        //marginLeft: 40,
         resizeMode: 'cover', // or 'contain' depending on how you want the image to fit
+        position: 'relative',
+        transform: 'translate(1.5%, 3%)',
+    },
+    imageRoom: {
+        width: '275px',  // or specify specific width and height
+        height: '170px',
+        borderStyle: 'solid',
+        borderRadius: 8,
+        
+        resizeMode: 'cover', // or 'contain' depending on how you want the image to fit
+        position: 'relative',
+        transform: 'translate(2%, 2%)',
     },
     modalContainer: {
         position: 'absolute',
-        transform: 'translate(12%, 10%)', //Makes it pretty centered in the screen, atleat on Adam's laptop
+        transform: 'translate(0%, 0%)', //Makes it pretty centered in the screen, atleat on Adam's laptop
         height: height * 0.85,
         width: width * 0.8,
         justifyContent: 'center',
@@ -241,6 +279,7 @@ const HomePageStyles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: 'center',
+        padding: 3,
         // marginVertical: 10, // Adjust spacing as needed
     },
     scrollView: {
@@ -252,12 +291,56 @@ const HomePageStyles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#000', // Customize color
     },
-    
-    
 
-  
-    
-    
+    //Checkout unique
+    bookingContainer:{
+        width: width * 0.8,
+        height: height * 1,
+        padding: 20,
+        margin: 10,
+        borderColor: COLORS.neutral.Black,
+        borderStyle: 'solid',
+        borderWidth: 5,
+        backgroundColor: COLORS.primary.ArgentinianBlue
+    },
+    // Created this style for the form on checkout page
+    userInfoContainer:{
+        width: width * 0.8,
+        marginBottom: 20,
+        borderColor: '#FFA500',
+        borderStyle: 'solid',
+        borderWidth: 3,
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    colCheckout:{
+        flexDirection: 'column',
+        flex: 1,
+        width: width*0.6,
+    },
+    rowCheckout:{
+        flexDirection: 'row',
+       // width: 100,
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        padding: 0,
+        margin: 0,
+        height: 50,
+        
+    },
+    cell:{
+        flexDirection: 'row',
+        width: 110,
+        justifyContent: 'flex-start',
+        height: 60,
+        alignItems: 'flex-start',
+        margin: 10,
+    },
+    horizontalLine:{
+        height:1,
+        backgroundColor: 'grey',
+        marginVertical: 5,
+    },
 
 });
 

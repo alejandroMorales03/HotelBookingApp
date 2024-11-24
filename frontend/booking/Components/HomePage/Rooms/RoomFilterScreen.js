@@ -11,6 +11,9 @@ import increaseIcon from "../../../Assets/increase.png";
 import decreaseIcon from "../../../Assets/decrease.png";
 import bedIcon from "../../../Assets/bed.png";
 
+
+
+
 const RoomFilterScreen = ({
   visible,
   onClose,
@@ -30,8 +33,12 @@ const RoomFilterScreen = ({
   setBeds,
   isAnyFilterActive,
   deselectAll,
-  RoomFilterHandler,
+    RoomFilterHandler,
+    hotelName,
+  roomType,
 }) => {
+    hotelName = "Sunshine Hotel";
+    roomType = "Suite";
   return (
     <Modal visible={visible} transparent={true} animationType="slide">
       <View style={HomePageStyles.overlay}>
@@ -107,9 +114,12 @@ const RoomFilterScreen = ({
           </TouchableOpacity>
           <TouchableOpacity
             style={HomePageStyles.applyButtonContainer}
-            onPress={async () => {
-              if (isAnyFilterActive) {
-                await RoomFilterHandler();
+                      onPress={async () => {
+                          
+                          if (isAnyFilterActive) {
+                              console.log("in roomFilterScreen handler call");
+                              console.log(hotelName, beds, guests);
+                  await RoomFilterHandler(hotelName, beds, bathtub, tv, guests, minibar, wifi, roomType, balcony);
               }
               onClose(); 
             }}
@@ -123,5 +133,7 @@ const RoomFilterScreen = ({
     </Modal>
   );
 };
+
+
 
 export default RoomFilterScreen;
